@@ -1,1 +1,2 @@
-# wp-corbidev-repositories
+# Corbidev Repositories
+Production ready plugin structure.
