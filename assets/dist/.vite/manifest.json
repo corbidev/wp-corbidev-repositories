@@ -1,0 +1,24 @@
+{
+  "_tailwind-!~{003}~.js": {
+    "file": "assets/tailwind-BD05Hg4h.css",
+    "src": "_tailwind-!~{003}~.js"
+  },
+  "assets/src/admin/main.js": {
+    "file": "assets/admin-BBHRWnc-.js",
+    "name": "admin",
+    "src": "assets/src/admin/main.js",
+    "isEntry": true,
+    "css": [
+      "assets/tailwind-BD05Hg4h.css"
+    ]
+  },
+  "assets/src/main.js": {
+    "file": "assets/app-DEIVzs-u.js",
+    "name": "app",
+    "src": "assets/src/main.js",
+    "isEntry": true,
+    "css": [
+      "assets/tailwind-BD05Hg4h.css"
+    ]
+  }
+}

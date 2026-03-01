@@ -1,11 +1,10 @@
-
 <?php
 /**
  * Plugin Name:       Corbidev Repositories
  * Plugin URI:        https://github.com/CorbiDev/wp-corbidev-repositories
  * Depot Github:      wp-corbidev-repositories
  * Description:       Manage GitHub repositories from WordPress admin.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            CorbiDev
  * Author URI:        https://github.com/CorbiDev
  *
