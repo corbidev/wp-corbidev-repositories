@@ -1,0 +1,23 @@
+
+FUTURE OPTIMIZATION NOTES
+
+Planned improvement for GithubClient to reduce API calls (~90% reduction):
+
+1. Use WordPress site_transient cache
+   Key example: corbidev_github_repos_{organisation}
+   TTL: 1 hour or configurable
+
+2. Cache repository tags
+   Key example: corbidev_github_tags_{repo}
+
+3. Only refresh cache when:
+   - transient expired
+   - manual refresh triggered in admin
+
+4. Multisite-safe caching:
+   Use set_site_transient() instead of set_transient()
+
+5. Optional improvement:
+   Store last scan timestamp in database for debugging.
+
+These optimizations will be implemented after the core files are stable.
