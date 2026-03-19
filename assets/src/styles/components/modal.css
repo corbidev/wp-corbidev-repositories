@@ -1,0 +1,31 @@
+@layer components {
+
+    .cdr-modal-overlay {
+        @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50;
+    }
+
+    .cdr-modal {
+        @apply bg-white rounded-xl shadow-xl w-full max-w-md p-6;
+    }
+
+    .cdr-modal-message {
+        @apply text-sm mb-4;
+    }
+
+    .cdr-modal-actions {
+        @apply flex justify-end;
+    }
+
+    .cdr-btn {
+        @apply px-4 py-2 rounded bg-gray-800 text-white hover:bg-gray-700;
+    }
+
+    /* états */
+    #corbidev-modal[data-type="error"] .cdr-modal-message {
+        @apply text-red-600;
+    }
+
+    #corbidev-modal[data-type="success"] .cdr-modal-message {
+        @apply text-green-600;
+    }
+}

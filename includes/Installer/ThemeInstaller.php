@@ -20,9 +20,7 @@ class ThemeInstaller
         $version = self::getLatestTag($repo);
 
         if (!$version) {
-
             Logger::error("No tag found for theme: $repo");
-
             return false;
         }
 
@@ -34,9 +32,25 @@ class ThemeInstaller
 
         $result = $upgrader->install($zip);
 
-        Logger::info("Install result: " . var_export($result, true));
+        Logger::info("Install raw result: " . var_export($result, true));
 
-        return $result;
+        // 🔥 FIX GitHub : dossier versionné
+        $themeDir = get_theme_root() . '/' . $repo;
+        $extractedDir = get_theme_root() . '/' . $repo . '-' . ltrim($version, 'vV');
+
+        if (!is_dir($themeDir) && is_dir($extractedDir)) {
+            Logger::info("Renaming $extractedDir → $themeDir");
+            rename($extractedDir, $themeDir);
+        }
+
+        if (!is_dir($themeDir)) {
+            Logger::error("Theme directory not found after install");
+            return false;
+        }
+
+        Logger::info("Theme installed successfully");
+
+        return true;
     }
 
     private static function getLatestTag(string $repo): ?string

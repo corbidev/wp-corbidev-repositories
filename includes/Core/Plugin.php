@@ -2,9 +2,8 @@
 
 namespace Corbidev\Repositories\Core;
 
-use Corbidev\Repositories\Admin\Controllers\PluginsController;
-use Corbidev\Repositories\Admin\Controllers\ThemesController;
-use Corbidev\Repositories\Admin\Ajax\PluginAjax;
+use Corbidev\Repositories\Admin\Controllers\RepositoryController;
+use Corbidev\Repositories\Ajax\RepositoryAjax;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -28,33 +27,40 @@ class Plugin
 
         /*
          |--------------------------------------------------------------------------
-         | AJAX
+         | AJAX (générique)
          |--------------------------------------------------------------------------
          */
 
-        PluginAjax::init();
-
-        /*
-         |--------------------------------------------------------------------------
-         | Admin assets
-         |--------------------------------------------------------------------------
-         */
-
-        add_action('admin_enqueue_scripts', [self::class, 'enqueueAdminAssets']);
+        RepositoryAjax::register();
     }
 
     public static function menus(): void
     {
         $capability = is_multisite() ? 'manage_network_options' : 'manage_options';
 
+        /*
+         |--------------------------------------------------------------------------
+         | Menu principal (optionnel)
+         |--------------------------------------------------------------------------
+         */
+
         add_menu_page(
             'Corbidev',
             'Corbidev',
             $capability,
             'corbidev-repositories',
-            [self::class, 'repositoriesPage'],
+            function () {
+                $_GET['type'] = 'plugin';
+                RepositoryController::index();
+            },
             'dashicons-database'
         );
+
+        /*
+         |--------------------------------------------------------------------------
+         | Menu dans Extensions (plugins)
+         |--------------------------------------------------------------------------
+         */
 
         add_submenu_page(
             'plugins.php',
@@ -62,8 +68,17 @@ class Plugin
             'Corbidev',
             $capability,
             'corbidev-plugins',
-            [PluginsController::class, 'render']
+            function () {
+                $_GET['type'] = 'plugin';
+                RepositoryController::index();
+            }
         );
+
+        /*
+         |--------------------------------------------------------------------------
+         | Menu dans Apparence (thèmes)
+         |--------------------------------------------------------------------------
+         */
 
         add_submenu_page(
             'themes.php',
@@ -71,32 +86,10 @@ class Plugin
             'Corbidev',
             $capability,
             'corbidev-themes',
-            [ThemesController::class, 'render']
-        );
-    }
-
-    public static function repositoriesPage(): void
-    {
-        require CDR_PLUGIN_DIR . 'admin/pages/repositories.php';
-    }
-
-    public static function enqueueAdminAssets(): void
-    {
-        wp_enqueue_script(
-            'corbidev-admin',
-            CDR_PLUGIN_URL . 'admin/assets/js/corbidev.js',
-            ['jquery'],
-            '1.0',
-            true
-        );
-
-        wp_localize_script(
-            'corbidev-admin',
-            'CorbidevAjax',
-            [
-                'url' => admin_url('admin-ajax.php'),
-                'nonce' => wp_create_nonce('corbidev_nonce')
-            ]
+            function () {
+                $_GET['type'] = 'theme';
+                RepositoryController::index();
+            }
         );
     }
 }

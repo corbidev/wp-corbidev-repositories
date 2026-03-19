@@ -1,0 +1,20 @@
+{
+  "assets/src/admin/main.js": {
+    "file": "assets/admin-BWWAUKqz.js",
+    "name": "admin",
+    "src": "assets/src/admin/main.js",
+    "isEntry": true,
+    "imports": [
+      "assets/src/main.js"
+    ]
+  },
+  "assets/src/main.js": {
+    "file": "assets/app-BZ8KMhW_.js",
+    "name": "app",
+    "src": "assets/src/main.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-CJZNQtrp.css"
+    ]
+  }
+}

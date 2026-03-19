@@ -1,0 +1,43 @@
+@layer components {
+
+.corbidev-repositories-admin-wrapper {
+    @apply max-w-6xl mx-auto px-4;
+}
+
+.corbidev-repositories-admin-card {
+    @apply bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-200;
+}
+
+.corbidev-repositories-admin-grid {
+    @apply grid gap-4 mb-4 md:grid-cols-2;
+}
+
+.corbidev-repositories-admin-form input {
+    @apply w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+}
+
+/* Buttons */
+
+.corbidev-btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition;
+}
+
+.corbidev-btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.corbidev-btn-secondary {
+    @apply bg-gray-600 text-white hover:bg-gray-700;
+}
+
+.corbidev-btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+}
+
+/* Align actions */
+
+.corbidev-repositories-admin-actions {
+    @apply flex gap-2;
+}
+
+}
