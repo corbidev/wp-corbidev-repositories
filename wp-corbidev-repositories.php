@@ -4,7 +4,7 @@
  * Plugin URI:        https://github.com/CorbiDev/wp-corbidev-repositories
  * Depot Github:      wp-corbidev-repositories
  * Description:       Gestion des dépôts GitHub Corbidev et installation des plugins et thèmes.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            CorbiDev
  * Author URI:        https://github.com/CorbiDev
  *

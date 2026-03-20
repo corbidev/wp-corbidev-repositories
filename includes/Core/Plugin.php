@@ -3,7 +3,7 @@
 namespace Corbidev\Repositories\Core;
 
 use Corbidev\Repositories\Admin\Controllers\RepositoryController;
-use Corbidev\Repositories\Ajax\RepositoryAjax;
+use Corbidev\Repositories\Admin\Controllers\RepositoryAdminController;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -24,23 +24,18 @@ class Plugin
         } else {
             add_action('admin_menu', [self::class, 'menus']);
         }
-
-        /*
-         |--------------------------------------------------------------------------
-         | AJAX (générique)
-         |--------------------------------------------------------------------------
-         */
-
-        RepositoryAjax::register();
     }
 
+    /**
+     * Enregistre les menus
+     */
     public static function menus(): void
     {
         $capability = is_multisite() ? 'manage_network_options' : 'manage_options';
 
         /*
          |--------------------------------------------------------------------------
-         | Menu principal (optionnel)
+         | Menu principal
          |--------------------------------------------------------------------------
          */
 
@@ -53,12 +48,28 @@ class Plugin
                 $_GET['type'] = 'plugin';
                 RepositoryController::index();
             },
-            'dashicons-database'
+            'dashicons-database',
+            58
         );
 
         /*
          |--------------------------------------------------------------------------
-         | Menu dans Extensions (plugins)
+         | Sous-menu : gestion des dépôts (CRUD)
+         |--------------------------------------------------------------------------
+         */
+
+        add_submenu_page(
+            'corbidev-repositories',
+            'Repositories',
+            'Repositories',
+            $capability,
+            'corbidev-repo-manager',
+            [RepositoryAdminController::class, 'index']
+        );
+
+        /*
+         |--------------------------------------------------------------------------
+         | Menu dans Extensions (Plugins)
          |--------------------------------------------------------------------------
          */
 
@@ -76,7 +87,7 @@ class Plugin
 
         /*
          |--------------------------------------------------------------------------
-         | Menu dans Apparence (thèmes)
+         | Menu dans Apparence (Thèmes)
          |--------------------------------------------------------------------------
          */
 

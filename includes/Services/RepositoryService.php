@@ -2,7 +2,7 @@
 
 namespace Corbidev\Repositories\Services;
 
-use Corbidev\Repositories\Github\GithubClient;
+use Corbidev\Repositories\Repository\RepositoryManager;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -10,76 +10,77 @@ if (!defined('ABSPATH')) {
 
 class RepositoryService
 {
-    private GithubClient $client;
-
-    public function __construct(?string $token = null)
-    {
-        $this->client = new GithubClient($token);
-    }
-
     /**
-     * Filtre plugins / thèmes
+     * Récupère tous les items depuis TOUS les repos
      */
-    private function filter(array $repos, string $type): array
+    public function getAll(string $type): array
     {
-        return array_filter($repos, function ($repo) use ($type) {
+        $repos = RepositoryManager::all();
 
-            $name = $repo['name'] ?? '';
+        $items = [];
 
-            if (!$name || !str_starts_with($name, 'wp-')) {
-                return false;
+        foreach ($repos as $repo) {
+
+            $client = $repo['client'];
+            $owner  = $repo['name'];
+
+            $repositories = $client->getRepositories($owner);
+
+            if (!is_array($repositories)) {
+                continue;
             }
 
-            if ($type === 'plugin') {
-                return !str_contains($name, 'theme');
+            foreach ($repositories as $r) {
+
+                $name = $r['name'] ?? '';
+
+                if (!$this->filter($name, $type)) {
+                    continue;
+                }
+
+                $items[] = [
+                    'name'        => $name,
+                    'slug'        => $name,
+                    'description' => $r['description'] ?? '',
+                    'version'     => $client->getLatestTag($owner, $name),
+                    'owner'       => $owner,
+                ];
             }
-
-            if ($type === 'theme') {
-                return str_contains($name, 'theme');
-            }
-
-            return false;
-        });
-    }
-
-    /**
-     * Format des données pour affichage
-     */
-    private function format(array $repo, string $owner): array
-    {
-        $name = $repo['name'];
-
-        return [
-            'name'        => $name,
-            'slug'        => $name,
-            'description' => $repo['description'] ?? '',
-            'version'     => $this->client->getLatestTag($owner, $name),
-            'zip'         => $this->client->getZipUrl($owner, $name),
-        ];
-    }
-
-    /**
-     * Récupération des repos
-     */
-    public function getAll(string $owner, string $type): array
-    {
-        $repos = $this->client->getRepositories($owner);
-
-        if (!is_array($repos)) {
-            return [];
         }
 
-        $filtered = $this->filter($repos, $type);
+        return $items;
+    }
 
-        return array_map(fn($repo) => $this->format($repo, $owner), $filtered);
+    private function filter(string $name, string $type): bool
+    {
+        if (!str_starts_with($name, 'wp-')) {
+            return false;
+        }
+
+        if ($type === 'plugin') {
+            return !str_contains($name, 'theme');
+        }
+
+        if ($type === 'theme') {
+            return str_contains($name, 'theme');
+        }
+
+        return false;
     }
 
     /**
-     * Installation plugin / thème
+     * Installation
      */
     public function install(string $owner, string $name, string $type): bool
     {
-        $zip = $this->client->getZipUrl($owner, $name);
+        $repo = RepositoryManager::get($owner);
+
+        if (!$repo) {
+            return false;
+        }
+
+        $client = $repo['client'];
+        $zip = $client->getZipUrl($owner, $name);
 
         if (!$zip) {
             return false;
@@ -88,49 +89,20 @@ class RepositoryService
         include_once ABSPATH . 'wp-admin/includes/file.php';
         include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
-        // 🔥 Empêche WordPress d'afficher du HTML (CRITIQUE POUR AJAX)
         ob_start();
 
-        try {
-
-            if ($type === 'plugin') {
-
-                include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-
-                $upgrader = new \Plugin_Upgrader(
-                    new \Automatic_Upgrader_Skin() // 🔥 évite output HTML
-                );
-
-            } else {
-
-                include_once ABSPATH . 'wp-admin/includes/theme-install.php';
-
-                $upgrader = new \Theme_Upgrader(
-                    new \Automatic_Upgrader_Skin() // 🔥 évite output HTML
-                );
-            }
-
-            $result = $upgrader->install($zip);
-
-        } catch (\Throwable $e) {
-
-            // 🔥 log utile
-            error_log('[CDR INSTALL ERROR] ' . $e->getMessage());
-
-            ob_end_clean();
-
-            return false;
+        if ($type === 'plugin') {
+            include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+            $upgrader = new \Plugin_Upgrader(new \Automatic_Upgrader_Skin());
+        } else {
+            include_once ABSPATH . 'wp-admin/includes/theme-install.php';
+            $upgrader = new \Theme_Upgrader(new \Automatic_Upgrader_Skin());
         }
 
-        // 🔥 nettoie toute sortie parasite
+        $result = $upgrader->install($zip);
+
         ob_end_clean();
 
-        // 🔥 gestion WP_Error
-        if (is_wp_error($result)) {
-            error_log('[CDR WP ERROR] ' . $result->get_error_message());
-            return false;
-        }
-
-        return (bool) $result;
+        return !is_wp_error($result);
     }
 }

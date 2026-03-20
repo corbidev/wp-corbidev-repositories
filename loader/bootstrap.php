@@ -21,11 +21,20 @@ add_action('plugins_loaded', function () {
 
 /*
 |--------------------------------------------------------------------------
-| Ajax (GÉNÉRIQUE)
+| Ajax (FRONT + INSTALL)
 |--------------------------------------------------------------------------
 */
-add_action('init', function () {
+add_action('plugins_loaded', function () {
     \Corbidev\Repositories\Ajax\RepositoryAjax::register();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Ajax ADMIN (CRUD REPOSITORIES)
+|--------------------------------------------------------------------------
+*/
+add_action('plugins_loaded', function () {
+    \Corbidev\Repositories\Ajax\RepositoryAdminAjax::register();
 });
 
 /*
@@ -35,16 +44,38 @@ add_action('init', function () {
 */
 add_action('admin_enqueue_scripts', function (): void {
 
-    // ✅ Admin classique + multisite
     if (!is_admin()) {
         return;
     }
 
-    // ✅ Si multisite → uniquement réseau
-  //  if (is_multisite() && !is_network_admin()) {
-  //      return;
-   // }
+    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
 
+    if (!$screen) {
+        return;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Pages autorisées
+    |--------------------------------------------------------------------------
+    */
+    $allowed = [
+        'toplevel_page_corbidev-repositories',
+        'plugins',
+        'themes',
+    ];
+
+    $isCorbidevPage = str_contains($screen->id, 'corbidev');
+
+    if (!$isCorbidevPage && !in_array($screen->id, $allowed)) {
+        return;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Manifest
+    |--------------------------------------------------------------------------
+    */
     $manifestPath = CDR_PLUGIN_DIR . 'assets/dist/.vite/manifest.json';
 
     if (!file_exists($manifestPath)) {
@@ -89,7 +120,6 @@ add_action('admin_enqueue_scripts', function (): void {
             true
         );
 
-        // 🔥 AJAX global
         wp_localize_script('corbidev-repositories-admin', 'cdr_ajax', [
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce'    => wp_create_nonce('cdr_nonce')
