@@ -2,20 +2,21 @@ export async function cdrRequest(action, data = {}) {
     const response = await fetch(window.cdr_ajax.ajax_url, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
             action,
             nonce: window.cdr_ajax.nonce,
             ...data
         })
-    });
+    })
 
-    const json = await response.json();
+    const text = await response.text()
 
-    if (!json.success) {
-        throw new Error(json.data?.message || 'Erreur inconnue');
+    try {
+        return JSON.parse(text)
+    } catch (e) {
+        console.error('INVALID JSON RESPONSE:', text) // 🔥 DEBUG
+        throw new Error('Invalid JSON response')
     }
-
-    return json.data;
 }

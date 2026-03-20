@@ -28,6 +28,7 @@ export default defineConfig(({ mode }) => ({
       '@app': path.resolve(__dirname, 'assets/src'),
       '@styles': path.resolve(__dirname, 'assets/src/styles'),
       '@core': path.resolve(__dirname, 'assets/src/core'),
+      '@admin': path.resolve(__dirname, 'assets/src/admin'),
     }
   }
 }))

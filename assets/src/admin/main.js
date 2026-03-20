@@ -1,14 +1,10 @@
-import '@styles/tailwind.css'
+import '@admin/styles/admin.css'
 
 import CorbidevModal from './components/modal'
 import { cdrRequest } from './api/ajax'
 
-// Init modal
 const modal = new CorbidevModal()
 
-/**
- * Installation générique (plugin / theme)
- */
 async function handleInstall(button) {
     const type = button.dataset.type
     const owner = button.dataset.owner
@@ -30,7 +26,6 @@ async function handleInstall(button) {
         button.classList.add('disabled')
 
     } catch (error) {
-
         modal.show(error.message || 'Erreur serveur', 'error')
 
         button.disabled = false
@@ -38,9 +33,6 @@ async function handleInstall(button) {
     }
 }
 
-/**
- * Event delegation global
- */
 document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-action="install"]')
     if (!btn) return

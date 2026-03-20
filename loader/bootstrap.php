@@ -41,9 +41,9 @@ add_action('admin_enqueue_scripts', function (): void {
     }
 
     // ✅ Si multisite → uniquement réseau
-    if (is_multisite() && !is_network_admin()) {
-        return;
-    }
+  //  if (is_multisite() && !is_network_admin()) {
+  //      return;
+   // }
 
     $manifestPath = CDR_PLUGIN_DIR . 'assets/dist/.vite/manifest.json';
 

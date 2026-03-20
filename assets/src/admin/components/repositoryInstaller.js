@@ -1,4 +1,4 @@
-import { cdrRequest } from '../api/ajax';
+import { cdrRequest } from '@admin/api/ajax';
 
 export function initRepositoryInstaller() {
     document.addEventListener('click', async (e) => {

@@ -36,10 +36,15 @@ class RepositoryAjax
             wp_send_json_error(['message' => 'Invalid type']);
         }
 
-        $service = new RepositoryService();
-        $items = $service->getAll($owner, $type);
+        try {
+            $service = new RepositoryService();
+            $items = $service->getAll($owner, $type);
 
-        wp_send_json_success(['items' => $items]);
+            wp_send_json_success(['items' => $items]);
+
+        } catch (\Throwable $e) {
+            wp_send_json_error(['message' => $e->getMessage()]);
+        }
     }
 
     public static function install(): void
@@ -54,12 +59,27 @@ class RepositoryAjax
             wp_send_json_error(['message' => 'Missing params']);
         }
 
-        $service = new RepositoryService();
+        try {
+            ob_start(); // 🔥 FIX CRITIQUE
 
-        $result = $service->install($owner, $name, $type);
+            $service = new RepositoryService();
+            $result = $service->install($owner, $name, $type);
 
-        $result
-            ? wp_send_json_success()
-            : wp_send_json_error(['message' => 'Install failed']);
+            ob_end_clean(); // 🔥 FIX CRITIQUE
+
+            if ($result) {
+                wp_send_json_success(['message' => 'Installed']);
+            }
+
+            wp_send_json_error(['message' => 'Install failed']);
+
+        } catch (\Throwable $e) {
+
+            ob_end_clean();
+
+            wp_send_json_error([
+                'message' => $e->getMessage()
+            ]);
+        }
     }
 }

@@ -1,0 +1,6 @@
+@import "@styles/components/admin.css";
+@import "@styles/components/modal.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

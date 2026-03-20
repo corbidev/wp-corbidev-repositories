@@ -8,6 +8,9 @@ export default class CorbidevModal {
             this.create()
         }
 
+        // 🔥 IMPORTANT : cacher au chargement
+        this.hide()
+
         this.bind()
     }
 
@@ -15,6 +18,9 @@ export default class CorbidevModal {
 
         const wrapper = document.createElement('div')
         wrapper.id = 'corbidev-modal'
+
+        // 🔥 IMPORTANT : hidden par défaut
+        wrapper.classList.add('hidden')
 
         wrapper.innerHTML = `
             <div class="cdr-modal-overlay">
@@ -47,13 +53,16 @@ export default class CorbidevModal {
 
         const msg = this.modal.querySelector('#cdr-modal-message')
 
-        msg.textContent = message
+        if (msg) {
+            msg.textContent = message
+        }
 
         this.modal.classList.remove('hidden')
         this.modal.dataset.type = type
     }
 
     hide() {
+        if (!this.modal) return
         this.modal.classList.add('hidden')
     }
 }

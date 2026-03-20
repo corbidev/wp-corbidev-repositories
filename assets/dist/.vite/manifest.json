@@ -1,11 +1,11 @@
 {
   "assets/src/admin/main.js": {
-    "file": "assets/admin-BWWAUKqz.js",
+    "file": "assets/admin-CogajCc_.js",
     "name": "admin",
     "src": "assets/src/admin/main.js",
     "isEntry": true,
-    "imports": [
-      "assets/src/main.js"
+    "css": [
+      "assets/app-CJZNQtrp.css"
     ]
   },
   "assets/src/main.js": {

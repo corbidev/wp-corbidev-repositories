@@ -17,12 +17,16 @@ class RepositoryService
         $this->client = new GithubClient($token);
     }
 
+    /**
+     * Filtre plugins / thèmes
+     */
     private function filter(array $repos, string $type): array
     {
         return array_filter($repos, function ($repo) use ($type) {
+
             $name = $repo['name'] ?? '';
 
-            if (!str_starts_with($name, 'wp-')) {
+            if (!$name || !str_starts_with($name, 'wp-')) {
                 return false;
             }
 
@@ -38,6 +42,9 @@ class RepositoryService
         });
     }
 
+    /**
+     * Format des données pour affichage
+     */
     private function format(array $repo, string $owner): array
     {
         $name = $repo['name'];
@@ -51,32 +58,79 @@ class RepositoryService
         ];
     }
 
+    /**
+     * Récupération des repos
+     */
     public function getAll(string $owner, string $type): array
     {
         $repos = $this->client->getRepositories($owner);
+
+        if (!is_array($repos)) {
+            return [];
+        }
 
         $filtered = $this->filter($repos, $type);
 
         return array_map(fn($repo) => $this->format($repo, $owner), $filtered);
     }
 
+    /**
+     * Installation plugin / thème
+     */
     public function install(string $owner, string $name, string $type): bool
     {
         $zip = $this->client->getZipUrl($owner, $name);
 
+        if (!$zip) {
+            return false;
+        }
+
         include_once ABSPATH . 'wp-admin/includes/file.php';
         include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
-        if ($type === 'plugin') {
-            include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-            $upgrader = new \Plugin_Upgrader();
-        } else {
-            include_once ABSPATH . 'wp-admin/includes/theme-install.php';
-            $upgrader = new \Theme_Upgrader();
+        // 🔥 Empêche WordPress d'afficher du HTML (CRITIQUE POUR AJAX)
+        ob_start();
+
+        try {
+
+            if ($type === 'plugin') {
+
+                include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+
+                $upgrader = new \Plugin_Upgrader(
+                    new \Automatic_Upgrader_Skin() // 🔥 évite output HTML
+                );
+
+            } else {
+
+                include_once ABSPATH . 'wp-admin/includes/theme-install.php';
+
+                $upgrader = new \Theme_Upgrader(
+                    new \Automatic_Upgrader_Skin() // 🔥 évite output HTML
+                );
+            }
+
+            $result = $upgrader->install($zip);
+
+        } catch (\Throwable $e) {
+
+            // 🔥 log utile
+            error_log('[CDR INSTALL ERROR] ' . $e->getMessage());
+
+            ob_end_clean();
+
+            return false;
         }
 
-        $result = $upgrader->install($zip);
+        // 🔥 nettoie toute sortie parasite
+        ob_end_clean();
 
-        return !is_wp_error($result);
+        // 🔥 gestion WP_Error
+        if (is_wp_error($result)) {
+            error_log('[CDR WP ERROR] ' . $result->get_error_message());
+            return false;
+        }
+
+        return (bool) $result;
     }
 }
