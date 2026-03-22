@@ -18,7 +18,7 @@ class RepositoryAjax
 
     private static function check(): void
     {
-        check_ajax_referer('cdr_nonce', 'nonce');
+        check_ajax_referer('corbidev_nonce', 'nonce');
 
         if (!current_user_can('install_plugins')) {
             wp_send_json_error(['message' => 'Unauthorized'], 403);
@@ -60,12 +60,13 @@ class RepositoryAjax
         }
 
         try {
-            ob_start(); // 🔥 FIX CRITIQUE
+
+            ob_start();
 
             $service = new RepositoryService();
             $result = $service->install($owner, $name, $type);
 
-            ob_end_clean(); // 🔥 FIX CRITIQUE
+            ob_end_clean();
 
             if ($result) {
                 wp_send_json_success(['message' => 'Installed']);

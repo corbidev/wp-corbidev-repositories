@@ -120,9 +120,12 @@ add_action('admin_enqueue_scripts', function (): void {
             true
         );
 
+        /**
+         * 🔥 FIX CRITIQUE : nonce cohérent avec PHP Ajax
+         */
         wp_localize_script('corbidev-repositories-admin', 'cdr_ajax', [
             'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce'    => wp_create_nonce('cdr_nonce')
+            'nonce'    => wp_create_nonce('corbidev_nonce')
         ]);
     }
 });

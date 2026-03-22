@@ -1,30 +1,53 @@
-import { cdrRequest } from '@admin/api/ajax';
+import { cdrRequest } from '../api/ajax'
+import CorbidevModal from './modal'
 
 export function initRepositoryInstaller() {
-    document.addEventListener('click', async (e) => {
-        const btn = e.target.closest('[data-action="install"]');
-        if (!btn) return;
 
-        const type = btn.dataset.type;
-        const owner = btn.dataset.owner;
-        const name = btn.dataset.name;
+    const modal = new CorbidevModal()
 
-        btn.disabled = true;
-        btn.innerText = 'Installation...';
+    async function handleInstall(button) {
+
+        const type  = button.dataset.type
+        const owner = button.dataset.owner
+        const name  = button.dataset.name
+
+        if (!type || !owner || !name) {
+            modal.show('Données manquantes', 'error')
+            return
+        }
+
+        button.disabled = true
+        button.innerText = 'Installation...'
 
         try {
+
             await cdrRequest('cdr_install_item', {
                 type,
                 owner,
                 name
-            });
+            })
 
-            btn.innerText = 'Installé ✅';
+            modal.show('Installation réussie', 'success')
 
-        } catch (e) {
-            btn.innerText = 'Erreur ❌';
-        } finally {
-            btn.disabled = false;
+            button.innerText = 'Installé'
+            button.classList.add('disabled')
+
+        } catch (error) {
+
+            modal.show(error.message || 'Erreur serveur', 'error')
+
+            button.disabled = false
+            button.innerText = 'Installer'
         }
-    });
+    }
+
+    document.addEventListener('click', (e) => {
+
+        const btn = e.target.closest('[data-action="install"]')
+        if (!btn) return
+
+        e.preventDefault()
+
+        handleInstall(btn)
+    })
 }

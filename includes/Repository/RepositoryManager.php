@@ -2,44 +2,52 @@
 
 namespace Corbidev\Repositories\Repository;
 
+use Corbidev\Repositories\Github\GithubClient;
+
 if (!defined('ABSPATH')) {
     exit;
 }
 
 class RepositoryManager
 {
+    /**
+     * Retourne tous les repos AVEC client GitHub
+     */
     public static function all(): array
     {
-        return RepositoryStorage::getRepositories();
+        $repos = RepositoryStorage::getRepositories();
+
+        $formatted = [];
+
+        foreach ($repos as $repo) {
+
+            $formatted[] = [
+                'name'   => $repo['name'],
+                'token'  => $repo['token'] ?? null,
+                'client' => new GithubClient($repo['token'] ?? null),
+            ];
+        }
+
+        return $formatted;
     }
 
+    /**
+     * Retourne UN repo AVEC client
+     */
     public static function get(string $name): ?array
     {
         $repos = RepositoryStorage::getRepositories();
 
-        return $repos[$name] ?? null;
-    }
+        if (!isset($repos[$name])) {
+            return null;
+        }
 
-    public static function add(string $name, string $token = ''): bool
-    {
-        return RepositoryStorage::addRepository(
-            sanitize_text_field($name),
-            sanitize_text_field($token)
-        );
-    }
+        $repo = $repos[$name];
 
-    public static function update(string $name, string $token): bool
-    {
-        return RepositoryStorage::updateRepository(
-            sanitize_text_field($name),
-            sanitize_text_field($token)
-        );
-    }
-
-    public static function delete(string $name): bool
-    {
-        return RepositoryStorage::deleteRepository(
-            sanitize_text_field($name)
-        );
+        return [
+            'name'   => $repo['name'],
+            'token'  => $repo['token'] ?? null,
+            'client' => new GithubClient($repo['token'] ?? null),
+        ];
     }
 }

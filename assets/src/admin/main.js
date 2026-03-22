@@ -1,45 +1,15 @@
 import '@admin/styles/admin.css'
 
 import CorbidevModal from './components/modal'
-import { cdrRequest } from './api/ajax'
 import { initRepositoryManager } from './components/repositoryManager'
+import { initRepositoryInstaller } from './components/repositoryInstaller'
+import eruda from 'eruda'
 
-initRepositoryManager();
+    eruda.init()
 
-const modal = new CorbidevModal();
+// Init modules
+initRepositoryManager()
+initRepositoryInstaller()
 
-async function handleInstall(button) {
-    const type = button.dataset.type;
-    const owner = button.dataset.owner;
-    const name = button.dataset.name;
-
-    button.disabled = true;
-    button.innerText = 'Installation...';
-
-    try {
-        await cdrRequest('cdr_install_item', {
-            type,
-            owner,
-            name
-        });
-
-        modal.show('Installation réussie', 'success');
-
-        button.innerText = 'Installé';
-        button.classList.add('disabled');
-
-    } catch (error) {
-        modal.show(error.message || 'Erreur serveur', 'error');
-
-        button.disabled = false;
-        button.innerText = 'Installer';
-    }
-}
-
-document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-action="install"]')
-    if (!btn) return;
-
-    e.preventDefault();
-    handleInstall(btn);
-})
+// Modal global si besoin ailleurs
+window.corbidevModal = new CorbidevModal()

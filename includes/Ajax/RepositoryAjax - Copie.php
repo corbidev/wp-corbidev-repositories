@@ -3,7 +3,6 @@
 namespace Corbidev\Repositories\Services;
 
 use Corbidev\Repositories\Repository\RepositoryManager;
-use Corbidev\Repositories\Installer\RepositoryInstaller;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -11,43 +10,43 @@ if (!defined('ABSPATH')) {
 
 class RepositoryService
 {
-    public function getAll(string $type): array
+    /**
+     * 🔥 FIX : compatible AJAX (owner + type)
+     */
+    public function getAll(string $owner, string $type): array
     {
-        $repos = RepositoryManager::all();
+        $repo = RepositoryManager::get($owner);
+
+        if (!$repo || empty($repo['client'])) {
+            return [];
+        }
+
+        $client = $repo['client'];
+
+        $repositories = $client->getRepositories($owner);
+
+        if (!is_array($repositories)) {
+            return [];
+        }
 
         $items = [];
 
-        foreach ($repos as $repo) {
+        foreach ($repositories as $r) {
 
-            if (empty($repo['client']) || empty($repo['name'])) {
+            $name = $r['name'] ?? '';
+
+            if (!$this->filter($name, $type)) {
                 continue;
             }
 
-            $client = $repo['client'];
-            $owner  = $repo['name'];
-
-            $repositories = $client->getRepositories($owner);
-
-            if (!is_array($repositories)) {
-                continue;
-            }
-
-            foreach ($repositories as $r) {
-
-                $name = $r['name'] ?? '';
-
-                if (!$this->filter($name, $type)) {
-                    continue;
-                }
-
-                $items[] = [
-                    'name'        => $name,
-                    'slug'        => $name,
-                    'description' => $r['description'] ?? '',
-                    'version'     => $client->getLatestTag($owner, $name),
-                    'owner'       => $owner,
-                ];
-            }
+            $items[] = [
+                'name'        => $name,
+                'slug'        => $name,
+                'description' => $r['description'] ?? '',
+                'version'     => $client->getLatestTag($owner, $name),
+                'owner'       => $owner,
+                'type'        => $type,
+            ];
         }
 
         return $items;
@@ -79,8 +78,6 @@ class RepositoryService
         }
 
         $client = $repo['client'];
-
-        // ✅ IMPORTANT : construction correcte du zip
         $zip = $client->getZipUrl($owner, $name);
 
         if (!$zip) {
@@ -94,15 +91,16 @@ class RepositoryService
 
         if ($type === 'plugin') {
             include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+            $upgrader = new \Plugin_Upgrader(new \Automatic_Upgrader_Skin());
         } else {
             include_once ABSPATH . 'wp-admin/includes/theme-install.php';
+            $upgrader = new \Theme_Upgrader(new \Automatic_Upgrader_Skin());
         }
 
-        // ✅ CORRECTION CRITIQUE ICI
-        $result = RepositoryInstaller::install($zip, $name, $type);
+        $result = $upgrader->install($zip);
 
         ob_end_clean();
 
-        return $result;
+        return !is_wp_error($result);
     }
 }

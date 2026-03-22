@@ -16,6 +16,6 @@ class RepositoryAdminController
 
         $repositories = RepositoryStorage::getRepositories();
 
-        include CDR_PLUGIN_DIR . 'admin/templates/repository-manager.php';
+        include CDR_PLUGIN_DIR . 'admin/pages/repositories-manager.php';
     }
 }

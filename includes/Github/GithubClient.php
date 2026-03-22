@@ -27,8 +27,8 @@ class GithubClient
 
         $args = [
             'headers' => [
-                'Accept'        => 'application/vnd.github+json',
-                'User-Agent'    => 'WordPress-Corbidev',
+                'Accept'     => 'application/vnd.github+json',
+                'User-Agent' => 'WordPress-Corbidev',
             ],
             'timeout' => 20,
         ];
@@ -53,9 +53,6 @@ class GithubClient
         return json_decode($body, true) ?? [];
     }
 
-    /**
-     * Liste des repos d'une organisation
-     */
     public function getRepositories(string $owner): array
     {
         $cacheKey = "repos_{$owner}";
@@ -65,9 +62,6 @@ class GithubClient
         }, 300);
     }
 
-    /**
-     * Contenu d’un repo
-     */
     public function getContents(string $owner, string $repo, string $path = ''): array
     {
         $cacheKey = "contents_{$owner}_{$repo}_" . md5($path);
@@ -77,9 +71,6 @@ class GithubClient
         }, 300);
     }
 
-    /**
-     * Tags (versions)
-     */
     public function getTags(string $owner, string $repo): array
     {
         $cacheKey = "tags_{$owner}_{$repo}";
@@ -89,9 +80,6 @@ class GithubClient
         }, 300);
     }
 
-    /**
-     * Dernier tag (version)
-     */
     public function getLatestTag(string $owner, string $repo): ?string
     {
         $tags = $this->getTags($owner, $repo);
@@ -104,18 +92,24 @@ class GithubClient
     }
 
     /**
-     * Téléchargement ZIP d’un repo
+     * Téléchargement ZIP CORRECT
      */
     public function getZipUrl(string $owner, string $repo, ?string $ref = null): string
     {
-        $ref = $ref ?? 'main';
+        // 1. Essayer tag
+        if ($ref === null) {
+            $ref = $this->getLatestTag($owner, $repo);
+        }
 
-        return "https://github.com/{$owner}/{$repo}/archive/refs/heads/{$ref}.zip";
+        // 2. Si tag trouvé → OK
+        if (!empty($ref)) {
+            return "https://github.com/{$owner}/{$repo}/archive/refs/tags/{$ref}.zip";
+        }
+
+        // 3. Sinon fallback sur branche main
+        return "https://github.com/{$owner}/{$repo}/archive/refs/heads/main.zip";
     }
 
-    /**
-     * Releases
-     */
     public function getReleases(string $owner, string $repo): array
     {
         $cacheKey = "releases_{$owner}_{$repo}";
@@ -125,9 +119,6 @@ class GithubClient
         }, 600);
     }
 
-    /**
-     * Dernière release
-     */
     public function getLatestRelease(string $owner, string $repo): ?array
     {
         $releases = $this->getReleases($owner, $repo);
