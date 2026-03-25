@@ -1,20 +1,20 @@
 {
   "assets/src/admin/main.js": {
-    "file": "assets/admin-DSj-AXlI.js",
+    "file": "assets/admin-CPeCwvJs.js",
     "name": "admin",
     "src": "assets/src/admin/main.js",
     "isEntry": true,
     "css": [
-      "assets/app-CJZNQtrp.css"
+      "assets/app-BYYY8CGM.css"
     ]
   },
   "assets/src/main.js": {
-    "file": "assets/app-BZ8KMhW_.js",
+    "file": "assets/app-Bu2zzzYA.js",
     "name": "app",
     "src": "assets/src/main.js",
     "isEntry": true,
     "css": [
-      "assets/app-CJZNQtrp.css"
+      "assets/app-BYYY8CGM.css"
     ]
   }
 }

@@ -18,4 +18,4 @@ $repos = RepositoryStorage::getRepositories();
 
 // chargement du template
 
-    require  __DIR__ . '/templates/repository-manager.php';;
+    require  __DIR__ . '/templates/repository-manager.php';

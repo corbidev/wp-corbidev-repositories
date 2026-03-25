@@ -4,83 +4,76 @@ namespace Corbidev\Repositories\Ajax;
 
 use Corbidev\Repositories\Services\RepositoryService;
 
-if (!defined('ABSPATH')) {
-    exit;
-}
+if (!defined('ABSPATH')) exit;
 
 class RepositoryAjax
 {
     public static function register(): void
     {
-        add_action('wp_ajax_cdr_get_items', [self::class, 'getItems']);
         add_action('wp_ajax_cdr_install_item', [self::class, 'install']);
+        add_action('wp_ajax_cdr_activate_item', [self::class, 'activate']);
+        add_action('wp_ajax_cdr_deactivate_item', [self::class, 'deactivate']);
+        add_action('wp_ajax_cdr_delete_item', [self::class, 'delete']);
+        add_action('wp_ajax_cdr_update_item', [self::class, 'update']);
     }
 
-    private static function check(): void
+    private static function check()
     {
         check_ajax_referer('corbidev_nonce', 'nonce');
-
-        if (!current_user_can('install_plugins')) {
-            wp_send_json_error(['message' => 'Unauthorized'], 403);
-        }
     }
 
-    public static function getItems(): void
+    public static function install()
     {
         self::check();
 
-        $type  = sanitize_text_field($_POST['type'] ?? '');
-        $owner = sanitize_text_field($_POST['owner'] ?? 'corbidev');
+        $service = new RepositoryService();
 
-        if (!in_array($type, ['plugin', 'theme'])) {
-            wp_send_json_error(['message' => 'Invalid type']);
-        }
-
-        try {
-            $service = new RepositoryService();
-            $items = $service->getAll($owner, $type);
-
-            wp_send_json_success(['items' => $items]);
-
-        } catch (\Throwable $e) {
-            wp_send_json_error(['message' => $e->getMessage()]);
-        }
+        wp_send_json_success([
+            'result' => $service->install($_POST['owner'], $_POST['name'], $_POST['type'])
+        ]);
     }
 
-    public static function install(): void
+    public static function activate()
     {
         self::check();
 
-        $type  = sanitize_text_field($_POST['type'] ?? '');
-        $owner = sanitize_text_field($_POST['owner'] ?? '');
-        $name  = sanitize_text_field($_POST['name'] ?? '');
+        $service = new RepositoryService();
 
-        if (!$type || !$owner || !$name) {
-            wp_send_json_error(['message' => 'Missing params']);
-        }
+        wp_send_json_success([
+            'result' => $service->activate($_POST['name']) // slug
+        ]);
+    }
 
-        try {
+    public static function deactivate()
+    {
+        self::check();
 
-            ob_start();
+        $service = new RepositoryService();
 
-            $service = new RepositoryService();
-            $result = $service->install($owner, $name, $type);
+        wp_send_json_success([
+            'result' => $service->deactivate($_POST['name']) // slug
+        ]);
+    }
 
-            ob_end_clean();
+    public static function delete()
+    {
+        self::check();
 
-            if ($result) {
-                wp_send_json_success(['message' => 'Installed']);
-            }
+        $service = new RepositoryService();
 
-            wp_send_json_error(['message' => 'Install failed']);
+        wp_send_json_success([
+            'result' => $service->delete($_POST['name'], $_POST['type']) // slug
+        ]);
+    }
 
-        } catch (\Throwable $e) {
+    public static function update()
+    {
+        self::check();
 
-            ob_end_clean();
+        $service = new RepositoryService();
 
-            wp_send_json_error([
-                'message' => $e->getMessage()
-            ]);
-        }
+        wp_send_json_success([
+            'result' => $service->update($_POST['owner'], $_POST['name'], $_POST['type']) // repo name
+        ]);
     }
 }

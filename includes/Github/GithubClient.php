@@ -19,7 +19,7 @@ class GithubClient
     }
 
     /**
-     * Requête HTTP vers GitHub
+     * HTTP request to GitHub API
      */
     private function request(string $endpoint): array
     {
@@ -50,9 +50,18 @@ class GithubClient
             throw new \Exception("GitHub API error ({$code}) : {$body}");
         }
 
-        return json_decode($body, true) ?? [];
+        $data = json_decode($body, true);
+
+        if (!is_array($data)) {
+            throw new \Exception('Invalid JSON from GitHub');
+        }
+
+        return $data;
     }
 
+    /**
+     * Get repositories of owner
+     */
     public function getRepositories(string $owner): array
     {
         $cacheKey = "repos_{$owner}";
@@ -62,6 +71,9 @@ class GithubClient
         }, 300);
     }
 
+    /**
+     * Get repository contents
+     */
     public function getContents(string $owner, string $repo, string $path = ''): array
     {
         $cacheKey = "contents_{$owner}_{$repo}_" . md5($path);
@@ -71,6 +83,9 @@ class GithubClient
         }, 300);
     }
 
+    /**
+     * Get tags
+     */
     public function getTags(string $owner, string $repo): array
     {
         $cacheKey = "tags_{$owner}_{$repo}";
@@ -80,6 +95,9 @@ class GithubClient
         }, 300);
     }
 
+    /**
+     * Get latest tag (sorted)
+     */
     public function getLatestTag(string $owner, string $repo): ?string
     {
         $tags = $this->getTags($owner, $repo);
@@ -88,28 +106,15 @@ class GithubClient
             return null;
         }
 
+        // 🔥 FIX: sort tags (GitHub does not guarantee order)
+        usort($tags, fn($a, $b) => strcmp($b['name'], $a['name']));
+
         return $tags[0]['name'] ?? null;
     }
 
     /**
-     * Téléchargement ZIP CORRECT
+     * Get releases
      */
-    public function getZipUrl(string $owner, string $repo, ?string $ref = null): string
-    {
-        // 1. Essayer tag
-        if ($ref === null) {
-            $ref = $this->getLatestTag($owner, $repo);
-        }
-
-        // 2. Si tag trouvé → OK
-        if (!empty($ref)) {
-            return "https://github.com/{$owner}/{$repo}/archive/refs/tags/{$ref}.zip";
-        }
-
-        // 3. Sinon fallback sur branche main
-        return "https://github.com/{$owner}/{$repo}/archive/refs/heads/main.zip";
-    }
-
     public function getReleases(string $owner, string $repo): array
     {
         $cacheKey = "releases_{$owner}_{$repo}";
@@ -119,6 +124,9 @@ class GithubClient
         }, 600);
     }
 
+    /**
+     * Get latest release
+     */
     public function getLatestRelease(string $owner, string $repo): ?array
     {
         $releases = $this->getReleases($owner, $repo);
@@ -128,5 +136,43 @@ class GithubClient
         }
 
         return $releases[0];
+    }
+
+    /**
+     * Get latest version (release > tag fallback)
+     */
+    public function getLatestVersion(string $owner, string $repo): ?string
+    {
+        $release = $this->getLatestRelease($owner, $repo);
+
+        if (!empty($release['tag_name'])) {
+            return $release['tag_name'];
+        }
+
+        return $this->getLatestTag($owner, $repo);
+    }
+
+    /**
+     * Get best ZIP URL (stable & public)
+     */
+    public function getZipUrl(string $owner, string $repo, ?string $ref = null): string
+    {
+        // 🔥 FIX: use public GitHub URL (NOT zipball_url API)
+        $release = $this->getLatestRelease($owner, $repo);
+
+        if (!empty($release['tag_name'])) {
+            return "https://github.com/{$owner}/{$repo}/archive/refs/tags/{$release['tag_name']}.zip";
+        }
+
+        if ($ref === null) {
+            $ref = $this->getLatestTag($owner, $repo);
+        }
+
+        if (!empty($ref)) {
+            return "https://github.com/{$owner}/{$repo}/archive/refs/tags/{$ref}.zip";
+        }
+
+        // fallback
+        return "https://github.com/{$owner}/{$repo}/archive/refs/heads/main.zip";
     }
 }

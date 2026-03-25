@@ -1,6 +1,7 @@
-import { cdrRequest } from '../api/ajax'
-import CorbidevModal from './modal'
+import { cdrRequest } from '../api/ajax';
+import CorbidevModal from './modal';
 
+const { __ } = window.wp.i18n;
 export function initRepositoryInstaller() {
 
     const modal = new CorbidevModal()
@@ -17,7 +18,7 @@ export function initRepositoryInstaller() {
         }
 
         button.disabled = true
-        button.innerText = 'Installation...'
+        button.innerText = __('Install ...', 'corbidev');
 
         try {
 
@@ -27,7 +28,7 @@ export function initRepositoryInstaller() {
                 name
             })
 
-            modal.show('Installation réussie', 'success')
+            modal.show(__('Install success', 'corbidev'), 'success')
 
             button.innerText = 'Installé'
             button.classList.add('disabled')
@@ -37,7 +38,7 @@ export function initRepositoryInstaller() {
             modal.show(error.message || 'Erreur serveur', 'error')
 
             button.disabled = false
-            button.innerText = 'Installer'
+            button.innerText = __('Installed', 'corbidev')
         }
     }
 

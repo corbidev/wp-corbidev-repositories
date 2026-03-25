@@ -13,6 +13,7 @@ class Plugin
 {
     public static function init(): void
     {
+        // 🔥 Charger les traductions PHP
         add_action('init', [self::class, 'loadTextDomain']);
 
         if (is_multisite()) {
@@ -30,7 +31,7 @@ class Plugin
     public static function loadTextDomain(): void
     {
         load_plugin_textdomain(
-            'corbidevrepositories',
+            'corbidev',
             false,
             dirname(plugin_basename(CDR_PLUGIN_FILE)) . '/languages'
         );
@@ -41,7 +42,7 @@ class Plugin
         $capability = is_multisite() ? 'manage_network_options' : 'manage_options';
 
         add_menu_page(
-            __('Repositories', 'corbidevrepositories'),
+            __('Repositories', 'corbidev'),
             'Corbidev',
             $capability,
             'corbidev-repositories',
@@ -53,7 +54,7 @@ class Plugin
 
         add_submenu_page(
             'plugins.php',
-            __('Corbidev Plugins', 'corbidevrepositories'),
+            __('Corbidev Plugins', 'corbidev'),
             'Corbidev',
             'install_plugins',
             'corbidev-plugins',
@@ -65,7 +66,7 @@ class Plugin
 
         add_submenu_page(
             'themes.php',
-            __('Corbidev Themes', 'corbidevrepositories'),
+            __('Corbidev Themes', 'corbidev'),
             'Corbidev',
             'install_themes',
             'corbidev-themes',
@@ -78,32 +79,40 @@ class Plugin
 
     public static function enqueueAdminAssets(): void
     {
+        // Charger uniquement sur pages Corbidev
         if (!isset($_GET['page']) || !str_starts_with($_GET['page'], 'corbidev')) {
             return;
         }
 
+        /**
+         * 🔥 Build Vite
+         */
         $script_path = CDR_PLUGIN_DIR . 'assets/dist/admin.js';
         $script_url  = CDR_PLUGIN_URL . 'assets/dist/admin.js';
 
+        // Version dynamique (cache bust)
         $version = file_exists($script_path) ? filemtime($script_path) : '1.0';
 
         wp_enqueue_script(
             'corbidev-admin',
             $script_url,
-            ['wp-i18n'],
+            ['wp-i18n'], // 🔥 obligatoire pour __()
             $version,
             true
         );
 
-        // ✅ ES modules Vite
-        wp_script_add_data('corbidev-admin', 'type', 'module');
-
+        /**
+         * 🔥 Traductions JS
+         */
         wp_set_script_translations(
             'corbidev-admin',
-            'corbidevrepositories',
+            'corbidev',
             CDR_PLUGIN_DIR . 'languages'
         );
 
+        /**
+         * 🔥 AJAX
+         */
         wp_localize_script(
             'corbidev-admin',
             'cdr_ajax',

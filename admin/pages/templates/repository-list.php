@@ -3,31 +3,36 @@ if (!defined('ABSPATH')) exit;
 
 /** @var string $type */
 /** @var array $items */
-
-$title = $type === 'plugin' ? 'Plugins' : 'Thèmes';
 ?>
-
-
 
 <div class="wrap">
 
     <h1>
-        Corbidev <?= esc_html($type === 'theme' ? 'Themes' : 'Plugins') ?>
+        <?php
+        printf(
+            'Corbidev %s',
+            esc_html(
+                $type === 'theme'
+                    ? esc_html__('Themes', 'corbidevrepositories')
+                    : esc_html__('Plugins', 'corbidevrepositories')
+            )
+        );
+        ?>
     </h1>
 
     <?php if (empty($items)): ?>
 
-        <p>Aucun élément trouvé.</p>
+        <p><?php echo esc_html__('No items found.', 'corbidevrepositories'); ?></p>
 
     <?php else: ?>
 
         <table class="widefat striped">
             <thead>
                 <tr>
-                    <th>Nom</th>
-                    <th>Description</th>
-                    <th>Version</th>
-                    <th>Action</th>
+                    <th><?php echo esc_html__('Name', 'corbidevrepositories'); ?></th>
+                    <th><?php echo esc_html__('Description', 'corbidevrepositories'); ?></th>
+                    <th><?php echo esc_html__('Version', 'corbidevrepositories'); ?></th>
+                    <th><?php echo esc_html__('Action', 'corbidevrepositories'); ?></th>
                 </tr>
             </thead>
 
@@ -35,13 +40,10 @@ $title = $type === 'plugin' ? 'Plugins' : 'Thèmes';
 
 <?php foreach ($items as $item): 
 
-
  include __DIR__ . '/repository-item.php'; 
 
+endforeach; ?>
 
-
-
-          endforeach; ?>
             </tbody>
 
         </table>
@@ -49,4 +51,3 @@ $title = $type === 'plugin' ? 'Plugins' : 'Thèmes';
     <?php endif; ?>
 
 </div>
-
