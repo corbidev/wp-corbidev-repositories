@@ -4,9 +4,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// IMPORTANT : composant global à conserver
-require CDR_PLUGIN_DIR . 'admin/pages/components/modal.php';
-
 // Variables attendues
 // $items
 // $type

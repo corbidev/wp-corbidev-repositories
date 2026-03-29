@@ -11,6 +11,10 @@ if (!defined('ABSPATH')) {
 
 class Plugin
 {
+    private const ADMIN_HANDLE = 'corbidev-admin-js';
+    private const CORE_UI_HANDLE = 'corbidev-core-ui-js';
+    private const FRONT_HANDLE = 'corbidev-app-js';
+
     public static function init(): void
     {
         add_action('init', [self::class, 'loadTextDomain']);
@@ -21,12 +25,10 @@ class Plugin
             add_action('admin_menu', [self::class, 'menus']);
         }
 
-        add_action('admin_enqueue_scripts', [self::class, 'enqueueAdminAssets']);
+        add_action('admin_enqueue_scripts', [self::class, 'enqueueAdmin']);
+        add_action('wp_enqueue_scripts', [self::class, 'enqueueFront']);
     }
 
-    /**
-     * 🔥 Load plugin textdomain (PHP translations)
-     */
     public static function loadTextDomain(): void
     {
         load_plugin_textdomain(
@@ -49,7 +51,23 @@ class Plugin
             'dashicons-database'
         );
 
-        remove_submenu_page('corbidev-repositories', 'corbidev-repositories');
+        add_submenu_page(
+            'corbidev-repositories',
+            __('Settings', 'corbidevrepositories'),
+            __('Settings', 'corbidevrepositories'),
+            $capability,
+            'corbidev-repositories',
+            [RepositoryAdminController::class, 'index']
+        );
+
+        add_submenu_page(
+            'corbidev-repositories',
+            __('Info', 'corbidevrepositories'),
+            __('Info', 'corbidevrepositories'),
+            $capability,
+            'corbidev-info',
+            [self::class, 'renderInfoPage']
+        );
 
         add_submenu_page(
             'plugins.php',
@@ -76,41 +94,133 @@ class Plugin
         );
     }
 
-    public static function enqueueAdminAssets(): void
+    public static function renderInfoPage(): void
+    {
+        $file = CDR_PLUGIN_DIR . 'admin/pages/info.php';
+
+        if (file_exists($file)) {
+            require $file;
+        }
+    }
+
+    /**
+     * =========================
+     * ADMIN
+     * =========================
+     */
+    public static function enqueueAdmin(): void
     {
         if (!isset($_GET['page']) || !str_starts_with($_GET['page'], 'corbidev')) {
             return;
         }
 
-        $script_path = CDR_PLUGIN_DIR . 'assets/dist/admin.js';
-        $script_url  = CDR_PLUGIN_URL . 'assets/dist/admin.js';
+        self::enqueueEntry('assets/src/admin/main.js', self::ADMIN_HANDLE, true);
+    }
 
-        $version = file_exists($script_path) ? filemtime($script_path) : '1.0';
+    /**
+     * =========================
+     * FRONT
+     * =========================
+     */
+    public static function enqueueFront(): void
+    {
+        self::enqueueEntry('assets/src/main.js', self::FRONT_HANDLE, false);
+    }
+
+    /**
+     * =========================
+     * CORE UI (GLOBAL)
+     * =========================
+     */
+    private static function enqueueCoreUI(): void
+    {
+        self::enqueueEntry('assets/src/core-ui/main.js', self::CORE_UI_HANDLE, false);
+    }
+
+    /**
+     * =========================
+     * GENERIC ENQUEUE (VITE)
+     * =========================
+     */
+    private static function enqueueEntry(string $key, string $handle, bool $with_ajax = false): void
+    {
+        $manifest = corbidev_get_manifest();
+        $entry = $manifest[$key] ?? null;
+
+        if (!$entry || empty($entry['file'])) {
+            return;
+        }
+
+        $base_url = CDR_PLUGIN_URL . 'assets/dist/';
+
+        /**
+         * 🔥 charger core-ui AVANT tout
+         */
+        if ($handle !== self::CORE_UI_HANDLE) {
+            self::enqueueCoreUI();
+        }
+
+        /**
+         * CSS
+         */
+        if (!empty($entry['css'])) {
+            foreach ($entry['css'] as $index => $css) {
+                wp_enqueue_style(
+                    $handle . '-css-' . $index,
+                    $base_url . $css,
+                    [],
+                    CDR_VERSION
+                );
+            }
+        }
+
+        /**
+         * JS
+         */
+        wp_enqueue_script('wp-i18n');
 
         wp_enqueue_script(
-            'corbidev-admin',
-            $script_url,
+            $handle,
+            $base_url . $entry['file'],
             ['wp-i18n'],
-            $version,
+            CDR_VERSION,
             true
         );
 
-        // ✅ ES modules Vite
-        wp_script_add_data('corbidev-admin', 'type', 'module');
-
         wp_set_script_translations(
-            'corbidev-admin',
+            $handle,
             'corbidevrepositories',
             CDR_PLUGIN_DIR . 'languages'
         );
 
-        wp_localize_script(
-            'corbidev-admin',
-            'cdr_ajax',
-            [
+        /**
+         * AJAX (admin uniquement)
+         */
+        if ($with_ajax) {
+            wp_localize_script($handle, 'cdr_ajax', [
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'nonce'    => wp_create_nonce('corbidev_nonce'),
-            ]
-        );
+            ]);
+        }
+
+        /**
+         * 🔥 imports Vite (chunks)
+         */
+        if (!empty($entry['imports'])) {
+            foreach ($entry['imports'] as $import) {
+
+                if (!isset($manifest[$import]['file'])) {
+                    continue;
+                }
+
+                wp_enqueue_script(
+                    $handle . '-chunk-' . md5($import),
+                    $base_url . $manifest[$import]['file'],
+                    [],
+                    CDR_VERSION,
+                    true
+                );
+            }
+        }
     }
 }

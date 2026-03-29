@@ -1,9 +1,9 @@
-const { __ } = window.wp.i18n;
-
 export async function cdrRequest(action, data = {}) {
 
+    const { __ } = window.wp.i18n
+
     if (!window.cdr_ajax) {
-        throw new Error(__('Missing AJAX configuration', 'corbidev'))
+        throw new Error(__('Missing AJAX configuration', 'corbidevrepositories'))
     }
 
     let response
@@ -25,9 +25,6 @@ export async function cdrRequest(action, data = {}) {
         throw new Error(__('Network error', 'corbidevrepositories'))
     }
 
-    /**
-     * 🔥 HTTP error (important)
-     */
     if (!response.ok) {
         throw new Error(
             `${__('Server error', 'corbidevrepositories')} (${response.status})`
@@ -44,9 +41,6 @@ export async function cdrRequest(action, data = {}) {
         throw new Error(__('Invalid server response', 'corbidevrepositories'))
     }
 
-    /**
-     * 🔥 WP AJAX standard
-     */
     if (!json || typeof json !== 'object') {
         throw new Error(__('Invalid server response', 'corbidevrepositories'))
     }

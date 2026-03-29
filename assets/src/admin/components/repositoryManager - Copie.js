@@ -33,17 +33,6 @@ export function initRepositoryManager() {
 
             switch (action) {
 
-                case 'install':
-                case 'activate':
-                case 'deactivate':
-                case 'delete':
-                case 'update':
-                    setLoading(btn, true)
-                    break
-            }
-
-            switch (action) {
-
                 case 'repo-delete': {
 
                     const confirmed = await CorbidevUI.modal.confirm({
@@ -65,26 +54,45 @@ export function initRepositoryManager() {
                 }
 
                 case 'install': {
-                    await cdrRequest('cdr_install_item', btn.dataset)
-                    row && updateRowState(row, 'installed', btn.dataset)
+
+                    setLoading(btn, true)
+
+                    await cdrRequest('cdr_install_item', {
+                        type: btn.dataset.type,
+                        owner: btn.dataset.owner,
+                        name: btn.dataset.name
+                    })
+
+                    updateRowState(row, 'installed', btn.dataset)
+
                     showBanner(__('Installed', 'corbidevrepositories'), 'success')
                     break
                 }
 
                 case 'activate': {
+
+                    setLoading(btn, true)
+
                     await cdrRequest('cdr_activate_item', {
                         name: btn.dataset.name
                     })
-                    row && updateRowState(row, 'active', btn.dataset)
+
+                    updateRowState(row, 'active', btn.dataset)
+
                     showBanner(__('Activated', 'corbidevrepositories'), 'success')
                     break
                 }
 
                 case 'deactivate': {
+
+                    setLoading(btn, true)
+
                     await cdrRequest('cdr_deactivate_item', {
                         name: btn.dataset.name
                     })
-                    row && updateRowState(row, 'inactive', btn.dataset)
+
+                    updateRowState(row, 'inactive', btn.dataset)
+
                     showBanner(__('Deactivated', 'corbidevrepositories'), 'success')
                     break
                 }
@@ -99,6 +107,8 @@ export function initRepositoryManager() {
 
                     if (!confirmed) return
 
+                    setLoading(btn, true)
+
                     await cdrRequest('cdr_delete_item', {
                         type: btn.dataset.type,
                         name: btn.dataset.name
@@ -111,7 +121,15 @@ export function initRepositoryManager() {
                 }
 
                 case 'update': {
-                    await cdrRequest('cdr_update_item', btn.dataset)
+
+                    setLoading(btn, true)
+
+                    await cdrRequest('cdr_update_item', {
+                        type: btn.dataset.type,
+                        owner: btn.dataset.owner,
+                        name: btn.dataset.name
+                    })
+
                     showBanner(__('Updated', 'corbidevrepositories'), 'success')
                     break
                 }
@@ -127,22 +145,9 @@ export function initRepositoryManager() {
             })
 
         } finally {
-            if (btn) setLoading(btn, false)
+            setLoading(btn, false)
         }
     })
-}
-
-function setLoading(btn, state) {
-    if (!btn) return
-
-    btn.disabled = state
-
-    if (state) {
-        btn.dataset.originalText = btn.innerHTML
-        btn.innerHTML = '...'
-    } else {
-        btn.innerHTML = btn.dataset.originalText || btn.innerHTML
-    }
 }
 
 function showBanner(message, type = 'success') {

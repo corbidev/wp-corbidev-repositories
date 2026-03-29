@@ -1,5 +1,18 @@
 # 📦 Plan de travail — wp-corbidev-repositories
 
+
+## 📦 LISTE DES FICHIERS À CORRIGER
+
+- [X] loader/bootstrap.php
+- [X] core-ui/includes/Core/Assets.php
+- [X] core-ui/includes/Core/Renderer.php
+- [X] includes/Core/Plugin.php
+- [X] assets/src/admin/main.js
+- [ ] assets/src/main.js
+- [ ] vite.config.js
+
+---
+
 ## 🎯 Objectif
 Créer un plugin parent WordPress (compatible multisite et standard) permettant :
 - Gestion centralisée des dépôts GitHub
@@ -7,7 +20,7 @@ Créer un plugin parent WordPress (compatible multisite et standard) permettant 
 - Mutualisation de composants UI et métier
 
 ---
-
+⁵
 # 🧱 PHASE 1 — Stabilisation technique
 
 ## 1.1 Nettoyage architecture

@@ -1,20 +1,39 @@
 {
+  "_modal-qeIcuEoL.js": {
+    "file": "assets/modal-qeIcuEoL.js",
+    "name": "modal"
+  },
   "assets/src/admin/main.js": {
-    "file": "assets/admin-CPeCwvJs.js",
+    "file": "assets/admin-DOQos0hc.js",
     "name": "admin",
     "src": "assets/src/admin/main.js",
     "isEntry": true,
+    "imports": [
+      "_modal-qeIcuEoL.js"
+    ],
     "css": [
-      "assets/app-BYYY8CGM.css"
+      "assets/app-DAGAlpNT.css"
+    ]
+  },
+  "assets/src/core-ui/main.js": {
+    "file": "assets/core-ui-CwHtq390.js",
+    "name": "core-ui",
+    "src": "assets/src/core-ui/main.js",
+    "isEntry": true,
+    "imports": [
+      "_modal-qeIcuEoL.js"
+    ],
+    "css": [
+      "assets/core-ui-BeUQGjmj.css"
     ]
   },
   "assets/src/main.js": {
-    "file": "assets/app-Bu2zzzYA.js",
+    "file": "assets/app-BaSxRiW8.js",
     "name": "app",
     "src": "assets/src/main.js",
     "isEntry": true,
     "css": [
-      "assets/app-BYYY8CGM.css"
+      "assets/app-DAGAlpNT.css"
     ]
   }
 }

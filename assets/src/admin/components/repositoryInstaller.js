@@ -1,10 +1,8 @@
-import { cdrRequest } from '../api/ajax';
-import CorbidevModal from './modal';
+import { cdrRequest } from '../api/ajax'
 
-const { __ } = window.wp.i18n;
 export function initRepositoryInstaller() {
 
-    const modal = new CorbidevModal()
+    const { __ } = window.wp.i18n
 
     async function handleInstall(button) {
 
@@ -13,12 +11,23 @@ export function initRepositoryInstaller() {
         const name  = button.dataset.name
 
         if (!type || !owner || !name) {
-            modal.show('Données manquantes', 'error')
+            window.CorbidevUI?.banner?.show({
+                message: __('Missing data', 'corbidevrepositories'),
+                type: 'danger'
+            })
             return
         }
 
+        const confirmed = await window.CorbidevUI?.modal?.confirm({
+            title: __('Confirm', 'corbidevrepositories'),
+            message: __('Do you want to install this item?', 'corbidevrepositories'),
+            type: 'info'
+        })
+
+        if (!confirmed) return
+
         button.disabled = true
-        button.innerText = __('Install ...', 'corbidev');
+        button.innerText = __('Installing...', 'corbidevrepositories')
 
         try {
 
@@ -28,17 +37,23 @@ export function initRepositoryInstaller() {
                 name
             })
 
-            modal.show(__('Install success', 'corbidev'), 'success')
+            window.CorbidevUI?.banner?.show({
+                message: __('Installation completed successfully', 'corbidevrepositories'),
+                type: 'success'
+            })
 
-            button.innerText = 'Installé'
+            button.innerText = __('Installed', 'corbidevrepositories')
             button.classList.add('disabled')
 
         } catch (error) {
 
-            modal.show(error.message || 'Erreur serveur', 'error')
+            window.CorbidevUI?.banner?.show({
+                message: error.message || __('Server error', 'corbidevrepositories'),
+                type: 'danger'
+            })
 
             button.disabled = false
-            button.innerText = __('Installed', 'corbidev')
+            button.innerText = __('Install', 'corbidevrepositories')
         }
     }
 

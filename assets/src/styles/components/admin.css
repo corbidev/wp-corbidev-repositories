@@ -40,4 +40,12 @@
     @apply flex gap-2;
 }
 
+/* page info */
+.corbidev-admin-info pre {
+    background: #1e1e1e;
+    color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    overflow: auto;
+}
 }
