@@ -3,17 +3,25 @@
     /* Root */
     .corbidev-ui-banner {
         @apply fixed top-0 z-[9999] pointer-events-none flex flex-col items-center gap-4 p-4;
-            left: 280px;
-        right: 1.5rem;
-            max-width: calc(100vw - 320px);
-            width: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100vw - 180px);
+        max-width: 900px;
     }
 
     @media (max-width: 1280px) {
         .corbidev-ui-banner {
-            left: 1rem;
-            right: 1rem;
-            max-width: calc(100vw - 2rem);
+            width: calc(100vw - 160px);
+            max-width: 800px;
+        }
+    }
+
+    @media (max-width: 782px) {
+        .corbidev-ui-banner {
+            width: calc(100vw - 40px);
+            left: 20px;
+            transform: none;
+            max-width: none;
         }
     }
 
@@ -29,7 +37,7 @@
 
     /* Item */
     .corbidev-ui-banner-item {
-        @apply pointer-events-auto w-full max-w-5xl mx-auto overflow-hidden rounded-[1.5rem] border border-slate-200/70 bg-white text-sm font-medium leading-6 text-slate-900 shadow-2xl transition-all duration-300;
+        @apply pointer-events-auto w-full mx-auto overflow-hidden rounded-[1.5rem] border border-slate-200/70 bg-white text-sm font-medium leading-6 text-slate-900 shadow-2xl transition-all duration-300;
     }
 
     .corbidev-ui-banner-row {
@@ -55,7 +63,7 @@
     }
 
     .corbidev-ui-banner-neutral {
-        @apply border-slate-200/80 bg-slate-50 text-slate-900;
+        @apply border-slate-300/80 bg-slate-50 text-slate-900 border-l-4 border-slate-500;
     }
 
     .corbidev-ui-banner-success {
@@ -79,4 +87,5 @@
         @apply h-full bg-gradient-to-r from-sky-500 to-blue-600 w-full transition-all;
         transition-timing-function: linear;
     }
+
 }
