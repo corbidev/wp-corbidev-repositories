@@ -1,10 +1,8 @@
-import { cdrRequest } from '../api/ajax';
-import CorbidevModal from './modal';
+import { cdrRequest } from '../api/ajax'
 
-const { __ } = window.wp.i18n;
 export function initRepositoryInstaller() {
 
-    const modal = new CorbidevModal()
+    const { __ } = window.wp.i18n
 
     async function handleInstall(button) {
 
@@ -13,12 +11,25 @@ export function initRepositoryInstaller() {
         const name  = button.dataset.name
 
         if (!type || !owner || !name) {
-            modal.show('Données manquantes', 'error')
+            window.CorbidevUI?.banner?.show({
+                message: __('Missing data', 'corbidevrepositories'),
+                type: 'danger'
+            })
             return
         }
 
-        button.disabled = true
-        button.innerText = __('Install ...', 'corbidev');
+        const confirmed = await window.CorbidevUI?.modal?.confirm({
+            title: __('Confirm', 'corbidevrepositories'),
+            message: __('Do you want to install this item?', 'corbidevrepositories'),
+            type: 'info'
+        })
+
+        if (!confirmed) return
+
+        window.CorbidevUI?.loading?.set(button, true)
+        button.innerText = __('Installing...', 'corbidevrepositories')
+
+        let installSucceeded = false
 
         try {
 
@@ -28,17 +39,26 @@ export function initRepositoryInstaller() {
                 name
             })
 
-            modal.show(__('Install success', 'corbidev'), 'success')
+            if (window.CorbidevUI?.toast?.show) {
+                window.CorbidevUI.toast.show(__('Installation completed successfully', 'corbidevrepositories'), 'success')
+            } else {
+                window.CorbidevUI?.banner?.show({
+                    message: __('Installation completed successfully', 'corbidevrepositories'),
+                    type: 'success'
+                })
+            }
 
-            button.innerText = 'Installé'
+            button.innerText = __('Installed', 'corbidevrepositories')
             button.classList.add('disabled')
+            installSucceeded = true
 
         } catch (error) {
 
-            modal.show(error.message || 'Erreur serveur', 'error')
-
-            button.disabled = false
-            button.innerText = __('Installed', 'corbidev')
+            window.CorbidevUI?.error?.handle(error)
+        } finally {
+            if (!installSucceeded) {
+                window.CorbidevUI?.loading?.set(button, false)
+            }
         }
     }
 

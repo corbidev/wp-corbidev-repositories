@@ -1,8 +1,8 @@
-import { cdrRequest } from '../api/ajax';
-
-const { __ } = window.wp.i18n;
+import { cdrRequest } from '../api/ajax'
 
 export function initRepositoryManager() {
+
+    const { __ } = window.wp.i18n
 
     const form = document.getElementById('cdr-repo-form')
 
@@ -17,7 +17,7 @@ export function initRepositoryManager() {
                 token: data.get('token')
             })
 
-            showNotice(__('Repository added', 'corbidevrepositories'))
+            showBanner(__('Repository added', 'corbidevrepositories'), 'success')
         })
     }
 
@@ -33,87 +33,86 @@ export function initRepositoryManager() {
 
             switch (action) {
 
+                case 'install':
+                case 'activate':
+                case 'deactivate':
+                case 'delete':
+                case 'update':
+                    CorbidevUI?.loading?.set(btn, true)
+                    break
+            }
+
+            switch (action) {
+
                 case 'repo-delete': {
 
-                    if (!confirm(__('Delete this repository?', 'corbidevrepositories'))) return
+                    const confirmed = await CorbidevUI.modal.confirm({
+                        title: __('Delete', 'corbidevrepositories'),
+                        message: __('Delete this repository?', 'corbidevrepositories'),
+                        type: 'danger'
+                    })
+
+                    if (!confirmed) return
 
                     await cdrRequest('cdr_repo_delete', {
-                        name: btn.dataset.name // repo
+                        name: btn.dataset.name
                     })
 
                     row?.remove()
-                    showNotice(__('Repository deleted', 'corbidevrepositories'))
+
+                    showBanner(__('Repository deleted', 'corbidevrepositories'), 'success')
                     break
                 }
 
                 case 'install': {
-
-                    setLoading(btn, true)
-
-                    await cdrRequest('cdr_install_item', {
-                        type: btn.dataset.type,
-                        owner: btn.dataset.owner,
-                        name: btn.dataset.name // repo
-                    })
-
-                    updateRowState(row, 'installed', btn.dataset)
-                    showNotice(__('Installed', 'corbidevrepositories'))
+                    await cdrRequest('cdr_install_item', btn.dataset)
+                    row && updateRowState(row, 'installed', btn.dataset)
+                    showBanner(__('Installed', 'corbidevrepositories'), 'success')
                     break
                 }
 
                 case 'activate': {
-
-                    setLoading(btn, true)
-
                     await cdrRequest('cdr_activate_item', {
-                        name: btn.dataset.name // slug
+                        name: btn.dataset.name
                     })
-
-                    updateRowState(row, 'active', btn.dataset)
-                    showNotice(__('Activated', 'corbidevrepositories'))
+                    row && updateRowState(row, 'active', btn.dataset)
+                    showBanner(__('Activated', 'corbidevrepositories'), 'success')
                     break
                 }
 
                 case 'deactivate': {
-
-                    setLoading(btn, true)
-
                     await cdrRequest('cdr_deactivate_item', {
-                        name: btn.dataset.name // slug
+                        name: btn.dataset.name
                     })
-
-                    updateRowState(row, 'inactive', btn.dataset)
-                    showNotice(__('Deactivated', 'corbidevrepositories'))
+                    row && updateRowState(row, 'inactive', btn.dataset)
+                    showBanner(__('Deactivated', 'corbidevrepositories'), 'success')
                     break
                 }
 
                 case 'delete': {
 
-                    if (!confirm(__('Delete this item?', 'corbidevrepositories'))) return
+                    const confirmed = await CorbidevUI.modal.confirm({
+                        title: __('Delete', 'corbidevrepositories'),
+                        message: __('Delete this item?', 'corbidevrepositories'),
+                        type: 'danger'
+                    })
 
-                    setLoading(btn, true)
+                    if (!confirmed) return
 
                     await cdrRequest('cdr_delete_item', {
                         type: btn.dataset.type,
-                        name: btn.dataset.name // slug
+                        name: btn.dataset.name
                     })
 
                     row?.remove()
-                    showNotice(__('Deleted', 'corbidevrepositories'))
+
+                    showBanner(__('Deleted', 'corbidevrepositories'), 'success')
                     break
                 }
 
                 case 'update': {
-
-                    setLoading(btn, true)
-
-                    await cdrRequest('cdr_update_item', {
-                        type: btn.dataset.type,
-                        owner: btn.dataset.owner,
-                        name: btn.dataset.name // repo
-                    })
-
-                    showNotice(__('Updated', 'corbidevrepositories'))
+                    await cdrRequest('cdr_update_item', btn.dataset)
+                    showBanner(__('Updated', 'corbidevrepositories'), 'success')
                     break
                 }
             }
@@ -122,85 +121,20 @@ export function initRepositoryManager() {
 
             console.error(err)
 
-            alert(
-                err?.message ||
-                __('An error occurred', 'corbidevrepositories')
-            )
+            CorbidevUI?.banner?.show({
+                message: err?.message || __('An error occurred', 'corbidevrepositories'),
+                type: 'danger'
+            })
 
         } finally {
-            setLoading(btn, false)
+            if (btn) CorbidevUI?.loading?.set(btn, false)
         }
     })
 }
 
-/**
- * Update UI state without reload (FIX COMPLET)
- */
-function updateRowState(row, state, data = {}) {
-
-    if (!row) return
-
-    const cell = row.querySelector('td:last-child')
-    if (!cell) return
-
-    // 🔥 reconstruction complète (évite bugs)
-    if (state === 'installed') {
-
-        cell.innerHTML = `
-            <span style="color:green; font-weight:bold;">
-                ✔ ${__('Installed', 'corbidevrepositories')}
-            </span>
-        `
-    }
-
-    if (state === 'active') {
-
-        cell.innerHTML = `
-            <button
-                class="button"
-                data-action="deactivate"
-                data-name="${data.name || ''}">
-                ${__('Deactivate', 'corbidevrepositories')}
-            </button>
-        `
-    }
-
-    if (state === 'inactive') {
-
-        cell.innerHTML = `
-            <button
-                class="button button-primary"
-                data-action="activate"
-                data-name="${data.name || ''}">
-                ${__('Activate', 'corbidevrepositories')}
-            </button>
-        `
-    }
-}
-
-/**
- * Disable button during request
- */
-function setLoading(btn, state) {
-    if (!btn) return
-
-    btn.disabled = state
-    btn.classList.toggle('is-loading', state)
-}
-
-/**
- * Simple WP notice
- */
-function showNotice(message) {
-
-    const notice = document.createElement('div')
-
-    notice.className = 'notice notice-success is-dismissible'
-    notice.innerHTML = `<p>${message}</p>`
-
-    document.body.prepend(notice)
-
-    setTimeout(() => {
-        notice.remove()
-    }, 3000)
+function showBanner(message, type = 'success') {
+    window.CorbidevUI?.banner?.show({
+        message,
+        type
+    })
 }

@@ -1,15 +1,26 @@
 import '@admin/styles/admin.css'
 
-import CorbidevModal from './components/modal'
 import { initRepositoryManager } from './components/repositoryManager'
 import { initRepositoryInstaller } from './components/repositoryInstaller'
-//import eruda from 'eruda'
+import { initInfoTabs } from './components/infoTabs'
 
-    //eruda.init()
+const { __ } = window.wp.i18n
 
-// Init modules
-initRepositoryManager()
-initRepositoryInstaller()
+/**
+ * =========================
+ * Init modules (on DOMContentLoaded)
+ * =========================
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.CorbidevUI?.banner?.setI18n) {
+        window.CorbidevUI.banner.setI18n({ __ })
+    }
 
-// Modal global si besoin ailleurs
-window.corbidevModal = new CorbidevModal()
+    if (window.CorbidevUI?.modal?.setI18n) {
+        window.CorbidevUI.modal.setI18n({ __ })
+    }
+
+    initRepositoryManager()
+    initRepositoryInstaller()
+    initInfoTabs()
+})
