@@ -2,16 +2,11 @@
 
     /* Root */
     .corbidev-ui-banner {
-        @apply fixed top-0 z-[9999] pointer-events-none flex flex-col gap-4 p-4;
-        left: 320px;
-        right: 1rem;
-        max-width: calc(100vw - 340px);
-    }
-
-    @media (max-width: 1600px) {
-        .corbidev-ui-banner {
+        @apply fixed top-0 z-[9999] pointer-events-none flex flex-col items-center gap-4 p-4;
             left: 280px;
-        }
+        right: 1.5rem;
+            max-width: calc(100vw - 320px);
+            width: auto;
     }
 
     @media (max-width: 1280px) {
@@ -34,7 +29,7 @@
 
     /* Item */
     .corbidev-ui-banner-item {
-        @apply pointer-events-auto w-full max-w-[min(64rem,calc(100vw-340px))] mx-auto overflow-hidden rounded-[1.5rem] border border-slate-200/70 bg-white/90 shadow-2xl shadow-slate-900/10 backdrop-blur-xl text-sm font-medium leading-6 text-slate-900 transition-all duration-300;
+        @apply pointer-events-auto w-full max-w-5xl mx-auto overflow-hidden rounded-[1.5rem] border border-slate-200/70 bg-white text-sm font-medium leading-6 text-slate-900 shadow-2xl transition-all duration-300;
     }
 
     .corbidev-ui-banner-row {
@@ -42,7 +37,7 @@
     }
 
     .corbidev-ui-banner-close {
-        @apply cursor-pointer inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-slate-100 text-slate-700 shadow-sm transition-all duration-200 hover:bg-white hover:text-slate-950 hover:scale-[1.05] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white;
+        @apply cursor-pointer inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-600 transition-all duration-200 hover:bg-slate-100 hover:text-slate-950 hover:-translate-y-[1px] focus:outline-none focus:ring-2 focus:ring-sky-500;
     }
 
     /* Animation */
@@ -56,7 +51,7 @@
 
     /* Types */
     .corbidev-ui-banner-info {
-        @apply border-blue-200/80 bg-blue-50 text-blue-800;
+        @apply border-sky-300/80 bg-sky-50 text-sky-900 border-l-4 border-sky-500;
     }
 
     .corbidev-ui-banner-neutral {
@@ -64,15 +59,15 @@
     }
 
     .corbidev-ui-banner-success {
-        @apply border-emerald-200/80 bg-emerald-50 text-emerald-800;
+        @apply border-emerald-300/80 bg-emerald-50 text-emerald-900 border-l-4 border-emerald-500;
     }
 
     .corbidev-ui-banner-warning {
-        @apply border-amber-200/80 bg-amber-50 text-amber-800;
+        @apply border-amber-300/80 bg-amber-50 text-amber-900 border-l-4 border-amber-500;
     }
 
     .corbidev-ui-banner-danger {
-        @apply border-red-200/80 bg-red-50 text-red-800;
+        @apply border-red-300/80 bg-red-50 text-red-900 border-l-4 border-red-500;
     }
 
     /* Progress */

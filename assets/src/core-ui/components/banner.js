@@ -16,6 +16,37 @@ export default class CorbidevBanner {
         return document.getElementById('corbidev-ui-banner-root')
     }
 
+    static updateRootPosition() {
+        const root = this.root
+        if (!root) {
+            return
+        }
+
+        const content = document.getElementById('wpcontent')
+        if (!content) {
+            return
+        }
+
+        const rect = content.getBoundingClientRect()
+        const left = Math.max(0, rect.left)
+        const right = Math.max(0, window.innerWidth - rect.right)
+
+        root.style.left = `${left}px`
+        root.style.right = `${right}px`
+        root.style.width = 'auto'
+    }
+
+    static ensurePositionWatcher() {
+        if (this.positionWatcherAdded) {
+            return
+        }
+
+        this.positionWatcherAdded = true
+        window.addEventListener('resize', () => this.updateRootPosition())
+    }
+
+    static positionWatcherAdded = false
+
     static show(options = {}) {
 
         const existing = this.stack.find(
@@ -60,6 +91,8 @@ export default class CorbidevBanner {
     mount() {
         this.render()
         this.applyPosition()
+        this.constructor.updateRootPosition()
+        this.constructor.ensurePositionWatcher()
         this.animateIn()
         this.bind()
 
