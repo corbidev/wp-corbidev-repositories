@@ -26,8 +26,10 @@ export function initRepositoryInstaller() {
 
         if (!confirmed) return
 
-        button.disabled = true
+        window.CorbidevUI?.loading?.set(button, true)
         button.innerText = __('Installing...', 'corbidevrepositories')
+
+        let installSucceeded = false
 
         try {
 
@@ -37,23 +39,26 @@ export function initRepositoryInstaller() {
                 name
             })
 
-            window.CorbidevUI?.banner?.show({
-                message: __('Installation completed successfully', 'corbidevrepositories'),
-                type: 'success'
-            })
+            if (window.CorbidevUI?.toast?.show) {
+                window.CorbidevUI.toast.show(__('Installation completed successfully', 'corbidevrepositories'), 'success')
+            } else {
+                window.CorbidevUI?.banner?.show({
+                    message: __('Installation completed successfully', 'corbidevrepositories'),
+                    type: 'success'
+                })
+            }
 
             button.innerText = __('Installed', 'corbidevrepositories')
             button.classList.add('disabled')
+            installSucceeded = true
 
         } catch (error) {
 
-            window.CorbidevUI?.banner?.show({
-                message: error.message || __('Server error', 'corbidevrepositories'),
-                type: 'danger'
-            })
-
-            button.disabled = false
-            button.innerText = __('Install', 'corbidevrepositories')
+            window.CorbidevUI?.error?.handle(error)
+        } finally {
+            if (!installSucceeded) {
+                window.CorbidevUI?.loading?.set(button, false)
+            }
         }
     }
 

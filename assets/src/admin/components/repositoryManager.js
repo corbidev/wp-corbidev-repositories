@@ -38,7 +38,7 @@ export function initRepositoryManager() {
                 case 'deactivate':
                 case 'delete':
                 case 'update':
-                    setLoading(btn, true)
+                    CorbidevUI?.loading?.set(btn, true)
                     break
             }
 
@@ -127,22 +127,9 @@ export function initRepositoryManager() {
             })
 
         } finally {
-            if (btn) setLoading(btn, false)
+            if (btn) CorbidevUI?.loading?.set(btn, false)
         }
     })
-}
-
-function setLoading(btn, state) {
-    if (!btn) return
-
-    btn.disabled = state
-
-    if (state) {
-        btn.dataset.originalText = btn.innerHTML
-        btn.innerHTML = '...'
-    } else {
-        btn.innerHTML = btn.dataset.originalText || btn.innerHTML
-    }
 }
 
 function showBanner(message, type = 'success') {
