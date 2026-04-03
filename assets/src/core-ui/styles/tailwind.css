@@ -1,5 +1,10 @@
-@import "./components/modal.css";
-@import "./components/banner.css";
+@import './base/reset.css';
+@import './base/typography.css';
+@import './base/variables.css';
+
+@import './components/button.css';
+@import './components/modal.css';
+@import './components/banner.css';
 
 @tailwind base;
 @tailwind components;

@@ -1,6 +1,9 @@
 @import "./components/admin.css";
-@import "./components/modal.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --radius: 0.5rem;
+}
