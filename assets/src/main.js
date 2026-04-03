@@ -11,8 +11,3 @@ import { __ } from '@utils/i18n';
 // Exemple futur : init front features
 // import { initFront } from './components/front'
 // initFront()
-
-/**
- * Core UI est chargé via PHP (Assets)
- * → ne jamais l'importer ici
- */

@@ -2,9 +2,8 @@ import defaultTheme from 'tailwindcss/defaultTheme'
 
 export default {
   content: [
-    './admin/**/*.{php}',
-    './core-ui/**/*.{php}',
-    './assets/src/**/*.{vue,js,css,jsx}'
+    './admin/**/*.php',
+    './assets/src/**/*.{js,ts,jsx,tsx,css}'
   ],
   theme: {
     extend: {

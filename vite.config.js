@@ -1,10 +1,10 @@
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import react from '@vitejs/plugin-react'
 import path from 'path'
 
 export default defineConfig(({ mode }) => ({
 
-  plugins: [vue()],
+  plugins: [react()],
 
   root: '.',
 
@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => ({
       input: {
         app: path.resolve(__dirname, 'assets/src/main.js'),
         admin: path.resolve(__dirname, 'assets/src/admin/main.js'),
-        'core-ui': path.resolve(__dirname, 'assets/src/core-ui/main.js'),
+        'ui-bridge': path.resolve(__dirname, 'assets/src/ui-bridge/main.tsx'),
       },
 
       /**

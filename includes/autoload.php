@@ -35,24 +35,4 @@ spl_autoload_register(function (string $class): void {
 
         return;
     }
-
-    /*
-     * =========================
-     * CORE UI (NOUVEAU)
-     * =========================
-     */
-    if (str_starts_with($class, 'Corbidev\\CoreUI\\')) {
-
-        $relative = str_replace('Corbidev\\CoreUI\\', '', $class);
-        $relative = str_replace('\\', '/', $relative) . '.php';
-
-        $coreUiPath = dirname(__DIR__) . '/core-ui/includes/' . $relative;
-
-        if (file_exists($coreUiPath)) {
-            require_once $coreUiPath;
-            return;
-        }
-
-        return;
-    }
 });

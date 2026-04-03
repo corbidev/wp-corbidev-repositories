@@ -54,8 +54,6 @@ add_action('plugins_loaded', function () {
 
     \Corbidev\Repositories\Core\Plugin::init();
 
-    \Corbidev\CoreUI\Core\Renderer::register_hooks();
-
     \Corbidev\Repositories\Ajax\RepositoryAjax::register();
     \Corbidev\Repositories\Ajax\RepositoryAdminAjax::register();
 
