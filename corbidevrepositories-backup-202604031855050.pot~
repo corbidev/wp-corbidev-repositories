@@ -1,0 +1,679 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Corbidev Repositories\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-03 17:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.3; wp-6.9.4; php-8.4.0\n"
+"X-Domain: corbidevrepositories"
+
+#: admin/pages/templates/repository-manager-shadcn.php:66
+#: admin/pages/templates/repository-manager-shadcn.php:82
+msgid "Access"
+msgstr ""
+
+#: admin/pages/templates/repository-list.php:35
+msgid "Action"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:80
+#: admin/pages/templates/repository-list-shadcn.php:89
+#: admin/pages/templates/repository-manager-shadcn.php:67
+#: admin/pages/templates/repository-manager-shadcn.php:87
+msgid "Actions"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:97
+#: admin/pages/templates/repository-item.php:47
+msgid "Activate"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:48
+msgid "Active"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:9
+msgid "Add a custom tab"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:15
+msgid "Add a repository"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:17
+msgid ""
+"Add a repository owner and an optional token for authenticated GitHub access."
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:46
+msgid "Add repository"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:58
+msgid "Always escape output using WordPress functions"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:287
+msgid "Amber"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:298
+msgid "Auto-close after N seconds (0 = never)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:302
+msgid "Auto-hide on timer (true)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:36
+msgid "Available on Corbidev admin screens where the plugin assets are loaded."
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:29
+msgid "Available packages"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:91
+msgid "Banner delay (seconds)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:227
+msgid "Banner Examples"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:292
+msgid "Banner Options"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:282
+msgid "Banner Types"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:53
+msgid "Best for business logic and complex workflows."
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:307
+msgid "Best Practices"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:285
+msgid "Blue"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:313
+msgid "Business logic inside UI components"
+msgstr ""
+
+#: admin/pages/templates/logs-shadcn.php:20
+msgid "Clear logs"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:166
+msgid "Complete Examples"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:55
+msgid "Configured repositories"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:177
+msgid "Confirm Modal (returns boolean)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:89
+msgid "Content"
+msgstr ""
+
+#. Author of the plugin
+msgid "CorbiDev"
+msgstr ""
+
+#: admin/pages/templates/logs-shadcn.php:7
+msgid "Corbidev logs"
+msgstr ""
+
+#: includes/Core/Plugin.php:74
+msgid "Corbidev Plugins"
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:10
+msgid "Corbidev plugins"
+msgstr ""
+
+#. Name of the plugin
+msgid "Corbidev Repositories"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:135
+msgid "Corbidev Repositories plugin must be active."
+msgstr ""
+
+#: includes/Core/Plugin.php:86
+msgid "Corbidev Themes"
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:9
+msgid "Corbidev themes"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:4
+msgid ""
+"Corbidev UI allows external plugins to extend the developer documentation by "
+"adding custom tabs."
+msgstr ""
+
+#: admin/pages/templates/info-shell-shadcn.php:7
+msgid "Corbidev UI documentation"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:4
+msgid ""
+"Corbidev UI is the plugin UI bridge used on Corbidev admin screens. It "
+"provides reusable interactions like Modal and Banner, with a clean "
+"separation between UI and business logic."
+msgstr ""
+
+#: admin/pages/info.php:99
+msgid "Corbidev UI – Developer Guide"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:9
+msgid "Core Principles"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:20
+msgid "Core Rules (Important)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:84
+msgid "data-ui Attributes"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:101
+#: admin/pages/templates/repository-item.php:52
+msgid "Deactivate"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:78
+msgid "Default source"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:120
+#: admin/pages/templates/repository-item.php:70
+#: admin/pages/templates/repository-manager-shadcn.php:98
+msgid "Delete"
+msgstr ""
+
+#: admin/pages/templates/repository-list.php:33
+msgid "Description"
+msgstr ""
+
+#: admin/pages/templates/info-shell-shadcn.php:6
+msgid "Developer guide"
+msgstr ""
+
+#: admin/pages/templates/logs-shadcn.php:6
+msgid "Diagnostics"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:25
+msgid "Do not use alert() or confirm()"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:56
+msgid "Do not use inline JavaScript"
+msgstr ""
+
+#: admin/pages/templates/info-shell-shadcn.php:13
+msgid "Documentation sections"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:29
+msgid "e.g. corbidev"
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:31
+msgid ""
+"Each action below is wired to the Corbidev UI bridge and runs without "
+"leaving the page flow."
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:59
+msgid "Ensure your key is unique"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:243
+msgid "Error Banner"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:120
+msgid "Events"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:64
+msgid "Example"
+msgstr ""
+
+#: admin/pages/info.php:20
+msgid "Extending"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Gestion des dépôts GitHub Corbidev et installation des plugins et thèmes."
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:41
+msgid "GitHub access issue"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:7
+msgid "GitHub repository manager"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:32
+msgid "Global Object"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:289
+msgid "Gray"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:286
+msgid "Green"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:153
+msgid "HTML Markup"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:55
+msgid "HTML Mode (data-ui)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:271
+msgid "HTML Mode Banner"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:215
+msgid "HTML Mode Modal"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://github.com/CorbiDev"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/CorbiDev/wp-corbidev-repositories"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:65
+msgid "Hybrid Mode (Event-based)"
+msgstr ""
+
+#: includes/Core/Plugin.php:65 includes/Core/Plugin.php:66
+msgid "Info"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:252
+msgid "Info Banner at Bottom"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:91
+#: admin/pages/templates/repository-item.php:37
+msgid "Install"
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:23
+msgid ""
+"Install and maintain packages discovered from the repositories configured in "
+"the plugin."
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:58
+#: admin/pages/templates/repository-item-shadcn.php:75
+msgid "Installed"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:53
+msgid "Installed, inactive"
+msgstr ""
+
+#: admin/pages/templates/repository-item.php:23
+msgid "Installed:"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:129
+msgid "Integration in Your Plugin/Theme"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:47
+msgid "Internal tabs are always displayed before external tabs"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:42
+msgid "JavaScript Mode (Recommended)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:318
+msgid "Live Demo"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:13
+msgid "Logic is handled in JavaScript (async / await)"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:45
+msgid "Lower priority loads first (e.g. 1 before 10)"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:9
+msgid ""
+"Manage the source repositories used by the plugin to discover Corbidev "
+"packages."
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:312
+msgid "Mixing await and event for the same action"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:168
+msgid "Modal Examples"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:88
+msgid "Modal title"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:189
+msgid "Modal with Custom Buttons"
+msgstr ""
+
+#: admin/pages/templates/repository-list.php:32
+#: admin/pages/templates/repository-manager-shadcn.php:65
+#: admin/pages/templates/repository-manager-shadcn.php:74
+msgid "Name"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:14
+msgid "No business logic inside UI components"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:34
+msgid "No description available."
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:23
+msgid "No inline JavaScript in PHP (no onclick, no script tags)"
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:77
+msgid "No items found for the current repositories."
+msgstr ""
+
+#: admin/pages/templates/repository-list.php:25
+msgid "No items found."
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:63
+msgid "No JavaScript required. Ideal for themes and simple UI."
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:71
+msgid "No packages available"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:43
+msgid "Not installed"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:27
+msgid "One action = one mode (await OR data-ui)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:325
+msgid "Open Confirm"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:321
+msgid "Open Modal"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:39
+msgid "Optional access token"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:27
+#: admin/pages/templates/repository-list-shadcn.php:86
+msgid "Package"
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:76
+msgid ""
+"Packages will appear here again once GitHub access is restored for the "
+"configured repository owners."
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:14
+#: admin/pages/templates/repository-list.php:17
+msgid "Plugins"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:134
+msgid "Prerequisites:"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:90
+msgid "Protected repository"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:84
+msgid "Public access"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:288
+msgid "Red"
+msgstr ""
+
+#: admin/pages/templates/info-shell-shadcn.php:9
+msgid ""
+"Reference the UI bridge, its interaction patterns, and the documented "
+"extension points used by Corbidev admin pages."
+msgstr ""
+
+#: includes/Core/Plugin.php:46
+#: admin/pages/templates/repository-manager-shadcn.php:6
+msgid "Repositories"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:24
+msgid "Repository owner"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:107
+msgid "Returns true / false."
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:15
+msgid "Reusable across plugins and themes"
+msgstr ""
+
+#: admin/pages/templates/logs-shadcn.php:9
+msgid ""
+"Review the latest plugin log output and clear it whenever you want a fresh "
+"troubleshooting session."
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:52
+msgid "Rules"
+msgstr ""
+
+#: admin/pages/templates/logs-shadcn.php:15
+msgid "Runtime log"
+msgstr ""
+
+#: includes/Core/Plugin.php:56 includes/Core/Plugin.php:57
+msgid "Settings"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:329
+msgid "Show Banner"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:301
+msgid "Show close button (true)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:229
+msgid "Simple Banner"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:170
+msgid "Simple Modal"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:38
+#: admin/pages/templates/repository-list-shadcn.php:87
+msgid "Status"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:297
+msgid "Style: info, success, warning, danger, neutral"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:235
+msgid "Success Banner"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:46
+msgid "Tabs with the same priority are sorted by their key (stable order)"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:32
+msgid "Template location"
+msgstr ""
+
+#: admin/pages/info.php:123 admin/pages/templates/info-shell-shadcn.php:32
+msgid "Template not found."
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:72
+msgid "Test Banner"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:295
+msgid "Text to display (required)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:131
+msgid ""
+"The Corbidev UI bridge is automatically loaded by the Corbidev Repositories "
+"plugin on its admin screens. You don't need to do anything special - just "
+"use CorbidevUI in your code!"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:57
+msgid ""
+"The default Corbidev repository remains available as a protected fallback "
+"source."
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:51
+#, php-format
+msgid ""
+"The GitHub repository owner \"%s\" can no longer access the GitHub API right "
+"now because the rate limit has been reached."
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:56
+#, php-format
+msgid ""
+"The GitHub repository owner \"%s\" is currently unavailable through the "
+"GitHub API."
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:55
+msgid "The template file must exist"
+msgstr ""
+
+#: admin/pages/templates/repository-list-shadcn.php:13
+#: admin/pages/templates/repository-list.php:16
+msgid "Themes"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:34
+msgid "Token"
+msgstr ""
+
+#: admin/pages/templates/repository-manager-shadcn.php:84
+msgid "Token configured"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:300
+msgid "top (default) or bottom"
+msgstr ""
+
+#: admin/pages/info.php:14
+msgid "UI (Modal & Banner)"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:12
+msgid "UI is declarative (HTML → data-*)"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:42
+msgid "Understanding priority"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:115
+#: admin/pages/templates/repository-item.php:63
+msgid "Update"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:65
+msgid "Update available"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:40
+msgid "Usage Modes"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:26
+msgid "Use CorbidevUI for all UI interactions"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:137
+msgid "Use CorbidevUI in Your Code"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:57
+msgid "Use data-ui attributes for interactions"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:12
+msgid "Use the WordPress filter to register your tab:"
+msgstr ""
+
+#: admin/pages/templates/repository-item-shadcn.php:70
+#: admin/pages/templates/repository-list-shadcn.php:88
+#: admin/pages/templates/repository-list.php:34
+msgid "Version"
+msgstr ""
+
+#: admin/pages/templates/info-ui.php:262
+msgid "Warning Banner"
+msgstr ""
+
+#: admin/pages/templates/info-extending.php:35
+msgid "Your template can be located anywhere inside your plugin."
+msgstr ""

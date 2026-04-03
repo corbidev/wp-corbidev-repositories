@@ -1,14 +1,13 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Corbidev Repositories\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-03 18:55+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"POT-Creation-Date: 2026-04-03 17:52+0000\n"
+"PO-Revision-Date: 2026-04-03 18:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: Français\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +18,7 @@ msgstr ""
 #: admin/pages/templates/repository-manager-shadcn.php:66
 #: admin/pages/templates/repository-manager-shadcn.php:82
 msgid "Access"
-msgstr ""
+msgstr "Accès"
 
 #: admin/pages/templates/info-ui.php:200
 msgid ""
@@ -29,40 +28,42 @@ msgstr ""
 
 #: admin/pages/templates/repository-list.php:35
 msgid "Action"
-msgstr ""
+msgstr "Action"
 
 #: admin/pages/templates/repository-item-shadcn.php:80
 #: admin/pages/templates/repository-list-shadcn.php:89
 #: admin/pages/templates/repository-manager-shadcn.php:67
 #: admin/pages/templates/repository-manager-shadcn.php:122
 msgid "Actions"
-msgstr ""
+msgstr "Actions"
 
 #: admin/pages/templates/repository-item-shadcn.php:97
 #: admin/pages/templates/repository-item.php:47
 msgid "Activate"
-msgstr ""
+msgstr "Activer"
 
 #: admin/pages/templates/repository-item-shadcn.php:48
 msgid "Active"
-msgstr ""
+msgstr "Actif"
 
 #: admin/pages/templates/info-extending.php:9
 msgid "Add a custom tab"
-msgstr ""
+msgstr "Ajouter un onglet personnalisé"
 
 #: admin/pages/templates/repository-manager-shadcn.php:15
 msgid "Add a repository"
-msgstr ""
+msgstr "Ajouter un dépôt"
 
 #: admin/pages/templates/repository-manager-shadcn.php:17
 msgid ""
 "Add a repository owner and an optional token for authenticated GitHub access."
 msgstr ""
+"Ajouter un propriétaire de dépôt et un jeton optionnel pour l'accès "
+"authentifié à GitHub."
 
 #: admin/pages/templates/repository-manager-shadcn.php:46
 msgid "Add repository"
-msgstr ""
+msgstr "Ajouter un dépôt"
 
 #: admin/pages/templates/info-ui.php:254
 msgid "Advanced modal example with custom buttons"
@@ -70,51 +71,53 @@ msgstr ""
 
 #: admin/pages/templates/info-extending.php:60
 msgid "Always escape output using WordPress functions"
-msgstr ""
+msgstr "Échapper toujours à la sortie en utilisant les fonctions de WordPress"
 
 #: admin/pages/templates/info-ui.php:615
 msgid "Amber"
-msgstr ""
+msgstr "Ambre"
 
 #: admin/pages/templates/info-ui.php:626
 msgid "Auto-close after N seconds (0 = never)"
-msgstr ""
+msgstr "Fermeture automatique après N secondes (0 = jamais)"
 
 #: admin/pages/templates/info-ui.php:630
 msgid "Auto-hide on timer (true)"
-msgstr ""
+msgstr "Masquage automatique sur minuterie (true)"
 
 #: admin/pages/templates/info-ui.php:364
 msgid "Available on Corbidev admin screens where the plugin assets are loaded."
 msgstr ""
+"Disponible sur les écrans d'administration Corbidev où les actifs du plugin "
+"sont chargés."
 
 #: admin/pages/templates/repository-list-shadcn.php:29
 msgid "Available packages"
-msgstr ""
+msgstr "Formules disponibles"
 
 #: admin/pages/templates/info-ui.php:419
 msgid "Banner delay (seconds)"
-msgstr ""
+msgstr "Délai de la bannière (secondes)"
 
 #: admin/pages/templates/info-ui.php:555
 msgid "Banner Examples"
-msgstr ""
+msgstr "Exemples de bannières"
 
 #: admin/pages/templates/info-ui.php:620
 msgid "Banner Options"
-msgstr ""
+msgstr "Options de la bannière"
 
 #: admin/pages/templates/info-ui.php:610
 msgid "Banner Types"
-msgstr ""
+msgstr "Types de bannières"
 
 #: admin/pages/templates/info-ui.php:381
 msgid "Best for business logic and complex workflows."
-msgstr ""
+msgstr "Idéal pour la logique d'entreprise et les flux de travail complexes."
 
 #: admin/pages/templates/info-ui.php:635
 msgid "Best Practices"
-msgstr ""
+msgstr "Meilleures pratiques"
 
 #: admin/pages/templates/info-ui.php:288
 msgid "Best practices"
@@ -122,11 +125,11 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:613
 msgid "Blue"
-msgstr ""
+msgstr "Bleu"
 
 #: admin/pages/templates/info-ui.php:641
 msgid "Business logic inside UI components"
-msgstr ""
+msgstr "Logique métier à l'intérieur des composants de l'interface utilisateur"
 
 #: admin/pages/templates/info-ui.php:192
 msgid "Card layouts and empty states"
@@ -134,7 +137,7 @@ msgstr ""
 
 #: admin/pages/templates/logs-shadcn.php:20
 msgid "Clear logs"
-msgstr ""
+msgstr "Effacer les journaux"
 
 #: admin/pages/templates/repository-manager-shadcn.php:116
 msgid "Clear token"
@@ -146,7 +149,7 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:494
 msgid "Complete Examples"
-msgstr ""
+msgstr "Exemples complets"
 
 #: admin/pages/templates/info-ui.php:191
 msgid "Component variants such as primary, danger, outline, and ghost buttons"
@@ -154,19 +157,19 @@ msgstr ""
 
 #: admin/pages/templates/repository-manager-shadcn.php:55
 msgid "Configured repositories"
-msgstr ""
+msgstr "Dépôts configurés"
 
 #: admin/pages/templates/info-ui.php:505
 msgid "Confirm Modal (returns boolean)"
-msgstr ""
+msgstr "Confirmation modale (renvoie un booléen)"
 
 #: admin/pages/templates/info-ui.php:417
 msgid "Content"
-msgstr ""
+msgstr "Contenu"
 
 #. Author of the plugin
 msgid "CorbiDev"
-msgstr ""
+msgstr "CorbiDev"
 
 #: admin/pages/templates/info-ui.php:41
 msgid "Corbidev admin pages: bridge available automatically"
@@ -174,41 +177,43 @@ msgstr ""
 
 #: admin/pages/templates/logs-shadcn.php:7
 msgid "Corbidev logs"
-msgstr ""
+msgstr "Grumes de Corbidev"
 
 #: includes/Core/Plugin.php:79
 msgid "Corbidev Plugins"
-msgstr ""
+msgstr "Plugins Corbidev"
 
 #: admin/pages/templates/repository-list-shadcn.php:10
 msgid "Corbidev plugins"
-msgstr ""
+msgstr "Plugins Corbidev"
 
 #. Name of the plugin
 msgid "Corbidev Repositories"
-msgstr ""
+msgstr "Dépôts Corbidev"
 
 #: admin/pages/templates/info-ui.php:463
 msgid "Corbidev Repositories plugin must be active."
-msgstr ""
+msgstr "Le plugin Corbidev Repositories doit être actif."
 
 #: includes/Core/Plugin.php:91
 msgid "Corbidev Themes"
-msgstr ""
+msgstr "Thèmes Corbidev"
 
 #: admin/pages/templates/repository-list-shadcn.php:9
 msgid "Corbidev themes"
-msgstr ""
+msgstr "Thèmes de Corbidev"
 
 #: admin/pages/templates/info-extending.php:4
 msgid ""
 "Corbidev UI allows external plugins to extend the developer documentation by "
 "adding custom tabs."
 msgstr ""
+"Corbidev UI permet à des plugins externes d'étendre la documentation du "
+"développeur en ajoutant des onglets personnalisés."
 
 #: admin/pages/templates/info-shell-shadcn.php:7
 msgid "Corbidev UI documentation"
-msgstr ""
+msgstr "Documentation de l'interface utilisateur Corbidev"
 
 #: admin/pages/templates/info-ui.php:332
 msgid ""
@@ -216,10 +221,14 @@ msgid ""
 "provides reusable interactions like Modal and Banner, with a clean "
 "separation between UI and business logic."
 msgstr ""
+"Corbidev UI est le plugin UI bridge utilisé sur les écrans d'administration "
+"de Corbidev. Il fournit des interactions réutilisables comme Modal et Banner,"
+" avec une séparation nette entre l'interface utilisateur et la logique "
+"métier."
 
 #: admin/pages/info.php:99
 msgid "Corbidev UI – Developer Guide"
-msgstr ""
+msgstr "Corbidev UI - Guide du développeur"
 
 #: admin/pages/templates/info-ui.php:21
 msgid ""
@@ -229,20 +238,20 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:337
 msgid "Core Principles"
-msgstr ""
+msgstr "Principes fondamentaux"
 
 #: admin/pages/templates/info-ui.php:348
 msgid "Core Rules (Important)"
-msgstr ""
+msgstr "Règles de base (Important)"
 
 #: admin/pages/templates/info-ui.php:412
 msgid "data-ui Attributes"
-msgstr ""
+msgstr "data-ui Attributs"
 
 #: admin/pages/templates/repository-item-shadcn.php:101
 #: admin/pages/templates/repository-item.php:52
 msgid "Deactivate"
-msgstr ""
+msgstr "Désactiver"
 
 #: admin/pages/templates/info-ui.php:225
 msgid "Declarative mode with data-ui"
@@ -250,25 +259,25 @@ msgstr ""
 
 #: admin/pages/templates/repository-manager-shadcn.php:78
 msgid "Default source"
-msgstr ""
+msgstr "Source par défaut"
 
 #: admin/pages/templates/repository-item-shadcn.php:120
 #: admin/pages/templates/repository-item.php:70
 #: admin/pages/templates/repository-manager-shadcn.php:133
 msgid "Delete"
-msgstr ""
+msgstr "Supprimer"
 
 #: admin/pages/templates/repository-list.php:33
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: admin/pages/templates/info-shell-shadcn.php:6
 msgid "Developer guide"
-msgstr ""
+msgstr "Guide du développeur"
 
 #: admin/pages/templates/logs-shadcn.php:6
 msgid "Diagnostics"
-msgstr ""
+msgstr "Diagnostics"
 
 #: admin/pages/templates/info-ui.php:159
 msgid "Do not assume admin assets are loaded on the frontend"
@@ -282,37 +291,39 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:353
 msgid "Do not use alert() or confirm()"
-msgstr ""
+msgstr "Ne pas utiliser alert() ou confirm()"
 
 #: admin/pages/templates/info-extending.php:58
 msgid "Do not use inline JavaScript"
-msgstr ""
+msgstr "Ne pas utiliser de JavaScript en ligne"
 
 #: admin/pages/templates/info-shell-shadcn.php:13
 msgid "Documentation sections"
-msgstr ""
+msgstr "Sections de la documentation"
 
 #: admin/pages/templates/repository-manager-shadcn.php:29
 msgid "e.g. corbidev"
-msgstr ""
+msgstr "par exemple, corbidev"
 
 #: admin/pages/templates/repository-list-shadcn.php:31
 msgid ""
 "Each action below is wired to the Corbidev UI bridge and runs without "
 "leaving the page flow."
 msgstr ""
+"Chaque action ci-dessous est reliée au pont Corbidev UI et s'exécute sans "
+"quitter le flux de la page."
 
 #: admin/pages/templates/info-extending.php:61
 msgid "Ensure your key is unique"
-msgstr ""
+msgstr "Veillez à ce que votre clé soit unique"
 
 #: admin/pages/templates/info-ui.php:571
 msgid "Error Banner"
-msgstr ""
+msgstr "Bannière d'erreur"
 
 #: admin/pages/templates/info-ui.php:448
 msgid "Events"
-msgstr ""
+msgstr "Evénements"
 
 #: admin/pages/templates/info-ui.php:203
 msgid "Example: custom button family"
@@ -332,7 +343,7 @@ msgstr ""
 
 #: admin/pages/info.php:20
 msgid "Extending"
-msgstr ""
+msgstr "Extension"
 
 #: admin/pages/templates/info-ui.php:228
 msgid ""
@@ -351,26 +362,27 @@ msgstr ""
 msgid ""
 "Gestion des dépôts GitHub Corbidev et installation des plugins et thèmes."
 msgstr ""
+"Gestion des dépôts GitHub Corbidev et installation des plugins et thèmes."
 
 #: admin/pages/templates/repository-list-shadcn.php:41
 msgid "GitHub access issue"
-msgstr ""
+msgstr "Problème d'accès à GitHub"
 
 #: admin/pages/templates/repository-manager-shadcn.php:7
 msgid "GitHub repository manager"
-msgstr ""
+msgstr "Gestionnaire de dépôt GitHub"
 
 #: admin/pages/templates/info-ui.php:360
 msgid "Global Object"
-msgstr ""
+msgstr "Objet global"
 
 #: admin/pages/templates/info-ui.php:617
 msgid "Gray"
-msgstr ""
+msgstr "Gris"
 
 #: admin/pages/templates/info-ui.php:614
 msgid "Green"
-msgstr ""
+msgstr "Vert"
 
 #: admin/pages/templates/info-ui.php:293
 msgid ""
@@ -384,31 +396,31 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:481
 msgid "HTML Markup"
-msgstr ""
+msgstr "Balisage HTML"
 
 #: admin/pages/templates/info-ui.php:383
 msgid "HTML Mode (data-ui)"
-msgstr ""
+msgstr "Mode HTML (data-ui)"
 
 #: admin/pages/templates/info-ui.php:599
 msgid "HTML Mode Banner"
-msgstr ""
+msgstr "Bannière en mode HTML"
 
 #: admin/pages/templates/info-ui.php:543
 msgid "HTML Mode Modal"
-msgstr ""
+msgstr "Mode HTML Modal"
 
 #. Author URI of the plugin
 msgid "https://github.com/CorbiDev"
-msgstr ""
+msgstr "https://github.com/CorbiDev"
 
 #. URI of the plugin
 msgid "https://github.com/CorbiDev/wp-corbidev-repositories"
-msgstr ""
+msgstr "https://github.com/CorbiDev/wp-corbidev-repositories"
 
 #: admin/pages/templates/info-ui.php:393
 msgid "Hybrid Mode (Event-based)"
-msgstr ""
+msgstr "Mode hybride (basé sur les événements)"
 
 #: admin/pages/templates/info-ui.php:175
 msgid ""
@@ -439,39 +451,41 @@ msgstr ""
 
 #: includes/Core/Plugin.php:70 includes/Core/Plugin.php:71
 msgid "Info"
-msgstr ""
+msgstr "Info"
 
 #: admin/pages/templates/info-ui.php:580
 msgid "Info Banner at Bottom"
-msgstr ""
+msgstr "Bannière d'information en bas"
 
 #: admin/pages/templates/repository-item-shadcn.php:91
 #: admin/pages/templates/repository-item.php:37
 msgid "Install"
-msgstr ""
+msgstr "Installer"
 
 #: admin/pages/templates/repository-list-shadcn.php:23
 msgid ""
 "Install and maintain packages discovered from the repositories configured in "
 "the plugin."
 msgstr ""
+"Installer et maintenir les paquets découverts dans les dépôts configurés "
+"dans le plugin."
 
 #: admin/pages/templates/repository-item-shadcn.php:58
 #: admin/pages/templates/repository-item-shadcn.php:75
 msgid "Installed"
-msgstr ""
+msgstr "Installé"
 
 #: admin/pages/templates/repository-item-shadcn.php:53
 msgid "Installed, inactive"
-msgstr ""
+msgstr "Installé, inactif"
 
 #: admin/pages/templates/repository-item.php:23
 msgid "Installed:"
-msgstr ""
+msgstr "Installé :"
 
 #: admin/pages/templates/info-ui.php:457
 msgid "Integration in Your Plugin/Theme"
-msgstr ""
+msgstr "Intégration dans votre plugin/thème"
 
 #: admin/pages/templates/info-ui.php:59
 msgid "Integration inside a plugin admin page"
@@ -487,7 +501,7 @@ msgstr ""
 
 #: admin/pages/templates/info-extending.php:48
 msgid "Internal tabs are always displayed before external tabs"
-msgstr ""
+msgstr "Les onglets internes sont toujours affichés avant les onglets externes"
 
 #: admin/pages/templates/info-ui.php:16
 msgid "It is important to separate two layers:"
@@ -495,7 +509,7 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:370
 msgid "JavaScript Mode (Recommended)"
-msgstr ""
+msgstr "Mode JavaScript (recommandé)"
 
 #: admin/pages/templates/info-ui.php:54
 msgid ""
@@ -510,7 +524,7 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:646
 msgid "Live Demo"
-msgstr ""
+msgstr "Démonstration en direct"
 
 #: admin/pages/templates/info-ui.php:300
 msgid "Live demo"
@@ -518,17 +532,21 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:341
 msgid "Logic is handled in JavaScript (async / await)"
-msgstr ""
+msgstr "La logique est gérée en JavaScript (async / await)"
 
 #: admin/pages/templates/info-extending.php:45
 msgid "Lower priority loads first (e.g. 1 before 10)"
 msgstr ""
+"Les charges les moins prioritaires sont les premières (par exemple, 1 avant "
+"10)"
 
 #: admin/pages/templates/repository-manager-shadcn.php:9
 msgid ""
 "Manage the source repositories used by the plugin to discover Corbidev "
 "packages."
 msgstr ""
+"Gérer les dépôts de sources utilisés par le plugin pour découvrir les "
+"paquets Corbidev."
 
 #: includes/Ajax/RepositoryAdminAjax.php:35
 #: includes/Ajax/RepositoryAdminAjax.php:53
@@ -538,65 +556,68 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:640
 msgid "Mixing await and event for the same action"
-msgstr ""
+msgstr "Mélanger await et event pour la même action"
 
 #: admin/pages/templates/info-ui.php:496
 msgid "Modal Examples"
-msgstr ""
+msgstr "Exemples modaux"
 
 #: admin/pages/templates/info-ui.php:416
 msgid "Modal title"
-msgstr ""
+msgstr "Titre modal"
 
 #: admin/pages/templates/info-ui.php:517
 msgid "Modal with Custom Buttons"
-msgstr ""
+msgstr "Modale avec boutons personnalisés"
 
 #: admin/pages/templates/repository-list.php:32
 #: admin/pages/templates/repository-manager-shadcn.php:65
 #: admin/pages/templates/repository-manager-shadcn.php:74
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: admin/pages/templates/info-ui.php:342
 msgid "No business logic inside UI components"
-msgstr ""
+msgstr "Pas de logique métier dans les composants de l'interface utilisateur"
 
 #: admin/pages/templates/repository-item-shadcn.php:34
 msgid "No description available."
-msgstr ""
+msgstr "Aucune description n'est disponible."
 
 #: admin/pages/templates/info-ui.php:351
 msgid "No inline JavaScript in PHP (no onclick, no script tags)"
 msgstr ""
+"Pas de JavaScript en ligne en PHP (pas de onclick, pas de balises de script)"
 
 #: admin/pages/templates/repository-list-shadcn.php:77
 msgid "No items found for the current repositories."
-msgstr ""
+msgstr "Aucun élément n'a été trouvé pour les dépôts actuels."
 
 #: admin/pages/templates/repository-list.php:25
 msgid "No items found."
-msgstr ""
+msgstr "Aucun élément n'a été trouvé."
 
 #: admin/pages/templates/info-ui.php:391
 msgid "No JavaScript required. Ideal for themes and simple UI."
 msgstr ""
+"Aucun JavaScript n'est nécessaire. Idéal pour les thèmes et les interfaces "
+"utilisateur simples."
 
 #: admin/pages/templates/repository-list-shadcn.php:71
 msgid "No packages available"
-msgstr ""
+msgstr "Pas de forfaits disponibles"
 
 #: admin/pages/templates/repository-item-shadcn.php:43
 msgid "Not installed"
-msgstr ""
+msgstr "Non installé"
 
 #: admin/pages/templates/info-ui.php:355
 msgid "One action = one mode (await OR data-ui)"
-msgstr ""
+msgstr "Une action = un mode (await OR data-ui)"
 
 #: admin/pages/templates/info-ui.php:653
 msgid "Open Confirm"
-msgstr ""
+msgstr "Ouvrir Confirmer"
 
 #: admin/pages/templates/info-ui.php:317
 msgid "Open confirm"
@@ -604,7 +625,7 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:649
 msgid "Open Modal"
-msgstr ""
+msgstr "Ouvrir la fenêtre modale"
 
 #: admin/pages/templates/info-ui.php:308
 msgid "Open modal"
@@ -612,18 +633,20 @@ msgstr ""
 
 #: admin/pages/templates/repository-manager-shadcn.php:39
 msgid "Optional access token"
-msgstr ""
+msgstr "Jeton d'accès facultatif"
 
 #: admin/pages/templates/repository-item-shadcn.php:27
 #: admin/pages/templates/repository-list-shadcn.php:86
 msgid "Package"
-msgstr ""
+msgstr "Paquet"
 
 #: admin/pages/templates/repository-list-shadcn.php:76
 msgid ""
 "Packages will appear here again once GitHub access is restored for the "
 "configured repository owners."
 msgstr ""
+"Les paquets apparaîtront à nouveau ici une fois que l'accès à GitHub sera "
+"rétabli pour les propriétaires des dépôts configurés."
 
 #: admin/pages/templates/repository-manager-shadcn.php:98
 msgid "Personal access token"
@@ -636,7 +659,7 @@ msgstr ""
 #: admin/pages/templates/repository-list-shadcn.php:14
 #: admin/pages/templates/repository-list.php:17
 msgid "Plugins"
-msgstr ""
+msgstr "Plugins"
 
 #: admin/pages/templates/info-ui.php:291
 msgid ""
@@ -651,15 +674,15 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:462
 msgid "Prerequisites:"
-msgstr ""
+msgstr "Prérequis :"
 
 #: admin/pages/templates/repository-manager-shadcn.php:125
 msgid "Protected repository"
-msgstr ""
+msgstr "Dépôt protégé"
 
 #: admin/pages/templates/repository-manager-shadcn.php:86
 msgid "Public access"
-msgstr ""
+msgstr "Accès public"
 
 #: admin/pages/templates/info-ui.php:48
 msgid "Recommended architecture"
@@ -667,13 +690,16 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:616
 msgid "Red"
-msgstr ""
+msgstr "Rouge"
 
 #: admin/pages/templates/info-shell-shadcn.php:9
 msgid ""
 "Reference the UI bridge, its interaction patterns, and the documented "
 "extension points used by Corbidev admin pages."
 msgstr ""
+"Référencer le pont de l'interface utilisateur, ses modèles d'interaction et "
+"les points d'extension documentés utilisés par les pages d'administration "
+"Corbidev."
 
 #: admin/pages/templates/info-ui.php:129
 msgid ""
@@ -683,19 +709,19 @@ msgstr ""
 #: includes/Core/Plugin.php:51
 #: admin/pages/templates/repository-manager-shadcn.php:6
 msgid "Repositories"
-msgstr ""
+msgstr "Référentiels"
 
 #: admin/pages/templates/repository-manager-shadcn.php:24
 msgid "Repository owner"
-msgstr ""
+msgstr "Propriétaire du référentiel"
 
 #: admin/pages/templates/info-ui.php:435
 msgid "Returns true / false."
-msgstr ""
+msgstr "Retourne vrai / faux."
 
 #: admin/pages/templates/info-ui.php:343
 msgid "Reusable across plugins and themes"
-msgstr ""
+msgstr "Réutilisable à travers les plugins et les thèmes"
 
 #: admin/pages/templates/info-ui.php:128
 msgid ""
@@ -708,14 +734,16 @@ msgid ""
 "Review the latest plugin log output and clear it whenever you want a fresh "
 "troubleshooting session."
 msgstr ""
+"Examinez le dernier journal du plugin et effacez-le chaque fois que vous "
+"souhaitez une nouvelle session de dépannage."
 
 #: admin/pages/templates/info-extending.php:54
 msgid "Rules"
-msgstr ""
+msgstr "Règles"
 
 #: admin/pages/templates/logs-shadcn.php:15
 msgid "Runtime log"
-msgstr ""
+msgstr "Journal d'exécution"
 
 #: admin/pages/templates/info-ui.php:132
 msgid "Safe guard before using the bridge"
@@ -727,7 +755,7 @@ msgstr ""
 
 #: includes/Core/Plugin.php:61 includes/Core/Plugin.php:62
 msgid "Settings"
-msgstr ""
+msgstr "Paramètres"
 
 #: admin/pages/templates/info-ui.php:20
 msgid "shadcn-style UI = the visual system and component appearance"
@@ -735,7 +763,7 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:657
 msgid "Show Banner"
-msgstr ""
+msgstr "Afficher la bannière"
 
 #: admin/pages/templates/info-ui.php:326
 msgid "Show banner"
@@ -743,15 +771,15 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:629
 msgid "Show close button (true)"
-msgstr ""
+msgstr "Afficher le bouton de fermeture (true)"
 
 #: admin/pages/templates/info-ui.php:557
 msgid "Simple Banner"
-msgstr ""
+msgstr "Bannière simple"
 
 #: admin/pages/templates/info-ui.php:498
 msgid "Simple Modal"
-msgstr ""
+msgstr "Modal simple"
 
 #: admin/pages/templates/info-ui.php:189
 msgid "Spacing, border radius, shadows, and typography scale"
@@ -760,31 +788,32 @@ msgstr ""
 #: admin/pages/templates/repository-item-shadcn.php:38
 #: admin/pages/templates/repository-list-shadcn.php:87
 msgid "Status"
-msgstr ""
+msgstr "Statut"
 
 #: admin/pages/templates/info-ui.php:625
 msgid "Style: info, success, warning, danger, neutral"
-msgstr ""
+msgstr "Style : info, succès, avertissement, danger, neutre"
 
 #: admin/pages/templates/info-ui.php:563
 msgid "Success Banner"
-msgstr ""
+msgstr "Bannière du succès"
 
 #: admin/pages/templates/info-extending.php:46
 msgid "Tabs with the same priority are sorted by their key (stable order)"
 msgstr ""
+"Les onglets ayant la même priorité sont triés par leur clé (ordre stable)"
 
 #: admin/pages/templates/info-extending.php:32
 msgid "Template location"
-msgstr ""
+msgstr "Emplacement du modèle"
 
 #: admin/pages/info.php:122 admin/pages/templates/info-shell-shadcn.php:32
 msgid "Template not found."
-msgstr ""
+msgstr "Le modèle n'a pas été trouvé."
 
 #: admin/pages/templates/info-ui.php:623
 msgid "Text to display (required)"
-msgstr ""
+msgstr "Texte à afficher (obligatoire)"
 
 #: admin/pages/templates/info-ui.php:37
 msgid ""
@@ -800,6 +829,9 @@ msgid ""
 "plugin on its admin screens. You don't need to do anything special - just "
 "use CorbidevUI in your code!"
 msgstr ""
+"La passerelle Corbidev UI est automatiquement chargée par le plugin Corbidev "
+"Repositories sur ses écrans d'administration. Vous n'avez rien à faire de "
+"spécial - utilisez simplement CorbidevUI dans votre code !"
 
 #: admin/pages/templates/info-ui.php:198
 msgid "The CorbidevUI API surface"
@@ -814,6 +846,8 @@ msgid ""
 "The default Corbidev repository remains available as a protected fallback "
 "source."
 msgstr ""
+"Le dépôt Corbidev par défaut reste disponible en tant que source de secours "
+"protégée."
 
 #: admin/pages/templates/repository-manager-shadcn.php:89
 msgid "The default repository name is locked."
@@ -825,6 +859,8 @@ msgid ""
 "The GitHub repository owner \"%s\" can no longer access the GitHub API right "
 "now because the rate limit has been reached."
 msgstr ""
+"Le propriétaire du dépôt GitHub \"%s\" ne peut plus accéder à l'API GitHub "
+"en ce moment car la limite de débit a été atteinte."
 
 #: admin/pages/templates/repository-list-shadcn.php:56
 #, php-format
@@ -832,6 +868,8 @@ msgid ""
 "The GitHub repository owner \"%s\" is currently unavailable through the "
 "GitHub API."
 msgstr ""
+"Le propriétaire du dépôt GitHub \"%s\" est actuellement indisponible via "
+"l'API GitHub."
 
 #: admin/pages/templates/info-ui.php:183
 msgid ""
@@ -845,7 +883,7 @@ msgstr ""
 
 #: admin/pages/templates/info-extending.php:57
 msgid "The template file must exist"
-msgstr ""
+msgstr "Le fichier modèle doit exister"
 
 #: admin/pages/templates/info-ui.php:43
 msgid ""
@@ -855,7 +893,7 @@ msgstr ""
 #: admin/pages/templates/repository-list-shadcn.php:13
 #: admin/pages/templates/repository-list.php:16
 msgid "Themes"
-msgstr ""
+msgstr "Thèmes"
 
 #: admin/pages/templates/info-ui.php:147
 msgid ""
@@ -882,15 +920,15 @@ msgstr ""
 
 #: admin/pages/templates/repository-manager-shadcn.php:34
 msgid "Token"
-msgstr ""
+msgstr "Jeton"
 
 #: admin/pages/templates/repository-manager-shadcn.php:86
 msgid "Token configured"
-msgstr ""
+msgstr "Jeton configuré"
 
 #: admin/pages/templates/info-ui.php:628
 msgid "top (default) or bottom"
-msgstr ""
+msgstr "en haut (par défaut) ou en bas"
 
 #: admin/pages/templates/info-ui.php:295
 msgid ""
@@ -900,11 +938,11 @@ msgstr ""
 
 #: admin/pages/info.php:14
 msgid "UI (Modal & Banner)"
-msgstr ""
+msgstr "Interface utilisateur (modale et bannière)"
 
 #: admin/pages/templates/info-ui.php:340
 msgid "UI is declarative (HTML → data-*)"
-msgstr ""
+msgstr "L'interface utilisateur est déclarative (HTML → data-*)"
 
 #: includes/Ajax/RepositoryAdminAjax.php:78
 msgid "Unable to delete this repository."
@@ -920,24 +958,25 @@ msgstr ""
 
 #: admin/pages/templates/info-extending.php:42
 msgid "Understanding priority"
-msgstr ""
+msgstr "Comprendre la priorité"
 
 #: admin/pages/templates/repository-item-shadcn.php:115
 #: admin/pages/templates/repository-item.php:63
 msgid "Update"
-msgstr ""
+msgstr "Mise à jour"
 
 #: admin/pages/templates/repository-item-shadcn.php:65
 msgid "Update available"
-msgstr ""
+msgstr "Mise à jour disponible"
 
 #: admin/pages/templates/info-ui.php:368
 msgid "Usage Modes"
-msgstr ""
+msgstr "Modes d'utilisation"
 
 #: admin/pages/templates/info-ui.php:354
 msgid "Use CorbidevUI for all UI interactions"
 msgstr ""
+"Utiliser CorbidevUI pour toutes les interactions avec l'interface utilisateur"
 
 #: admin/pages/templates/info-ui.php:53
 msgid ""
@@ -947,7 +986,7 @@ msgstr ""
 
 #: admin/pages/templates/info-ui.php:465
 msgid "Use CorbidevUI in Your Code"
-msgstr ""
+msgstr "Utilisez CorbidevUI dans votre code"
 
 #: admin/pages/templates/info-ui.php:292
 msgid "Use CorbidevUI.error.handle(error) for unexpected runtime errors"
@@ -955,7 +994,7 @@ msgstr ""
 
 #: admin/pages/templates/info-extending.php:59
 msgid "Use data-ui attributes for interactions"
-msgstr ""
+msgstr "Utiliser les attributs data-ui pour les interactions"
 
 #: admin/pages/templates/info-ui.php:51
 msgid "Use PHP templates for structure and escaped data output"
@@ -967,7 +1006,7 @@ msgstr ""
 
 #: admin/pages/templates/info-extending.php:12
 msgid "Use the WordPress filter to register your tab:"
-msgstr ""
+msgstr "Utilisez le filtre WordPress pour enregistrer votre onglet :"
 
 #: admin/pages/templates/info-ui.php:249
 msgid ""
@@ -979,11 +1018,11 @@ msgstr ""
 #: admin/pages/templates/repository-list-shadcn.php:88
 #: admin/pages/templates/repository-list.php:34
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: admin/pages/templates/info-ui.php:590
 msgid "Warning Banner"
-msgstr ""
+msgstr "Bannière d'avertissement"
 
 #: admin/pages/templates/info-ui.php:9
 msgid "What \"shadcn\" means here"
@@ -1005,4 +1044,4 @@ msgstr ""
 
 #: admin/pages/templates/info-extending.php:35
 msgid "Your template can be located anywhere inside your plugin."
-msgstr ""
+msgstr "Votre modèle peut être placé n'importe où dans votre plugin."
