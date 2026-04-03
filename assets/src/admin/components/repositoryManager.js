@@ -23,6 +23,45 @@ export function initRepositoryManager() {
         })
     }
 
+    document.querySelectorAll('.cdr-repo-access-form').forEach((accessForm) => {
+        accessForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const tokenInput = accessForm.querySelector('input[name="token"]')
+            const submitButton = accessForm.querySelector('[data-action="repo-save-token"]')
+            const name = accessForm.dataset.repoName
+
+            if (!name || !tokenInput) {
+                return
+            }
+
+            try {
+                if (submitButton) {
+                    window.CorbidevUI?.loading?.set(submitButton, true)
+                }
+
+                await cdrRequest('cdr_repo_update', {
+                    name,
+                    token: tokenInput.value
+                })
+
+                showBanner(__('Access token updated', 'corbidevrepositories'), 'success')
+                window.setTimeout(() => window.location.reload(), 250)
+            } catch (err) {
+                console.error(err)
+
+                window.CorbidevUI?.banner?.show({
+                    message: err?.message || __('An error occurred', 'corbidevrepositories'),
+                    type: 'danger'
+                })
+            } finally {
+                if (submitButton) {
+                    window.CorbidevUI?.loading?.set(submitButton, false)
+                }
+            }
+        })
+    })
+
     document.addEventListener('cdr:item-state-changed', (e) => {
         const row = e.detail?.row
         const state = e.detail?.state
@@ -50,6 +89,8 @@ export function initRepositoryManager() {
                 case 'deactivate':
                 case 'delete':
                 case 'update':
+                case 'repo-delete':
+                case 'repo-clear-token':
                     window.CorbidevUI?.loading?.set(btn, true)
                     break
             }
@@ -73,6 +114,26 @@ export function initRepositoryManager() {
                     row?.remove()
 
                     showBanner(__('Repository deleted', 'corbidevrepositories'), 'success')
+                    break
+                }
+
+                case 'repo-clear-token': {
+
+                    const confirmed = await window.CorbidevUI?.modal?.confirm({
+                        title: __('Clear token', 'corbidevrepositories'),
+                        message: __('Remove the access token for this repository?', 'corbidevrepositories'),
+                        type: 'danger'
+                    })
+
+                    if (!confirmed) return
+
+                    await cdrRequest('cdr_repo_update', {
+                        name: btn.dataset.name,
+                        token: ''
+                    })
+
+                    showBanner(__('Access token removed', 'corbidevrepositories'), 'success')
+                    window.setTimeout(() => window.location.reload(), 250)
                     break
                 }
 
@@ -116,7 +177,11 @@ export function initRepositoryManager() {
                 }
 
                 case 'update': {
-                    await cdrRequest('cdr_update_item', btn.dataset)
+                    await cdrRequest('cdr_update_item', {
+                        name: btn.dataset.name,
+                        owner: btn.dataset.owner,
+                        type: btn.dataset.type,
+                    })
                     row && updateRowState(row, 'update', btn.dataset)
                     showBanner(__('Updated', 'corbidevrepositories'), 'success')
                     break

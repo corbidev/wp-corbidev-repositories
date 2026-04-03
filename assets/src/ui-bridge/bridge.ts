@@ -255,6 +255,10 @@ export class CorbidevUiBridge {
         continue
       }
 
+      if (key === "action") {
+        continue
+      }
+
       body.set(key, String(value))
     }
 

@@ -8,11 +8,11 @@
   }
 
   .cdr-page-header {
-    @apply flex flex-col gap-3 rounded-[1.75rem] border border-sky-200/70 bg-gradient-to-br from-white via-sky-50/70 to-amber-50/60 px-6 py-6 shadow-sm sm:px-8;
+    @apply flex flex-col gap-3 rounded-[1.75rem] border border-sky-300/80 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 px-6 py-6 shadow-sm sm:px-8;
   }
 
   .cdr-page-eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.2em] text-slate-500;
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-slate-700;
   }
 
   .cdr-page-title {
@@ -20,15 +20,15 @@
   }
 
   .cdr-page-description {
-    @apply max-w-3xl text-sm leading-6 text-slate-600;
+    @apply max-w-3xl text-sm leading-6 text-slate-700;
   }
 
   .cdr-card {
-    @apply overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white shadow-sm;
+    @apply overflow-hidden rounded-[1.75rem] border border-slate-300/85 bg-white shadow-sm;
   }
 
   .cdr-card-header {
-    @apply flex flex-col gap-2 border-b border-slate-200/80 bg-gradient-to-r from-slate-50 via-white to-sky-50/50 px-6 py-5;
+    @apply flex flex-col gap-2 border-b border-slate-300/85 bg-gradient-to-r from-slate-100 via-white to-sky-50/70 px-6 py-5;
   }
 
   .cdr-card-title {
@@ -36,11 +36,15 @@
   }
 
   .cdr-card-description {
-    @apply text-sm leading-6 text-slate-600;
+    @apply text-sm leading-6 text-slate-700;
   }
 
   .cdr-card-body {
     @apply px-6 py-5;
+  }
+
+  .cdr-section-stack {
+    @apply space-y-5;
   }
 
   .cdr-grid {
@@ -51,12 +55,40 @@
     @apply flex flex-col gap-2;
   }
 
+  .cdr-repo-meta {
+    @apply flex flex-col gap-2;
+  }
+
+  .cdr-repo-name {
+    @apply font-medium text-slate-950;
+  }
+
+  .cdr-repo-access-form {
+    @apply flex min-w-0 flex-col gap-3;
+  }
+
+  .cdr-repo-access-head {
+    @apply flex flex-wrap items-center gap-2;
+  }
+
+  .cdr-repo-access-controls {
+    @apply flex flex-col gap-3;
+  }
+
+  .cdr-input-compact {
+    @apply h-10;
+  }
+
+  .cdr-repo-note {
+    @apply text-sm text-slate-700;
+  }
+
   .cdr-label {
     @apply text-sm font-medium text-slate-800;
   }
 
   .cdr-input {
-    @apply h-11 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200;
+    @apply h-11 w-full rounded-2xl border border-slate-300 bg-white px-4 text-sm text-slate-950 shadow-sm transition placeholder:text-slate-500 focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-300;
   }
 
   .cdr-actions {
@@ -64,8 +96,10 @@
   }
 
   .cdr-btn {
-    @apply inline-flex h-9 items-center justify-center whitespace-nowrap rounded-xl border px-3.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-slate-200 disabled:pointer-events-none disabled:opacity-50;
-    min-width: 5.75rem;
+    @apply inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-xl border px-0 text-sm font-semibold leading-5 transition focus:outline-none focus:ring-2 focus:ring-slate-200 disabled:pointer-events-none disabled:opacity-50;
+    height: 1.75rem;
+    padding: 0.6rem 0;
+    min-width: 5rem;
   }
 
   .cdr-btn-primary {
@@ -97,7 +131,7 @@
   }
 
   .cdr-inline-meta {
-    @apply inline-flex items-center gap-2 rounded-full border border-sky-100 bg-sky-50 px-3 py-1 text-xs font-medium text-sky-700;
+    @apply inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-900;
   }
 
   .cdr-badge {
@@ -105,19 +139,19 @@
   }
 
   .cdr-badge-success {
-    @apply border-emerald-200 bg-emerald-50 text-emerald-900;
+    @apply border-emerald-300 bg-emerald-100 text-emerald-950;
   }
 
   .cdr-badge-warning {
-    @apply border-amber-200 bg-amber-50 text-amber-900;
+    @apply border-amber-300 bg-amber-100 text-amber-950;
   }
 
   .cdr-badge-danger {
-    @apply border-red-200 bg-red-50 text-red-900;
+    @apply border-red-300 bg-red-100 text-red-950;
   }
 
   .cdr-badge-neutral {
-    @apply border-slate-200 bg-slate-50 text-slate-700;
+    @apply border-slate-300 bg-slate-100 text-slate-900;
   }
 
   .cdr-status-dot {
@@ -125,7 +159,7 @@
   }
 
   .cdr-table-wrap {
-    @apply overflow-hidden rounded-[1.5rem] border border-slate-200/80;
+    @apply overflow-hidden rounded-[1.5rem] border border-slate-300/85;
   }
 
   .cdr-table {
@@ -133,27 +167,27 @@
   }
 
   .cdr-table thead {
-    @apply bg-slate-50/90;
+    @apply bg-slate-100;
   }
 
   .cdr-table th {
-    @apply px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500;
+    @apply px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700;
   }
 
   .cdr-table td {
-    @apply px-4 py-4 align-top text-sm text-slate-700;
+    @apply px-4 py-4 align-top text-sm text-slate-800;
   }
 
   .cdr-table tbody tr {
-    @apply border-t border-slate-200/70;
+    @apply border-t border-slate-300/75;
   }
 
   .cdr-table tbody tr:nth-child(even) {
-    @apply bg-slate-50/45;
+    @apply bg-slate-50/70;
   }
 
   .cdr-table tbody tr:hover {
-    @apply bg-sky-50/50;
+    @apply bg-sky-100/70;
   }
 
   .cdr-table td[data-role="actions"] .cdr-actions {
@@ -166,11 +200,56 @@
 
   .cdr-table td[data-label]::before {
     content: attr(data-label);
-    @apply mb-1 block text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500;
+    @apply mb-1 block text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-700;
+  }
+
+  .cdr-alert {
+    @apply relative grid gap-4 overflow-hidden rounded-[1.4rem] border px-5 py-4 shadow-sm;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .cdr-alert::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0 opacity-80;
+    background:
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.85), transparent 35%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 65%);
+  }
+
+  .cdr-alert-error {
+    @apply border-red-300 bg-[linear-gradient(135deg,rgba(254,226,226,0.98),rgba(255,247,237,0.95))] text-red-950;
+  }
+
+  .cdr-alert-icon {
+    @apply relative z-10 flex h-10 w-10 items-center justify-center rounded-2xl border border-red-300 bg-white text-base font-bold text-red-700 shadow-sm;
+  }
+
+  .cdr-alert-content {
+    @apply relative z-10 min-w-0;
+  }
+
+  .cdr-alert-title {
+    @apply text-sm font-semibold tracking-[0.02em] text-slate-950;
+  }
+
+  .cdr-alert-list {
+    @apply mt-1.5 space-y-2;
+  }
+
+  .cdr-alert-message {
+    @apply text-sm leading-6 text-slate-800;
   }
 
   .cdr-empty {
-    @apply rounded-[1.5rem] border border-dashed border-slate-200 bg-slate-50/70 px-6 py-10 text-center text-sm text-slate-600;
+    @apply rounded-[1.5rem] border border-dashed border-slate-400/90 bg-[radial-gradient(circle_at_top,rgba(224,242,254,0.95),rgba(255,255,255,0.98)_55%)] px-6 py-12 text-center shadow-inner;
+  }
+
+  .cdr-empty-title {
+    @apply text-base font-semibold text-slate-950;
+  }
+
+  .cdr-empty-description {
+    @apply mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-700;
   }
 
   .cdr-code {
@@ -195,7 +274,7 @@
 
   .cdr-docs p,
   .cdr-docs li {
-    @apply text-sm leading-7 text-slate-700;
+    @apply text-sm leading-7 text-slate-800;
   }
 
   .cdr-docs ul {
@@ -219,7 +298,7 @@
   }
 
   .cdr-tab-nav {
-    @apply flex w-full gap-2 overflow-x-auto rounded-[1.25rem] border border-slate-200 bg-white/90 p-1.5 shadow-sm;
+    @apply flex w-full gap-2 overflow-x-auto rounded-[1.25rem] border border-slate-300 bg-white/95 p-1.5 shadow-sm;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -229,7 +308,7 @@
   }
 
   .cdr-tab-link {
-    @apply inline-flex shrink-0 items-center rounded-xl px-3.5 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-950;
+    @apply inline-flex shrink-0 items-center rounded-xl px-3.5 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950;
   }
 
   .cdr-tab-link-active {
@@ -237,10 +316,18 @@
   }
 
   .cdr-log-output {
-    @apply h-[32rem] w-full rounded-[1.5rem] border border-slate-200 bg-slate-950 p-4 font-mono text-sm leading-6 text-slate-100 shadow-inner;
+    @apply h-[32rem] w-full rounded-[1.5rem] border border-slate-400 bg-slate-950 p-4 font-mono text-sm leading-6 text-slate-50 shadow-inner;
   }
 
   @media (max-width: 900px) {
+    .cdr-alert {
+      grid-template-columns: 1fr;
+    }
+
+    .cdr-alert-icon {
+      @apply h-9 w-9;
+    }
+
     .cdr-table-wrap {
       @apply overflow-visible rounded-none border-0;
     }
@@ -269,8 +356,33 @@
       @apply block px-0 py-0;
     }
 
+    .cdr-table td[data-label]:not([data-role="actions"]) {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: 0.75rem;
+      row-gap: 0;
+      align-items: start;
+    }
+
+    .cdr-table td[data-label]:not([data-role="actions"])::before {
+      @apply mb-0 pt-0.5;
+    }
+
+    .cdr-table td[data-label]:not([data-role="actions"]) > * {
+      min-width: 0;
+    }
+
+    .cdr-table td[data-role="actions"]::before {
+      content: none;
+    }
+
     .cdr-table td[data-role="actions"] .cdr-actions {
       @apply gap-2;
+    }
+
+    .cdr-repo-access-head,
+    .cdr-repo-access-controls {
+      @apply items-stretch;
     }
   }
 

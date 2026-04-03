@@ -20,7 +20,7 @@ class RepositoryAdminAjax
         check_ajax_referer('corbidev_nonce', 'nonce');
 
         if (!current_user_can('manage_options')) {
-            wp_send_json_error(['message' => 'Unauthorized']);
+            wp_send_json_error(['message' => __('Unauthorized', 'corbidevrepositories')]);
         }
     }
 
@@ -32,10 +32,12 @@ class RepositoryAdminAjax
         $token = sanitize_text_field($_POST['token'] ?? '');
 
         if (!$name) {
-            wp_send_json_error(['message' => 'Missing name']);
+            wp_send_json_error(['message' => __('Missing repository owner.', 'corbidevrepositories')]);
         }
 
-        RepositoryManager::add($name, $token);
+        if (!RepositoryManager::add($name, $token)) {
+            wp_send_json_error(['message' => __('This repository owner is already configured.', 'corbidevrepositories')]);
+        }
 
         wp_send_json_success();
     }
@@ -44,10 +46,16 @@ class RepositoryAdminAjax
     {
         self::check();
 
-        RepositoryManager::update(
-            sanitize_text_field($_POST['name']),
-            sanitize_text_field($_POST['token'])
-        );
+        $name = sanitize_text_field($_POST['name'] ?? '');
+        $token = sanitize_text_field($_POST['token'] ?? '');
+
+        if (!$name) {
+            wp_send_json_error(['message' => __('Missing repository owner.', 'corbidevrepositories')]);
+        }
+
+        if (!RepositoryManager::update($name, $token)) {
+            wp_send_json_error(['message' => __('Unable to update this repository access token.', 'corbidevrepositories')]);
+        }
 
         wp_send_json_success();
     }
@@ -56,9 +64,19 @@ class RepositoryAdminAjax
     {
         self::check();
 
-        RepositoryManager::delete(
-            sanitize_text_field($_POST['name'])
-        );
+        $name = sanitize_text_field($_POST['name'] ?? '');
+
+        if (!$name) {
+            wp_send_json_error(['message' => __('Missing repository owner.', 'corbidevrepositories')]);
+        }
+
+        if (RepositoryManager::isProtected($name)) {
+            wp_send_json_error(['message' => __('The default Corbidev repository cannot be deleted.', 'corbidevrepositories')]);
+        }
+
+        if (!RepositoryManager::delete($name)) {
+            wp_send_json_error(['message' => __('Unable to delete this repository.', 'corbidevrepositories')]);
+        }
 
         wp_send_json_success();
     }

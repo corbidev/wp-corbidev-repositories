@@ -15,11 +15,14 @@ if (!defined('ABSPATH')) {
 
 class RepositoryService
 {
+    private array $errors = [];
+
     public function getAll(?string $owner = null, string $type = 'plugin'): array
     {
         $repos = RepositoryManager::all();
         $items = [];
         $scanner = new RepositoryScanner();
+        $this->errors = [];
 
         foreach ($repos as $repo) {
 
@@ -34,7 +37,22 @@ class RepositoryService
                 continue;
             }
 
-            $repositories = $client->getRepositories($repoOwner);
+            try {
+                $repositories = $client->getRepositories($repoOwner);
+            } catch (\Throwable $e) {
+                $this->errors[] = [
+                    'owner' => $repoOwner,
+                    'reason' => $this->detectAccessErrorReason($e),
+                ];
+
+                Logger::error(sprintf(
+                    'GitHub access failed for owner "%s": %s',
+                    $repoOwner,
+                    $e->getMessage()
+                ));
+
+                continue;
+            }
 
             if (!is_array($repositories)) {
                 continue;
@@ -56,18 +74,28 @@ class RepositoryService
                     $remoteVersion = null;
                 }
 
+                $displayRemoteVersion = $remoteVersion !== null && trim((string) $remoteVersion) !== ''
+                    ? trim((string) $remoteVersion)
+                    : null;
+                $displayInstalledVersion = !empty($scan['version'])
+                    ? trim((string) $scan['version'])
+                    : null;
+
                 $hasUpdate = false;
 
-                if (!empty($scan['version']) && $remoteVersion) {
-                    $hasUpdate = version_compare($remoteVersion, $scan['version'], '>');
+                if ($displayInstalledVersion && $displayRemoteVersion) {
+                    $hasUpdate = $this->compareVersions(
+                        $displayRemoteVersion,
+                        $displayInstalledVersion
+                    ) > 0;
                 }
 
                 $items[] = [
                     'name'              => $name,
                     'slug'              => $scan['slug'] ?? '',
                     'description'       => $r['description'] ?? '',
-                    'version'           => $remoteVersion ?: '-',
-                    'installed_version' => $scan['version'] ?? null,
+                    'version'           => $displayRemoteVersion ?: '-',
+                    'installed_version' => $displayInstalledVersion,
                     'is_installed'      => $scan['installed'] ?? false,
                     'is_active'         => $scan['active'] ?? false,
                     'has_update'        => $hasUpdate,
@@ -79,6 +107,11 @@ class RepositoryService
         return $items;
     }
 
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
     private function filter(string $name, string $type): bool
     {
         if (!str_starts_with($name, 'wp-')) return false;
@@ -87,6 +120,49 @@ class RepositoryService
         if ($type === 'theme') return str_contains($name, 'theme');
 
         return false;
+    }
+
+    private function detectAccessErrorReason(\Throwable $error): string
+    {
+        if (str_contains($error->getMessage(), 'API rate limit exceeded')) {
+            return 'rate_limit';
+        }
+
+        return 'unavailable';
+    }
+
+    private function compareVersions(string $left, string $right): int
+    {
+        $normalizedLeft = $this->normalizeVersionForComparison($left);
+        $normalizedRight = $this->normalizeVersionForComparison($right);
+
+        $comparison = version_compare($normalizedLeft, $normalizedRight);
+
+        if ($comparison !== 0) {
+            return $comparison;
+        }
+
+        $leftSnapshot = $this->isSnapshotVersion($left);
+        $rightSnapshot = $this->isSnapshotVersion($right);
+
+        if ($leftSnapshot === $rightSnapshot) {
+            return 0;
+        }
+
+        return $leftSnapshot ? -1 : 1;
+    }
+
+    private function normalizeVersionForComparison(string $version): string
+    {
+        $normalized = ltrim(trim($version), 'vV');
+        $normalized = preg_replace('/-SNAPSHOT$/i', '', $normalized) ?? $normalized;
+
+        return $normalized !== '' ? $normalized : $version;
+    }
+
+    private function isSnapshotVersion(string $version): bool
+    {
+        return (bool) preg_match('/-SNAPSHOT$/i', trim($version));
     }
 
     public function install(string $owner, string $name, string $type): bool

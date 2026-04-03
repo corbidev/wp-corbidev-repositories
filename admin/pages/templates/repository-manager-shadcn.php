@@ -72,22 +72,57 @@
                                 <?php $is_default = ($repo['name'] ?? '') === 'corbidev'; ?>
                                 <tr>
                                     <td data-label="<?php echo esc_attr__('Name', 'corbidevrepositories'); ?>">
-                                        <div class="flex flex-col gap-2">
-                                            <span class="font-medium text-slate-950"><?php echo esc_html($repo['name']); ?></span>
+                                        <div class="cdr-repo-meta">
+                                            <span class="cdr-repo-name"><?php echo esc_html($repo['name']); ?></span>
                                             <?php if ($is_default): ?>
                                                 <span class="cdr-inline-meta"><?php echo esc_html__('Default source', 'corbidevrepositories'); ?></span>
                                             <?php endif; ?>
                                         </div>
                                     </td>
                                     <td data-label="<?php echo esc_attr__('Access', 'corbidevrepositories'); ?>">
-                                        <span class="cdr-inline-meta">
-                                            <?php echo !empty($repo['token']) ? esc_html__('Token configured', 'corbidevrepositories') : esc_html__('Public access', 'corbidevrepositories'); ?>
-                                        </span>
+                                        <form class="cdr-repo-access-form" data-repo-name="<?php echo esc_attr($repo['name']); ?>">
+                                            <div class="cdr-repo-access-head">
+                                                <span class="cdr-inline-meta">
+                                                    <?php echo !empty($repo['token']) ? esc_html__('Token configured', 'corbidevrepositories') : esc_html__('Public access', 'corbidevrepositories'); ?>
+                                                </span>
+                                                <?php if ($is_default): ?>
+                                                    <span class="cdr-repo-note"><?php echo esc_html__('The default repository name is locked.', 'corbidevrepositories'); ?></span>
+                                                <?php endif; ?>
+                                            </div>
+                                            <div class="cdr-repo-access-controls">
+                                                <input
+                                                    class="cdr-input cdr-input-compact"
+                                                    type="password"
+                                                    name="token"
+                                                    value="<?php echo esc_attr($repo['token'] ?? ''); ?>"
+                                                    placeholder="<?php echo esc_attr__('Personal access token', 'corbidevrepositories'); ?>"
+                                                    autocomplete="off"
+                                                />
+                                                <div class="cdr-actions">
+                                                    <button
+                                                        class="cdr-btn cdr-btn-secondary"
+                                                        data-action="repo-save-token"
+                                                        data-name="<?php echo esc_attr($repo['name']); ?>"
+                                                        type="submit"
+                                                    >
+                                                        <?php echo esc_html__('Save access', 'corbidevrepositories'); ?>
+                                                    </button>
+                                                    <button
+                                                        class="cdr-btn cdr-btn-ghost"
+                                                        data-action="repo-clear-token"
+                                                        data-name="<?php echo esc_attr($repo['name']); ?>"
+                                                        type="button"
+                                                    >
+                                                        <?php echo esc_html__('Clear token', 'corbidevrepositories'); ?>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </td>
                                     <td data-label="<?php echo esc_attr__('Actions', 'corbidevrepositories'); ?>">
                                         <div class="cdr-actions">
                                             <?php if ($is_default): ?>
-                                                <span class="text-sm text-slate-500"><?php echo esc_html__('Protected repository', 'corbidevrepositories'); ?></span>
+                                                <span class="cdr-repo-note"><?php echo esc_html__('Protected repository', 'corbidevrepositories'); ?></span>
                                             <?php else: ?>
                                                 <button
                                                     class="cdr-btn cdr-btn-danger"

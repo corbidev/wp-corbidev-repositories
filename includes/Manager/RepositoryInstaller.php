@@ -11,7 +11,7 @@ class RepositoryInstaller
     /**
      * Install plugin or theme from ZIP
      */
-    public static function install(string $zipUrl, string $name, string $type): bool
+    public static function install(string $zipUrl, string $expectedSlug, string $type): bool
     {
         require_once ABSPATH . 'wp-admin/includes/file.php';
         require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
@@ -42,7 +42,10 @@ class RepositoryInstaller
         }
 
         // 🔥 Normalisation du dossier (fix GitHub zip)
-        self::normalizeInstalledDirectory($type, $name);
+        self::normalizeInstalledDirectory(
+            $type,
+            self::normalizeDirectorySlug($type, $expectedSlug)
+        );
 
         return true;
     }
@@ -61,7 +64,7 @@ class RepositoryInstaller
 
         $baseDir = $type === 'plugin' ? WP_PLUGIN_DIR : get_theme_root();
 
-        if (!is_dir($baseDir)) {
+        if (!is_dir($baseDir) || $expectedSlug === '') {
             return null;
         }
 
@@ -112,5 +115,20 @@ class RepositoryInstaller
         }
 
         return null;
+    }
+
+    private static function normalizeDirectorySlug(string $type, string $expectedSlug): string
+    {
+        $normalized = trim(str_replace('\\', '/', $expectedSlug), '/');
+
+        if ($type === 'plugin') {
+            $directory = dirname($normalized);
+
+            if ($directory !== '.' && $directory !== DIRECTORY_SEPARATOR) {
+                $normalized = $directory;
+            }
+        }
+
+        return basename($normalized);
     }
 }

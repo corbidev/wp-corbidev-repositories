@@ -4,6 +4,7 @@ namespace Corbidev\Repositories\Core;
 
 use Corbidev\Repositories\Admin\Controllers\RepositoryController;
 use Corbidev\Repositories\Admin\Controllers\RepositoryAdminController;
+use Corbidev\Repositories\Updates\WordPressUpdateBridge;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -18,6 +19,10 @@ class Plugin
     public static function init(): void
     {
         add_action('init', [self::class, 'loadTextDomain']);
+
+        if (is_admin()) {
+            WordPressUpdateBridge::register();
+        }
 
         if (is_multisite()) {
             add_action('network_admin_menu', [self::class, 'menus']);

@@ -26,6 +26,7 @@ class RepositoryController
 
         $service = new RepositoryService();
         $items = $service->getAll($owner, $type);
+        $errors = $service->getErrors();
 
         include CDR_PLUGIN_DIR . 'admin/pages/repositories.php';
     }

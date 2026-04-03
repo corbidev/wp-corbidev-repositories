@@ -1,6 +1,334 @@
 <?php if (!defined('ABSPATH')) exit; ?>
 
 <p>
+    <?php echo esc_html__('This screen documents the Corbidev admin UI stack: shadcn-inspired styling for presentation, and CorbidevUI for interactive behaviors such as modals, banners, loading states, and AJAX helpers.', 'corbidevrepositories'); ?>
+</p>
+
+<hr>
+
+<h2><?php echo esc_html__('What "shadcn" means here', 'corbidevrepositories'); ?></h2>
+
+<p>
+    <?php echo esc_html__('In this plugin, "shadcn" refers to the visual and component conventions used to build the admin interface: clean card layouts, structured spacing, consistent buttons, tabs, badges, and utility-first styling powered by Tailwind.', 'corbidevrepositories'); ?>
+</p>
+
+<p>
+    <?php echo esc_html__('It is important to separate two layers:', 'corbidevrepositories'); ?>
+</p>
+
+<ul>
+    <li><?php echo esc_html__('shadcn-style UI = the visual system and component appearance', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('CorbidevUI = the runtime interaction bridge for modal, banner, toast, loading, and AJAX helpers', 'corbidevrepositories'); ?></li>
+</ul>
+
+<pre><code>// Visual layer
+cards, tabs, buttons, badges, layouts
+
+// Interaction layer
+window.CorbidevUI.modal.open(...)
+window.CorbidevUI.banner.show(...)
+window.CorbidevUI.ajax.request(...)</code></pre>
+
+<hr>
+
+<h2><?php echo esc_html__('How it is loaded', 'corbidevrepositories'); ?></h2>
+
+<p>
+    <?php echo esc_html__('The Corbidev Repositories plugin automatically loads the UI bridge and admin assets only on admin pages whose slug starts with "corbidev". That means CorbidevUI is available on the plugin admin pages, but not automatically on unrelated plugin pages or frontend templates.', 'corbidevrepositories'); ?>
+</p>
+
+<ul>
+    <li><?php echo esc_html__('Corbidev admin pages: bridge available automatically', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Your own plugin admin page: you must enqueue the same assets or expose your own bridge entry', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Theme frontend templates: the admin bridge is not automatically mounted there', 'corbidevrepositories'); ?></li>
+</ul>
+
+<hr>
+
+<h2><?php echo esc_html__('Recommended architecture', 'corbidevrepositories'); ?></h2>
+
+<ul>
+    <li><?php echo esc_html__('Use PHP templates for structure and escaped data output', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Use shadcn-style classes and shared admin CSS for layout and styling', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Use CorbidevUI for interactions instead of inline JavaScript, alert(), or confirm()', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Keep business logic in JavaScript modules or PHP handlers, not inside markup snippets', 'corbidevrepositories'); ?></li>
+</ul>
+
+<hr>
+
+<h2><?php echo esc_html__('Integration inside a plugin admin page', 'corbidevrepositories'); ?></h2>
+
+<p>
+    <?php echo esc_html__('If your plugin renders content inside the Corbidev admin experience, you can directly use the shared visual language and CorbidevUI APIs.', 'corbidevrepositories'); ?>
+</p>
+
+<h3><?php echo esc_html__('Example: shadcn-style card in PHP', 'corbidevrepositories'); ?></h3>
+
+<pre><code>&lt;section class="cdr-card"&gt;
+    &lt;div class="cdr-card-header"&gt;
+        &lt;h2 class="cdr-card-title"&gt;Deployment&lt;/h2&gt;
+        &lt;p class="cdr-card-description"&gt;
+            Trigger and monitor deployment actions.
+        &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="cdr-card-body"&gt;
+        &lt;div class="cdr-actions"&gt;
+            &lt;button class="cdr-btn cdr-btn-primary" type="button"&gt;
+                Deploy
+            &lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+
+<h3><?php echo esc_html__('Example: modal workflow in JavaScript', 'corbidevrepositories'); ?></h3>
+
+<pre><code>document.addEventListener('click', async (event) =&gt; {
+    const button = event.target.closest('[data-action="deploy"]');
+    if (!button || !window.CorbidevUI) {
+        return;
+    }
+
+    const confirmed = await window.CorbidevUI.modal.confirm({
+        title: 'Deploy release',
+        message: 'Do you want to deploy the current release?',
+        type: 'danger',
+    });
+
+    if (!confirmed) {
+        return;
+    }
+
+    window.CorbidevUI.loading.set(button, true);
+
+    try {
+        await window.CorbidevUI.ajax.request('my_plugin_deploy', {
+            environment: 'production',
+        });
+
+        window.CorbidevUI.banner.show({
+            message: 'Deployment started successfully.',
+            type: 'success',
+        });
+    } catch (error) {
+        window.CorbidevUI.error.handle(error);
+    } finally {
+        window.CorbidevUI.loading.set(button, false);
+    }
+});</code></pre>
+
+<hr>
+
+<h2><?php echo esc_html__('Integration inside another plugin', 'corbidevrepositories'); ?></h2>
+
+<p>
+    <?php echo esc_html__('If your plugin uses its own admin page, do not assume CorbidevUI is globally available. You have two main options:', 'corbidevrepositories'); ?>
+</p>
+
+<ul>
+    <li><?php echo esc_html__('Reuse the Corbidev assets by enqueueing the relevant compiled entry on your page', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Replicate the same architecture in your own bundle with your own bridge entry', 'corbidevrepositories'); ?></li>
+</ul>
+
+<h3><?php echo esc_html__('Safe guard before using the bridge', 'corbidevrepositories'); ?></h3>
+
+<pre><code>document.addEventListener('DOMContentLoaded', () =&gt; {
+    if (!window.CorbidevUI) {
+        console.warn('CorbidevUI is not available on this screen.');
+        return;
+    }
+
+    window.CorbidevUI.banner.show({
+        message: 'UI bridge ready.',
+        type: 'info',
+    });
+});</code></pre>
+
+<p>
+    <?php echo esc_html__('This guard is especially important when code can run on screens that are not owned by Corbidev.', 'corbidevrepositories'); ?>
+</p>
+
+<hr>
+
+<h2><?php echo esc_html__('Integration inside a theme', 'corbidevrepositories'); ?></h2>
+
+<p>
+    <?php echo esc_html__('For theme templates or frontend pages, do not rely on the admin bridge by default. The visual language can still inspire your components, but frontend integration should be explicit and isolated.', 'corbidevrepositories'); ?>
+</p>
+
+<ul>
+    <li><?php echo esc_html__('Do not assume admin assets are loaded on the frontend', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Do not couple a public theme template to a plugin admin-only runtime unless you intentionally enqueue it', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Prefer creating a dedicated frontend entry if your theme needs banners, dialogs, or custom interactions', 'corbidevrepositories'); ?></li>
+</ul>
+
+<h3><?php echo esc_html__('Example: frontend-safe markup pattern', 'corbidevrepositories'); ?></h3>
+
+<pre><code>&lt;section class="my-theme-panel"&gt;
+    &lt;h2&gt;Newsletter preferences&lt;/h2&gt;
+    &lt;p&gt;Update the communication options for the current customer.&lt;/p&gt;
+    &lt;button class="my-theme-button" type="button"&gt;
+        Save preferences
+    &lt;/button&gt;
+&lt;/section&gt;</code></pre>
+
+<p>
+    <?php echo esc_html__('If you want the exact Corbidev interaction model on the frontend, treat it as an intentional product decision and enqueue a dedicated script entry rather than depending on an admin page side effect.', 'corbidevrepositories'); ?>
+</p>
+
+<hr>
+
+<h2><?php echo esc_html__('Personalizing the design system', 'corbidevrepositories'); ?></h2>
+
+<p>
+    <?php echo esc_html__('The recommended customization path is to keep the component structure stable and override the design tokens or utility composition around it.', 'corbidevrepositories'); ?>
+</p>
+
+<h3><?php echo esc_html__('What is safe to customize', 'corbidevrepositories'); ?></h3>
+
+<ul>
+    <li><?php echo esc_html__('Spacing, border radius, shadows, and typography scale', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Color palette and contrast levels', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Component variants such as primary, danger, outline, and ghost buttons', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Card layouts and empty states', 'corbidevrepositories'); ?></li>
+</ul>
+
+<h3><?php echo esc_html__('What should stay stable', 'corbidevrepositories'); ?></h3>
+
+<ul>
+    <li><?php echo esc_html__('The CorbidevUI API surface', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('The semantic meaning of statuses and actions', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Accessibility behaviors such as closable dialogs, focus flow, and readable contrast', 'corbidevrepositories'); ?></li>
+</ul>
+
+<h3><?php echo esc_html__('Example: custom button family', 'corbidevrepositories'); ?></h3>
+
+<pre><code>@layer components {
+  .my-admin-btn {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold;
+  }
+
+  .my-admin-btn-primary {
+    @apply my-admin-btn bg-slate-950 text-white hover:bg-slate-800;
+  }
+
+  .my-admin-btn-danger {
+    @apply my-admin-btn bg-red-600 text-white hover:bg-red-700;
+  }
+}</code></pre>
+
+<p>
+    <?php echo esc_html__('This lets you create a branded variant while preserving the overall component architecture.', 'corbidevrepositories'); ?>
+</p>
+
+<hr>
+
+<h2><?php echo esc_html__('Declarative mode with data-ui', 'corbidevrepositories'); ?></h2>
+
+<p>
+    <?php echo esc_html__('For simple interactions, you can use declarative HTML instead of writing custom JavaScript.', 'corbidevrepositories'); ?>
+</p>
+
+<pre><code>&lt;button
+    class="cdr-btn cdr-btn-outline"
+    data-ui="modal"
+    data-ui-title="About this package"
+    data-ui-message="This package installs shared tools for editors."&gt;
+    Open modal
+&lt;/button&gt;
+
+&lt;button
+    class="cdr-btn cdr-btn-secondary"
+    data-ui="banner"
+    data-ui-message="Configuration saved."
+    data-ui-type="success"
+    data-ui-delay="3"&gt;
+    Show banner
+&lt;/button&gt;</code></pre>
+
+<p>
+    <?php echo esc_html__('Use this mode for lightweight interactions. For anything involving business rules, asynchronous requests, or branching flows, prefer the JavaScript API.', 'corbidevrepositories'); ?>
+</p>
+
+<hr>
+
+<h2><?php echo esc_html__('Advanced modal example with custom buttons', 'corbidevrepositories'); ?></h2>
+
+<pre><code>const result = await window.CorbidevUI.modal.open({
+    title: 'Choose an action',
+    message: 'Select how you want to handle this repository.',
+    buttons: [
+        {
+            label: 'Cancel',
+            type: 'secondary',
+            value: 'cancel',
+        },
+        {
+            label: 'Retry',
+            type: 'outline',
+            value: 'retry',
+        },
+        {
+            label: 'Delete',
+            type: 'danger',
+            value: 'delete',
+        },
+    ],
+});
+
+if (result === 'retry') {
+    // retry action
+}
+
+if (result === 'delete') {
+    // delete action
+}</code></pre>
+
+<hr>
+
+<h2><?php echo esc_html__('Best practices', 'corbidevrepositories'); ?></h2>
+
+<ul>
+    <li><?php echo esc_html__('Prefer consistent shared classes over one-off inline styles in templates', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Use CorbidevUI.error.handle(error) for unexpected runtime errors', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Guard for window.CorbidevUI before using it outside Corbidev-owned admin pages', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Keep templates declarative and move imperative flows into JavaScript modules', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Treat frontend usage as a separate integration target, not as an automatic extension of the admin runtime', 'corbidevrepositories'); ?></li>
+</ul>
+
+<hr>
+
+<h2><?php echo esc_html__('Live demo', 'corbidevrepositories'); ?></h2>
+
+<button
+    class="button button-primary"
+    data-ui="modal"
+    data-ui-title="Corbidev UI"
+    data-ui-message="This modal is rendered through the shared CorbidevUI bridge."
+>
+    <?php echo esc_html__('Open modal', 'corbidevrepositories'); ?>
+</button>
+
+<button
+    class="button"
+    data-ui="confirm"
+    data-ui-title="Confirm action"
+    data-ui-message="Do you want to continue with this example?"
+>
+    <?php echo esc_html__('Open confirm', 'corbidevrepositories'); ?>
+</button>
+
+<button
+    class="button"
+    data-ui="banner"
+    data-ui-message="Banner rendered through the UI bridge."
+    data-ui-type="success"
+>
+    <?php echo esc_html__('Show banner', 'corbidevrepositories'); ?>
+</button>
+
+<?php return; ?>
+
+<p>
     <?php echo esc_html__('Corbidev UI is the plugin UI bridge used on Corbidev admin screens. It provides reusable interactions like Modal and Banner, with a clean separation between UI and business logic.', 'corbidevrepositories'); ?>
 </p>
 
