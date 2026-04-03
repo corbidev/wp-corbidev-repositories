@@ -1,51 +1,210 @@
 @layer components {
+  .cdr-page-shell {
+    @apply mx-auto max-w-7xl px-4 py-6 sm:px-6;
+  }
 
-.corbidev-repositories-admin-wrapper {
-    @apply max-w-6xl mx-auto px-4;
-}
+  .cdr-page-stack {
+    @apply space-y-6;
+  }
 
-.corbidev-repositories-admin-card {
-    @apply bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-200;
-}
+  .cdr-page-header {
+    @apply flex flex-col gap-3 rounded-[1.75rem] border border-slate-200/80 bg-white px-6 py-6 shadow-sm sm:px-8;
+  }
 
-.corbidev-repositories-admin-grid {
-    @apply grid gap-4 mb-4 md:grid-cols-2;
-}
+  .cdr-page-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-slate-500;
+  }
 
-.corbidev-repositories-admin-form input {
-    @apply w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
-}
+  .cdr-page-title {
+    @apply text-3xl font-semibold tracking-tight text-slate-950;
+  }
 
-/* Buttons */
+  .cdr-page-description {
+    @apply max-w-3xl text-sm leading-6 text-slate-600;
+  }
 
-.corbidev-btn {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition;
-}
+  .cdr-card {
+    @apply overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-white shadow-sm;
+  }
 
-.corbidev-btn-primary {
-    @apply bg-blue-600 text-white hover:bg-blue-700;
-}
+  .cdr-card-header {
+    @apply flex flex-col gap-2 border-b border-slate-200/80 px-6 py-5;
+  }
 
-.corbidev-btn-secondary {
-    @apply bg-gray-600 text-white hover:bg-gray-700;
-}
+  .cdr-card-title {
+    @apply text-lg font-semibold text-slate-950;
+  }
 
-.corbidev-btn-danger {
+  .cdr-card-description {
+    @apply text-sm leading-6 text-slate-600;
+  }
+
+  .cdr-card-body {
+    @apply px-6 py-5;
+  }
+
+  .cdr-grid {
+    @apply grid gap-4 md:grid-cols-2;
+  }
+
+  .cdr-field {
+    @apply flex flex-col gap-2;
+  }
+
+  .cdr-label {
+    @apply text-sm font-medium text-slate-800;
+  }
+
+  .cdr-input {
+    @apply h-11 w-full rounded-2xl border border-slate-200 bg-white px-4 text-sm text-slate-900 shadow-sm transition placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200;
+  }
+
+  .cdr-actions {
+    @apply flex flex-wrap items-center gap-3;
+  }
+
+  .cdr-btn {
+    @apply inline-flex h-10 items-center justify-center rounded-full px-4 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-slate-200 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .cdr-btn-primary {
+    @apply bg-slate-950 text-white hover:bg-slate-800;
+  }
+
+  .cdr-btn-secondary {
+    @apply bg-slate-100 text-slate-900 hover:bg-slate-200;
+  }
+
+  .cdr-btn-outline {
+    @apply border border-slate-200 bg-white text-slate-900 hover:bg-slate-50;
+  }
+
+  .cdr-btn-danger {
     @apply bg-red-600 text-white hover:bg-red-700;
-}
+  }
 
-/* Align actions */
+  .cdr-btn-ghost {
+    @apply bg-transparent text-slate-700 hover:bg-slate-100;
+  }
 
-.corbidev-repositories-admin-actions {
-    @apply flex gap-2;
-}
+  .cdr-inline-meta {
+    @apply inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-600;
+  }
 
-/* page info */
-.corbidev-admin-info pre {
-    background: #1e1e1e;
-    color: #fff;
-    padding: 12px;
-    border-radius: 6px;
-    overflow: auto;
-}
+  .cdr-badge {
+    @apply inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium;
+  }
+
+  .cdr-badge-success {
+    @apply border-emerald-200 bg-emerald-50 text-emerald-900;
+  }
+
+  .cdr-badge-warning {
+    @apply border-amber-200 bg-amber-50 text-amber-900;
+  }
+
+  .cdr-badge-danger {
+    @apply border-red-200 bg-red-50 text-red-900;
+  }
+
+  .cdr-badge-neutral {
+    @apply border-slate-200 bg-slate-50 text-slate-700;
+  }
+
+  .cdr-status-dot {
+    @apply h-2.5 w-2.5 rounded-full;
+  }
+
+  .cdr-table-wrap {
+    @apply overflow-hidden rounded-[1.5rem] border border-slate-200/80;
+  }
+
+  .cdr-table {
+    @apply min-w-full divide-y divide-slate-200 text-left;
+  }
+
+  .cdr-table thead {
+    @apply bg-slate-50/80;
+  }
+
+  .cdr-table th {
+    @apply px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500;
+  }
+
+  .cdr-table td {
+    @apply px-4 py-4 align-top text-sm text-slate-700;
+  }
+
+  .cdr-table tbody tr {
+    @apply border-t border-slate-200/70;
+  }
+
+  .cdr-table tbody tr:hover {
+    @apply bg-slate-50/50;
+  }
+
+  .cdr-empty {
+    @apply rounded-[1.5rem] border border-dashed border-slate-200 bg-slate-50/70 px-6 py-10 text-center text-sm text-slate-600;
+  }
+
+  .cdr-code {
+    @apply overflow-x-auto rounded-3xl bg-slate-950 p-4 text-sm leading-6 text-slate-50;
+  }
+
+  .cdr-docs {
+    @apply space-y-6;
+  }
+
+  .cdr-docs hr {
+    @apply border-0 border-t border-slate-200;
+  }
+
+  .cdr-docs h2 {
+    @apply text-xl font-semibold text-slate-950;
+  }
+
+  .cdr-docs h3 {
+    @apply text-base font-semibold text-slate-900;
+  }
+
+  .cdr-docs p,
+  .cdr-docs li {
+    @apply text-sm leading-7 text-slate-700;
+  }
+
+  .cdr-docs ul {
+    @apply list-disc space-y-1 pl-5;
+  }
+
+  .cdr-docs pre {
+    @apply cdr-code;
+  }
+
+  .cdr-docs code:not(pre code) {
+    @apply rounded-md bg-slate-100 px-1.5 py-0.5 text-[0.9em] text-slate-900;
+  }
+
+  .cdr-docs .button {
+    @apply cdr-btn cdr-btn-outline;
+  }
+
+  .cdr-docs .button.button-primary {
+    @apply cdr-btn-primary;
+  }
+
+  .cdr-tab-nav {
+    @apply inline-flex flex-wrap gap-2 rounded-full border border-slate-200 bg-white/90 p-1 shadow-sm;
+  }
+
+  .cdr-tab-link {
+    @apply inline-flex items-center rounded-full px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-950;
+  }
+
+  .cdr-tab-link-active {
+    @apply bg-slate-950 text-white hover:bg-slate-950 hover:text-white;
+  }
+
+  .cdr-log-output {
+    @apply h-[32rem] w-full rounded-[1.5rem] border border-slate-200 bg-slate-950 p-4 font-mono text-sm leading-6 text-slate-100 shadow-inner;
+  }
 }

@@ -92,6 +92,10 @@ export class CorbidevUiBridge {
   private banners: CorbidevBannerRecord[] = []
   private modalQueue: ModalQueueEntry[] = []
   private activeModal: ModalQueueEntry | null = null
+  private snapshot: CorbidevUiSnapshot = {
+    activeModal: null,
+    banners: [],
+  }
   private counter = 0
   private translate: CorbidevTranslator = (text) => text
   private dispatcherInitialized = false
@@ -103,10 +107,7 @@ export class CorbidevUiBridge {
     }
   }
 
-  getSnapshot = (): CorbidevUiSnapshot => ({
-    activeModal: this.activeModal?.options ?? null,
-    banners: [...this.banners],
-  })
+  getSnapshot = (): CorbidevUiSnapshot => this.snapshot
 
   setI18n = (i18n?: { __?: CorbidevTranslator }) => {
     if (typeof i18n?.__ === "function") {
@@ -432,7 +433,12 @@ export class CorbidevUiBridge {
   }
 
   private notify() {
-    const snapshot = this.getSnapshot()
+    this.snapshot = {
+      activeModal: this.activeModal?.options ?? null,
+      banners: [...this.banners],
+    }
+
+    const snapshot = this.snapshot
     this.listeners.forEach((listener) => {
       listener(snapshot)
     })

@@ -89,6 +89,11 @@ if (!$template && !empty($current_tab['uri'])) {
 
 ?>
 
+<?php
+require __DIR__ . '/templates/info-shell-shadcn.php';
+return;
+?>
+
 <div class="wrap corbidev-admin-info">
 
     <h1><?php echo esc_html__('Corbidev UI – Developer Guide', 'corbidevrepositories'); ?></h1>

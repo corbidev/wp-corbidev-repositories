@@ -1,9 +1,15 @@
-import { createRoot } from "react-dom/client"
+import { createRoot, type Root } from "react-dom/client"
 
 import "@styles/tailwind.css"
 
 import { UiBridgeRoot } from "./UiBridgeRoot"
 import { getOrCreateUiBridge } from "./bridge"
+
+declare global {
+  interface Window {
+    __CDR_UI_ROOT__?: Root
+  }
+}
 
 function mountUiBridge() {
   const bridge = getOrCreateUiBridge()
@@ -22,7 +28,8 @@ function mountUiBridge() {
     document.body.appendChild(container)
   }
 
-  const root = createRoot(container)
+  const root = window.__CDR_UI_ROOT__ ?? createRoot(container)
+  window.__CDR_UI_ROOT__ = root
   root.render(<UiBridgeRoot bridge={bridge} />)
 }
 

@@ -30,6 +30,7 @@ export function initRepositoryInstaller() {
         button.innerText = __('Installing...', 'corbidevrepositories')
 
         let installSucceeded = false
+        const row = button.closest('tr')
 
         try {
 
@@ -50,6 +51,14 @@ export function initRepositoryInstaller() {
 
             button.innerText = __('Installed', 'corbidevrepositories')
             button.classList.add('disabled')
+            if (row) {
+                document.dispatchEvent(new CustomEvent('cdr:item-state-changed', {
+                    detail: {
+                        row,
+                        state: 'installed'
+                    }
+                }))
+            }
             installSucceeded = true
 
         } catch (error) {

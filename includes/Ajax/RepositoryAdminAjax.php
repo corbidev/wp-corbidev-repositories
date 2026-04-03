@@ -17,7 +17,7 @@ class RepositoryAdminAjax
 
     private static function check(): void
     {
-        check_ajax_referer('cdr_nonce', 'nonce');
+        check_ajax_referer('corbidev_nonce', 'nonce');
 
         if (!current_user_can('manage_options')) {
             wp_send_json_error(['message' => 'Unauthorized']);
