@@ -1,6 +1,0 @@
-npm install react react-dom
-npm install -D @vitejs/plugin-react
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-
-npx shadcn-ui@latest init

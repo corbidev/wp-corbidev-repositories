@@ -41,9 +41,6 @@
             ],
             "@admin/*": [
                 "./assets/src/admin/*"
-            ],
-            "@core-ui/*": [
-                "./assets/src/core-ui/*"
             ]
         }
     },

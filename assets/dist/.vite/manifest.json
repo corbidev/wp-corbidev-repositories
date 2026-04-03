@@ -1,20 +1,20 @@
 {
   "assets/src/admin/main.js": {
-    "file": "assets/admin-CkG_5tB-.js",
+    "file": "assets/admin-VFwTB0Gv.js",
     "name": "admin",
     "src": "assets/src/admin/main.js",
     "isEntry": true,
     "css": [
-      "assets/admin-BLyHRMnv.css"
+      "assets/admin-giRvRlhA.css"
     ]
   },
   "assets/src/main.js": {
-    "file": "assets/app-DGAFw-y3.js",
+    "file": "assets/app-FIWz8q6I.js",
     "name": "app",
     "src": "assets/src/main.js",
     "isEntry": true,
     "css": [
-      "assets/app-8feCl7Ut.css"
+      "assets/app-B2gKVIwH.css"
     ],
     "assets": [
       "assets/geist-cyrillic-wght-normal-CHSlOQsW.woff2",
@@ -23,7 +23,7 @@
     ]
   },
   "assets/src/ui-bridge/main.tsx": {
-    "file": "assets/ui-bridge-B3GxmNW5.js",
+    "file": "assets/ui-bridge-BHCP8_Ez.js",
     "name": "ui-bridge",
     "src": "assets/src/ui-bridge/main.tsx",
     "isEntry": true,

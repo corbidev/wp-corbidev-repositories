@@ -1,6 +1,0 @@
-
-@layer components {
-    .cdr-modal {
-        @apply bg-white rounded-xl shadow-xl w-full max-w-md p-6;
-    }
-}

@@ -12,6 +12,8 @@ function mountUiBridge() {
     window.CorbidevUI = bridge.createApi()
   }
 
+  bridge.initDataUiDispatcher()
+
   let container = document.getElementById("corbidev-ui-root")
 
   if (!container) {

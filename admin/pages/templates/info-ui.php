@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) exit; ?>
 
 <p>
-    <?php echo esc_html__('Corbidev UI is a lightweight UI system designed for WordPress plugins and themes. It provides reusable components like Modal and Banner, with a clean separation between UI and business logic.', 'corbidevrepositories'); ?>
+    <?php echo esc_html__('Corbidev UI is the plugin UI bridge used on Corbidev admin screens. It provides reusable interactions like Modal and Banner, with a clean separation between UI and business logic.', 'corbidevrepositories'); ?>
 </p>
 
 <hr>
@@ -33,7 +33,7 @@
 
 <pre><code>window.CorbidevUI</code></pre>
 
-<p><?php echo esc_html__('Available everywhere (admin + front).', 'corbidevrepositories'); ?></p>
+<p><?php echo esc_html__('Available on Corbidev admin screens where the plugin assets are loaded.', 'corbidevrepositories'); ?></p>
 
 <hr>
 
@@ -128,7 +128,7 @@ CorbidevUI.on('banner.open', cb);</code></pre>
 
 <h2>📦 <?php echo esc_html__('Integration in Your Plugin/Theme', 'corbidevrepositories'); ?></h2>
 
-<p><?php echo esc_html__('Core-UI is automatically loaded by the Corbidev Repositories plugin. You don\'t need to do anything special - just use CorbidevUI in your code!', 'corbidevrepositories'); ?>
+<p><?php echo esc_html__('The Corbidev UI bridge is automatically loaded by the Corbidev Repositories plugin on its admin screens. You don\'t need to do anything special - just use CorbidevUI in your code!', 'corbidevrepositories'); ?>
 </p>
 
 <p><strong><?php echo esc_html__('Prerequisites:', 'corbidevrepositories'); ?></strong>

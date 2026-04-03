@@ -94,6 +94,7 @@ export class CorbidevUiBridge {
   private activeModal: ModalQueueEntry | null = null
   private counter = 0
   private translate: CorbidevTranslator = (text) => text
+  private dispatcherInitialized = false
 
   subscribe = (listener: CorbidevListener) => {
     this.listeners.add(listener)
@@ -366,6 +367,55 @@ export class CorbidevUiBridge {
     }
   }
 
+  initDataUiDispatcher = () => {
+    if (this.dispatcherInitialized) {
+      return
+    }
+
+    this.dispatcherInitialized = true
+
+    document.addEventListener("click", async (event) => {
+      const target = event.target
+
+      if (!(target instanceof Element)) {
+        return
+      }
+
+      const element = target.closest("[data-ui]")
+
+      if (!(element instanceof HTMLElement)) {
+        return
+      }
+
+      const type = element.dataset.ui
+      const options = parseUiOptions(element)
+
+      switch (type) {
+        case "modal":
+          void this.openModal(options)
+          break
+        case "confirm": {
+          const confirmed = await this.confirmModal(options)
+
+          if (!confirmed) {
+            return
+          }
+
+          element.dispatchEvent(
+            new CustomEvent("corbidev:confirm", {
+              bubbles: true,
+              detail: { confirmed },
+            })
+          )
+          break
+        }
+        case "banner":
+          this.showBanner(options as CorbidevBannerOptions)
+          break
+      }
+    })
+  }
+
   private flushModalQueue() {
     if (this.activeModal || this.modalQueue.length === 0) {
       return
@@ -442,4 +492,49 @@ function toErrorMessage(error: unknown) {
   }
 
   return "An unexpected error occurred."
+}
+
+function parseUiOptions(element: HTMLElement) {
+  const options: CorbidevModalOptions & CorbidevBannerOptions = {
+    message: element.dataset.uiMessage || "",
+  }
+
+  if (element.dataset.uiTitle) {
+    options.title = element.dataset.uiTitle
+  }
+
+  if (element.dataset.uiType) {
+    options.type = element.dataset.uiType as CorbidevBannerType
+  }
+
+  if (element.dataset.uiAutoClose !== undefined) {
+    options.autoClose = parseBoolean(element.dataset.uiAutoClose)
+  }
+
+  if (element.dataset.uiDelay) {
+    options.delay = parseNumber(element.dataset.uiDelay)
+  }
+
+  if (element.dataset.uiPosition === "top" || element.dataset.uiPosition === "bottom") {
+    options.position = element.dataset.uiPosition
+  }
+
+  if (element.dataset.uiButtons) {
+    try {
+      options.buttons = JSON.parse(element.dataset.uiButtons) as CorbidevModalButton[]
+    } catch (error) {
+      console.warn("[CorbidevUI] Invalid JSON in data-ui-buttons", error)
+    }
+  }
+
+  return options
+}
+
+function parseBoolean(value: string) {
+  return value === "true" || value === "1"
+}
+
+function parseNumber(value: string) {
+  const parsed = Number(value)
+  return Number.isNaN(parsed) ? undefined : parsed
 }
