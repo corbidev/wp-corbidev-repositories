@@ -50,4 +50,24 @@ class RepositoryManager
             'client' => new GithubClient($repo['token'] ?? null),
         ];
     }
+
+    public static function add(string $name, string $token = ''): bool
+    {
+        return RepositoryStorage::addRepository($name, $token);
+    }
+
+    public static function update(string $name, string $token = ''): bool
+    {
+        return RepositoryStorage::updateRepository($name, $token);
+    }
+
+    public static function delete(string $name): bool
+    {
+        return RepositoryStorage::deleteRepository($name);
+    }
+
+    public static function isProtected(string $name): bool
+    {
+        return RepositoryStorage::isProtectedRepository($name);
+    }
 }

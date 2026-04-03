@@ -1,51 +1,394 @@
 @layer components {
+  .cdr-page-shell {
+    @apply mx-auto max-w-7xl px-4 py-6 sm:px-6;
+  }
 
-.corbidev-repositories-admin-wrapper {
-    @apply max-w-6xl mx-auto px-4;
-}
+  .cdr-page-stack {
+    @apply space-y-6;
+  }
 
-.corbidev-repositories-admin-card {
-    @apply bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-200;
-}
+  .cdr-page-header {
+    @apply flex flex-col gap-3 rounded-[1.75rem] border border-sky-300/80 bg-gradient-to-br from-white via-sky-50/80 to-amber-50/70 px-6 py-6 shadow-sm sm:px-8;
+  }
 
-.corbidev-repositories-admin-grid {
-    @apply grid gap-4 mb-4 md:grid-cols-2;
-}
+  .cdr-page-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-slate-700;
+  }
 
-.corbidev-repositories-admin-form input {
-    @apply w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
-}
+  .cdr-page-title {
+    @apply text-3xl font-semibold tracking-tight text-slate-950;
+  }
 
-/* Buttons */
+  .cdr-page-description {
+    @apply max-w-3xl text-sm leading-6 text-slate-700;
+  }
 
-.corbidev-btn {
-    @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition;
-}
+  .cdr-card {
+    @apply overflow-hidden rounded-[1.75rem] border border-slate-300/85 bg-white shadow-sm;
+  }
 
-.corbidev-btn-primary {
-    @apply bg-blue-600 text-white hover:bg-blue-700;
-}
+  .cdr-card-header {
+    @apply flex flex-col gap-2 border-b border-slate-300/85 bg-gradient-to-r from-slate-100 via-white to-sky-50/70 px-6 py-5;
+  }
 
-.corbidev-btn-secondary {
-    @apply bg-gray-600 text-white hover:bg-gray-700;
-}
+  .cdr-card-title {
+    @apply text-lg font-semibold text-slate-950;
+  }
 
-.corbidev-btn-danger {
-    @apply bg-red-600 text-white hover:bg-red-700;
-}
+  .cdr-card-description {
+    @apply text-sm leading-6 text-slate-700;
+  }
 
-/* Align actions */
+  .cdr-card-body {
+    @apply px-6 py-5;
+  }
 
-.corbidev-repositories-admin-actions {
-    @apply flex gap-2;
-}
+  .cdr-section-stack {
+    @apply space-y-5;
+  }
 
-/* page info */
-.corbidev-admin-info pre {
-    background: #1e1e1e;
-    color: #fff;
-    padding: 12px;
-    border-radius: 6px;
-    overflow: auto;
-}
+  .cdr-grid {
+    @apply grid gap-4 md:grid-cols-2;
+  }
+
+  .cdr-field {
+    @apply flex flex-col gap-2;
+  }
+
+  .cdr-repo-meta {
+    @apply flex flex-col gap-2;
+  }
+
+  .cdr-repo-name {
+    @apply font-medium text-slate-950;
+  }
+
+  .cdr-repo-access-form {
+    @apply flex min-w-0 flex-col gap-3;
+  }
+
+  .cdr-repo-access-head {
+    @apply flex flex-wrap items-center gap-2;
+  }
+
+  .cdr-repo-access-controls {
+    @apply flex flex-col gap-3;
+  }
+
+  .cdr-input-compact {
+    @apply h-10;
+  }
+
+  .cdr-repo-note {
+    @apply text-sm text-slate-700;
+  }
+
+  .cdr-label {
+    @apply text-sm font-medium text-slate-800;
+  }
+
+  .cdr-input {
+    @apply h-11 w-full rounded-2xl border border-slate-300 bg-white px-4 text-sm text-slate-950 shadow-sm transition placeholder:text-slate-500 focus:border-slate-500 focus:outline-none focus:ring-2 focus:ring-slate-300;
+  }
+
+  .cdr-actions {
+    @apply flex flex-wrap items-center gap-2;
+  }
+
+  .cdr-btn {
+    @apply inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-xl border px-0 text-sm font-semibold leading-5 transition focus:outline-none focus:ring-2 focus:ring-slate-200 disabled:pointer-events-none disabled:opacity-50;
+    height: 1.75rem;
+    padding: 0.6rem 0;
+    min-width: 5rem;
+  }
+
+  .cdr-btn-primary {
+    @apply border-sky-700/20 bg-sky-600 text-white hover:bg-sky-700;
+  }
+
+  .cdr-btn-success {
+    @apply border-emerald-700/20 bg-emerald-600 text-white hover:bg-emerald-700;
+  }
+
+  .cdr-btn-warning {
+    @apply border-amber-300 bg-amber-100 text-amber-950 hover:bg-amber-200;
+  }
+
+  .cdr-btn-secondary {
+    @apply border-slate-200 bg-slate-100 text-slate-900 hover:bg-slate-200;
+  }
+
+  .cdr-btn-outline {
+    @apply border-indigo-200 bg-indigo-50/80 text-indigo-900 hover:bg-indigo-100;
+  }
+
+  .cdr-btn-danger {
+    @apply border-red-700/20 bg-red-500 text-white hover:bg-red-600;
+  }
+
+  .cdr-btn-ghost {
+    @apply border-transparent bg-transparent text-slate-700 hover:bg-slate-100;
+  }
+
+  .cdr-inline-meta {
+    @apply inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-100 px-3 py-1 text-xs font-semibold text-sky-900;
+  }
+
+  .cdr-badge {
+    @apply inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium;
+  }
+
+  .cdr-badge-success {
+    @apply border-emerald-300 bg-emerald-100 text-emerald-950;
+  }
+
+  .cdr-badge-warning {
+    @apply border-amber-300 bg-amber-100 text-amber-950;
+  }
+
+  .cdr-badge-danger {
+    @apply border-red-300 bg-red-100 text-red-950;
+  }
+
+  .cdr-badge-neutral {
+    @apply border-slate-300 bg-slate-100 text-slate-900;
+  }
+
+  .cdr-status-dot {
+    @apply h-2.5 w-2.5 rounded-full;
+  }
+
+  .cdr-table-wrap {
+    @apply overflow-hidden rounded-[1.5rem] border border-slate-300/85;
+  }
+
+  .cdr-table {
+    @apply min-w-full divide-y divide-slate-200 text-left;
+  }
+
+  .cdr-table thead {
+    @apply bg-slate-100;
+  }
+
+  .cdr-table th {
+    @apply px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-700;
+  }
+
+  .cdr-table td {
+    @apply px-4 py-4 align-top text-sm text-slate-800;
+  }
+
+  .cdr-table tbody tr {
+    @apply border-t border-slate-300/75;
+  }
+
+  .cdr-table tbody tr:nth-child(even) {
+    @apply bg-slate-50/70;
+  }
+
+  .cdr-table tbody tr:hover {
+    @apply bg-sky-100/70;
+  }
+
+  .cdr-table td[data-role="actions"] .cdr-actions {
+    @apply justify-start;
+  }
+
+  .cdr-table td[data-role="status"] .cdr-actions {
+    @apply gap-2;
+  }
+
+  .cdr-table td[data-label]::before {
+    content: attr(data-label);
+    @apply mb-1 block text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-700;
+  }
+
+  .cdr-alert {
+    @apply relative grid gap-4 overflow-hidden rounded-[1.4rem] border px-5 py-4 shadow-sm;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .cdr-alert::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0 opacity-80;
+    background:
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.85), transparent 35%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 65%);
+  }
+
+  .cdr-alert-error {
+    @apply border-red-300 bg-[linear-gradient(135deg,rgba(254,226,226,0.98),rgba(255,247,237,0.95))] text-red-950;
+  }
+
+  .cdr-alert-icon {
+    @apply relative z-10 flex h-10 w-10 items-center justify-center rounded-2xl border border-red-300 bg-white text-base font-bold text-red-700 shadow-sm;
+  }
+
+  .cdr-alert-content {
+    @apply relative z-10 min-w-0;
+  }
+
+  .cdr-alert-title {
+    @apply text-sm font-semibold tracking-[0.02em] text-slate-950;
+  }
+
+  .cdr-alert-list {
+    @apply mt-1.5 space-y-2;
+  }
+
+  .cdr-alert-message {
+    @apply text-sm leading-6 text-slate-800;
+  }
+
+  .cdr-empty {
+    @apply rounded-[1.5rem] border border-dashed border-slate-400/90 bg-[radial-gradient(circle_at_top,rgba(224,242,254,0.95),rgba(255,255,255,0.98)_55%)] px-6 py-12 text-center shadow-inner;
+  }
+
+  .cdr-empty-title {
+    @apply text-base font-semibold text-slate-950;
+  }
+
+  .cdr-empty-description {
+    @apply mx-auto mt-2 max-w-2xl text-sm leading-6 text-slate-700;
+  }
+
+  .cdr-code {
+    @apply overflow-x-auto rounded-3xl bg-slate-950 p-4 text-sm leading-6 text-slate-50;
+  }
+
+  .cdr-docs {
+    @apply space-y-6;
+  }
+
+  .cdr-docs hr {
+    @apply border-0 border-t border-slate-200;
+  }
+
+  .cdr-docs h2 {
+    @apply text-xl font-semibold text-slate-950;
+  }
+
+  .cdr-docs h3 {
+    @apply text-base font-semibold text-slate-900;
+  }
+
+  .cdr-docs p,
+  .cdr-docs li {
+    @apply text-sm leading-7 text-slate-800;
+  }
+
+  .cdr-docs ul {
+    @apply list-disc space-y-1 pl-5;
+  }
+
+  .cdr-docs pre {
+    @apply cdr-code;
+  }
+
+  .cdr-docs code:not(pre code) {
+    @apply rounded-md bg-slate-100 px-1.5 py-0.5 text-[0.9em] text-slate-900;
+  }
+
+  .cdr-docs .button {
+    @apply cdr-btn cdr-btn-outline;
+  }
+
+  .cdr-docs .button.button-primary {
+    @apply cdr-btn-primary;
+  }
+
+  .cdr-tab-nav {
+    @apply flex w-full gap-2 overflow-x-auto rounded-[1.25rem] border border-slate-300 bg-white/95 p-1.5 shadow-sm;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .cdr-tab-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cdr-tab-link {
+    @apply inline-flex shrink-0 items-center rounded-xl px-3.5 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-950;
+  }
+
+  .cdr-tab-link-active {
+    @apply bg-sky-600 text-white hover:bg-sky-600 hover:text-white;
+  }
+
+  .cdr-log-output {
+    @apply h-[32rem] w-full rounded-[1.5rem] border border-slate-400 bg-slate-950 p-4 font-mono text-sm leading-6 text-slate-50 shadow-inner;
+  }
+
+  @media (max-width: 900px) {
+    .cdr-alert {
+      grid-template-columns: 1fr;
+    }
+
+    .cdr-alert-icon {
+      @apply h-9 w-9;
+    }
+
+    .cdr-table-wrap {
+      @apply overflow-visible rounded-none border-0;
+    }
+
+    .cdr-table {
+      @apply block min-w-0 divide-y-0;
+    }
+
+    .cdr-table thead {
+      display: none;
+    }
+
+    .cdr-table tbody {
+      @apply block space-y-3;
+    }
+
+    .cdr-table tbody tr {
+      @apply grid gap-3 rounded-[1.25rem] border border-slate-200/80 bg-white px-4 py-4 shadow-sm;
+    }
+
+    .cdr-table tbody tr:nth-child(even) {
+      @apply bg-slate-50/80;
+    }
+
+    .cdr-table td {
+      @apply block px-0 py-0;
+    }
+
+    .cdr-table td[data-label]:not([data-role="actions"]) {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      column-gap: 0.75rem;
+      row-gap: 0;
+      align-items: start;
+    }
+
+    .cdr-table td[data-label]:not([data-role="actions"])::before {
+      @apply mb-0 pt-0.5;
+    }
+
+    .cdr-table td[data-label]:not([data-role="actions"]) > * {
+      min-width: 0;
+    }
+
+    .cdr-table td[data-role="actions"]::before {
+      content: none;
+    }
+
+    .cdr-table td[data-role="actions"] .cdr-actions {
+      @apply gap-2;
+    }
+
+    .cdr-repo-access-head,
+    .cdr-repo-access-controls {
+      @apply items-stretch;
+    }
+  }
+
+  @media (min-width: 901px) {
+    .cdr-table td[data-label]::before {
+      content: none;
+    }
+  }
 }

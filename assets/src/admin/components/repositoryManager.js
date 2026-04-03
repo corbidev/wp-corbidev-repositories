@@ -17,9 +17,61 @@ export function initRepositoryManager() {
                 token: data.get('token')
             })
 
+            form.reset()
             showBanner(__('Repository added', 'corbidevrepositories'), 'success')
+            window.setTimeout(() => window.location.reload(), 250)
         })
     }
+
+    document.querySelectorAll('.cdr-repo-access-form').forEach((accessForm) => {
+        accessForm.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const tokenInput = accessForm.querySelector('input[name="token"]')
+            const submitButton = accessForm.querySelector('[data-action="repo-save-token"]')
+            const name = accessForm.dataset.repoName
+
+            if (!name || !tokenInput) {
+                return
+            }
+
+            try {
+                if (submitButton) {
+                    window.CorbidevUI?.loading?.set(submitButton, true)
+                }
+
+                await cdrRequest('cdr_repo_update', {
+                    name,
+                    token: tokenInput.value
+                })
+
+                showBanner(__('Access token updated', 'corbidevrepositories'), 'success')
+                window.setTimeout(() => window.location.reload(), 250)
+            } catch (err) {
+                console.error(err)
+
+                window.CorbidevUI?.banner?.show({
+                    message: err?.message || __('An error occurred', 'corbidevrepositories'),
+                    type: 'danger'
+                })
+            } finally {
+                if (submitButton) {
+                    window.CorbidevUI?.loading?.set(submitButton, false)
+                }
+            }
+        })
+    })
+
+    document.addEventListener('cdr:item-state-changed', (e) => {
+        const row = e.detail?.row
+        const state = e.detail?.state
+
+        if (!row || !state) {
+            return
+        }
+
+        updateRowState(row, state)
+    })
 
     document.addEventListener('click', async (e) => {
 
@@ -33,12 +85,13 @@ export function initRepositoryManager() {
 
             switch (action) {
 
-                case 'install':
                 case 'activate':
                 case 'deactivate':
                 case 'delete':
                 case 'update':
-                    CorbidevUI?.loading?.set(btn, true)
+                case 'repo-delete':
+                case 'repo-clear-token':
+                    window.CorbidevUI?.loading?.set(btn, true)
                     break
             }
 
@@ -46,7 +99,7 @@ export function initRepositoryManager() {
 
                 case 'repo-delete': {
 
-                    const confirmed = await CorbidevUI.modal.confirm({
+                    const confirmed = await window.CorbidevUI?.modal?.confirm({
                         title: __('Delete', 'corbidevrepositories'),
                         message: __('Delete this repository?', 'corbidevrepositories'),
                         type: 'danger'
@@ -64,10 +117,23 @@ export function initRepositoryManager() {
                     break
                 }
 
-                case 'install': {
-                    await cdrRequest('cdr_install_item', btn.dataset)
-                    row && updateRowState(row, 'installed', btn.dataset)
-                    showBanner(__('Installed', 'corbidevrepositories'), 'success')
+                case 'repo-clear-token': {
+
+                    const confirmed = await window.CorbidevUI?.modal?.confirm({
+                        title: __('Clear token', 'corbidevrepositories'),
+                        message: __('Remove the access token for this repository?', 'corbidevrepositories'),
+                        type: 'danger'
+                    })
+
+                    if (!confirmed) return
+
+                    await cdrRequest('cdr_repo_update', {
+                        name: btn.dataset.name,
+                        token: ''
+                    })
+
+                    showBanner(__('Access token removed', 'corbidevrepositories'), 'success')
+                    window.setTimeout(() => window.location.reload(), 250)
                     break
                 }
 
@@ -91,7 +157,7 @@ export function initRepositoryManager() {
 
                 case 'delete': {
 
-                    const confirmed = await CorbidevUI.modal.confirm({
+                    const confirmed = await window.CorbidevUI?.modal?.confirm({
                         title: __('Delete', 'corbidevrepositories'),
                         message: __('Delete this item?', 'corbidevrepositories'),
                         type: 'danger'
@@ -111,7 +177,12 @@ export function initRepositoryManager() {
                 }
 
                 case 'update': {
-                    await cdrRequest('cdr_update_item', btn.dataset)
+                    await cdrRequest('cdr_update_item', {
+                        name: btn.dataset.name,
+                        owner: btn.dataset.owner,
+                        type: btn.dataset.type,
+                    })
+                    row && updateRowState(row, 'update', btn.dataset)
                     showBanner(__('Updated', 'corbidevrepositories'), 'success')
                     break
                 }
@@ -121,13 +192,13 @@ export function initRepositoryManager() {
 
             console.error(err)
 
-            CorbidevUI?.banner?.show({
+            window.CorbidevUI?.banner?.show({
                 message: err?.message || __('An error occurred', 'corbidevrepositories'),
                 type: 'danger'
             })
 
         } finally {
-            if (btn) CorbidevUI?.loading?.set(btn, false)
+            if (btn) window.CorbidevUI?.loading?.set(btn, false)
         }
     })
 }
@@ -137,4 +208,135 @@ function showBanner(message, type = 'success') {
         message,
         type
     })
+}
+
+function updateRowState(row, state, dataset = {}) {
+
+    row.dataset.itemInstalled = state === 'installed' || state === 'active' || state === 'inactive' ? '1' : row.dataset.itemInstalled
+    row.dataset.itemActive = state === 'active' ? '1' : state === 'inactive' || state === 'installed' ? '0' : row.dataset.itemActive
+    row.dataset.itemHasUpdate = state === 'update-cleared' ? '0' : row.dataset.itemHasUpdate
+
+    if (state === 'installed') {
+        row.dataset.itemHasUpdate = '0'
+    }
+
+    if (state === 'active' || state === 'inactive') {
+        row.dataset.itemInstalled = '1'
+    }
+
+    if (state === 'update') {
+        row.dataset.itemHasUpdate = '0'
+    }
+
+    const statusCell = row.querySelector('[data-role="status"]')
+    const actionsCell = row.querySelector('[data-role="actions"]')
+
+    if (!statusCell || !actionsCell) {
+        return
+    }
+
+    const itemType = row.dataset.itemType
+    const itemName = row.dataset.itemName
+    const itemOwner = row.dataset.itemOwner
+    const itemSlug = row.dataset.itemSlug
+    const isInstalled = row.dataset.itemInstalled === '1'
+    const isActive = row.dataset.itemActive === '1'
+    const hasUpdate = row.dataset.itemHasUpdate === '1'
+
+    statusCell.innerHTML = renderStatusMarkup({ itemType, isInstalled, isActive, hasUpdate })
+    actionsCell.innerHTML = renderActionsMarkup({
+        itemType,
+        itemName,
+        itemOwner,
+        itemSlug,
+        isInstalled,
+        isActive,
+        hasUpdate,
+    })
+}
+
+function renderStatusMarkup({ itemType, isInstalled, isActive, hasUpdate }) {
+
+    const badges = []
+
+    if (!isInstalled) {
+        badges.push(badge('neutral', 'bg-slate-400', translate('Not installed')))
+    } else if (itemType === 'plugin' && isActive) {
+        badges.push(badge('success', 'bg-emerald-500', translate('Active')))
+    } else if (itemType === 'plugin') {
+        badges.push(badge('warning', 'bg-amber-500', translate('Installed, inactive')))
+    } else {
+        badges.push(badge('success', 'bg-emerald-500', translate('Installed')))
+    }
+
+    if (hasUpdate) {
+        badges.push(badge('warning', 'bg-amber-500', translate('Update available')))
+    }
+
+    return `<div class="cdr-actions">${badges.join('')}</div>`
+}
+
+function renderActionsMarkup({
+    itemType,
+    itemName,
+    itemOwner,
+    itemSlug,
+    isInstalled,
+    isActive,
+    hasUpdate,
+}) {
+
+    if (!isInstalled) {
+        return `<div class="cdr-actions">
+            ${button('cdr-btn cdr-btn-primary', 'install', {
+                name: itemName,
+                owner: itemOwner,
+                type: itemType,
+            }, translate('Install'))}
+        </div>`
+    }
+
+    const buttons = []
+
+    if (itemType === 'plugin') {
+        buttons.push(
+            isActive
+                ? button('cdr-btn cdr-btn-warning', 'deactivate', { name: itemSlug }, translate('Deactivate'))
+                : button('cdr-btn cdr-btn-success', 'activate', { name: itemSlug }, translate('Activate'))
+        )
+    }
+
+    if (hasUpdate) {
+        buttons.push(button('cdr-btn cdr-btn-outline', 'update', {
+            name: itemName,
+            owner: itemOwner,
+            type: itemType,
+        }, translate('Update')))
+    }
+
+    buttons.push(button('cdr-btn cdr-btn-danger', 'delete', {
+        name: itemSlug,
+        type: itemType,
+    }, translate('Delete')))
+
+    return `<div class="cdr-actions">${buttons.join('')}</div>`
+}
+
+function badge(variant, dotClassName, label) {
+    return `<span class="cdr-badge cdr-badge-${variant}">
+        <span class="cdr-status-dot ${dotClassName}"></span>
+        ${label}
+    </span>`
+}
+
+function button(className, action, dataset, label) {
+    const attributes = Object.entries(dataset)
+        .map(([key, value]) => `data-${key}="${String(value)}"`)
+        .join(' ')
+
+    return `<button class="${className}" data-action="${action}" ${attributes} type="button">${label}</button>`
+}
+
+function translate(text) {
+    return window.wp?.i18n?.__(text, 'corbidevrepositories') ?? text
 }

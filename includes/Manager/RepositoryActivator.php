@@ -12,7 +12,9 @@ class RepositoryActivator
     {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-        $result = activate_plugin($pluginFile);
+        $result = is_multisite()
+            ? activate_plugin($pluginFile, '', true)
+            : activate_plugin($pluginFile);
 
         return !is_wp_error($result);
     }
@@ -21,7 +23,11 @@ class RepositoryActivator
     {
         require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-        deactivate_plugins($pluginFile);
+        if (is_multisite()) {
+            deactivate_plugins($pluginFile, false, true);
+        } else {
+            deactivate_plugins($pluginFile);
+        }
 
         return true;
     }

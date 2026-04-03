@@ -46,7 +46,7 @@ class RepositoryScanner
             ) {
                 return [
                     'installed' => true,
-                    'active'    => is_plugin_active($pluginFile),
+                    'active'    => is_plugin_active($pluginFile) || is_plugin_active_for_network($pluginFile),
                     'version'   => $data['Version'] ?? null,
                     'slug'      => $pluginFile,
                 ];

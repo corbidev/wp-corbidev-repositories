@@ -43,8 +43,10 @@
 
 <ul>
     <li><?php echo esc_html__('Lower priority loads first (e.g. 1 before 10)', 'corbidevrepositories'); ?></li>
-    <li><?php echo esc_html__('Tabs with the same priority are sorted by their key (stable order)', 'corbidevrepositories'); ?></li>
-    <li><?php echo esc_html__('Internal tabs are always displayed before external tabs', 'corbidevrepositories'); ?></li>
+    <li><?php echo esc_html__('Tabs with the same priority are sorted by their key (stable order)', 'corbidevrepositories'); ?>
+    </li>
+    <li><?php echo esc_html__('Internal tabs are always displayed before external tabs', 'corbidevrepositories'); ?>
+    </li>
 </ul>
 
 <hr>
@@ -60,14 +62,3 @@
 </ul>
 
 <hr>
-
-<h2>🧪 <?php echo esc_html__('Example', 'corbidevrepositories'); ?></h2>
-
-<button
-    class="button"
-    data-ui="banner"
-    data-ui-message="Hello from external plugin 👋"
-    data-ui-type="success"
->
-    <?php echo esc_html__('Test Banner', 'corbidevrepositories'); ?>
-</button>

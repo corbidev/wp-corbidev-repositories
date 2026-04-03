@@ -4,6 +4,7 @@ namespace Corbidev\Repositories\Core;
 
 use Corbidev\Repositories\Admin\Controllers\RepositoryController;
 use Corbidev\Repositories\Admin\Controllers\RepositoryAdminController;
+use Corbidev\Repositories\Updates\WordPressUpdateBridge;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -12,12 +13,16 @@ if (!defined('ABSPATH')) {
 class Plugin
 {
     private const ADMIN_HANDLE = 'corbidev-admin-js';
-    private const CORE_UI_HANDLE = 'corbidev-core-ui-js';
+    private const UI_BRIDGE_HANDLE = 'corbidev-ui-bridge-js';
     private const FRONT_HANDLE = 'corbidev-app-js';
 
     public static function init(): void
     {
         add_action('init', [self::class, 'loadTextDomain']);
+
+        if (is_admin()) {
+            WordPressUpdateBridge::register();
+        }
 
         if (is_multisite()) {
             add_action('network_admin_menu', [self::class, 'menus']);
@@ -114,6 +119,7 @@ class Plugin
             return;
         }
 
+        self::enqueueUiBridge();
         self::enqueueEntry('assets/src/admin/main.js', self::ADMIN_HANDLE, true);
     }
 
@@ -129,12 +135,12 @@ class Plugin
 
     /**
      * =========================
-     * CORE UI (GLOBAL)
+     * UI BRIDGE (ADMIN)
      * =========================
      */
-    private static function enqueueCoreUI(): void
+    private static function enqueueUiBridge(): void
     {
-        self::enqueueEntry('assets/src/core-ui/main.js', self::CORE_UI_HANDLE, false);
+        self::enqueueEntry('assets/src/ui-bridge/main.tsx', self::UI_BRIDGE_HANDLE, false);
     }
 
     /**
@@ -152,13 +158,6 @@ class Plugin
         }
 
         $base_url = CDR_PLUGIN_URL . 'assets/dist/';
-
-        /**
-         * 🔥 charger core-ui AVANT tout
-         */
-        if ($handle !== self::CORE_UI_HANDLE) {
-            self::enqueueCoreUI();
-        }
 
         /**
          * CSS

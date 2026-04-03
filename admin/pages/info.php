@@ -89,6 +89,11 @@ if (!$template && !empty($current_tab['uri'])) {
 
 ?>
 
+<?php
+require __DIR__ . '/templates/info-shell-shadcn.php';
+return;
+?>
+
 <div class="wrap corbidev-admin-info">
 
     <h1><?php echo esc_html__('Corbidev UI – Developer Guide', 'corbidevrepositories'); ?></h1>
@@ -98,12 +103,11 @@ if (!$template && !empty($current_tab['uri'])) {
 
         <?php foreach ($tabs as $tab): ?>
 
-            <a href="<?php echo esc_url(admin_url('admin.php?page=corbidev-info&tab=' . $tab['key'])); ?>"
-               class="nav-tab <?php echo ($current_tab && $current_tab['key'] === $tab['key']) ? 'nav-tab-active' : ''; ?>"
-               data-tab="<?php echo esc_attr($tab['key']); ?>"
-            >
-                <?php echo esc_html($tab['name']); ?>
-            </a>
+        <a href="<?php echo esc_url(admin_url('admin.php?page=corbidev-info&tab=' . $tab['key'])); ?>"
+            class="nav-tab <?php echo ($current_tab && $current_tab['key'] === $tab['key']) ? 'nav-tab-active' : ''; ?>"
+            data-tab="<?php echo esc_attr($tab['key']); ?>">
+            <?php echo esc_html($tab['name']); ?>
+        </a>
 
         <?php endforeach; ?>
 
@@ -113,9 +117,9 @@ if (!$template && !empty($current_tab['uri'])) {
     <div class="corbidev-tab-content">
 
         <?php if ($template): ?>
-            <?php require $template; ?>
+        <?php require $template; ?>
         <?php else: ?>
-            <p><?php echo esc_html__('Template not found.', 'corbidevrepositories'); ?></p>
+        <p><?php echo esc_html__('Template not found.', 'corbidevrepositories'); ?></p>
         <?php endif; ?>
 
     </div>

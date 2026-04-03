@@ -47,17 +47,17 @@ class RepositoryUpdater
         }
 
         // ⚠️ slug final (critique)
-        $finalSlug = $slug ?: $repo;
+        $targetSlug = $this->resolveTargetSlug($type, $repo);
 
         // 3. Installer nouvelle version
-        $installed = $this->installer->install($zipUrl, $finalSlug, $type);
+        $installed = $this->installer->install($zipUrl, $targetSlug, $type);
 
         if (!$installed) {
             return false;
         }
 
         // 4. Supprimer ancien (APRÈS succès)
-        if ($slug) {
+        if ($slug && $this->shouldDeletePreviousInstall($type, $slug, $targetSlug)) {
             if ($type === 'plugin') {
                 $this->deleter->deletePlugin($slug);
             } elseif ($type === 'theme') {
@@ -86,5 +86,36 @@ class RepositoryUpdater
         }
 
         return [$segments[0], $segments[1]];
+    }
+
+    private function resolveTargetSlug(string $type, string $repo): string
+    {
+        if ($type === 'plugin') {
+            return basename(trim(str_replace('\\', '/', $repo), '/'));
+        }
+
+        return basename(trim($repo, '/'));
+    }
+
+    private function shouldDeletePreviousInstall(string $type, string $installedSlug, string $targetSlug): bool
+    {
+        $previousDirectorySlug = $this->extractDirectorySlug($type, $installedSlug);
+
+        return $previousDirectorySlug !== '' && $previousDirectorySlug !== $targetSlug;
+    }
+
+    private function extractDirectorySlug(string $type, string $slug): string
+    {
+        $normalized = trim(str_replace('\\', '/', $slug), '/');
+
+        if ($type === 'plugin') {
+            $directory = dirname($normalized);
+
+            if ($directory !== '.' && $directory !== DIRECTORY_SEPARATOR) {
+                $normalized = $directory;
+            }
+        }
+
+        return basename($normalized);
     }
 }

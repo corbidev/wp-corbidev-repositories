@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 class RepositoryStorage
 {
     private const OPTION_KEY = 'cdr_repositories';
+    public const DEFAULT_REPOSITORY_NAME = 'corbidev';
 
     public static function getRepositories(): array
     {
@@ -21,9 +22,9 @@ class RepositoryStorage
         /**
          * 🔥 FIX : repo par défaut
          */
-        if (!isset($repos['corbidev'])) {
-            $repos['corbidev'] = [
-                'name'  => 'corbidev',
+        if (!isset($repos[self::DEFAULT_REPOSITORY_NAME])) {
+            $repos[self::DEFAULT_REPOSITORY_NAME] = [
+                'name'  => self::DEFAULT_REPOSITORY_NAME,
                 'token' => '',
             ];
 
@@ -71,9 +72,18 @@ class RepositoryStorage
          * (tu peux autoriser si tu veux)
          */
 
+        if (self::isProtectedRepository($name) || !isset($repos[$name])) {
+            return false;
+        }
+
         unset($repos[$name]);
 
         return self::updateOption($repos);
+    }
+
+    public static function isProtectedRepository(string $name): bool
+    {
+        return $name === self::DEFAULT_REPOSITORY_NAME;
     }
 
     private static function getOption()

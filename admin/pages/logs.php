@@ -14,6 +14,11 @@ $logs = Logger::read();
 
 ?>
 
+<?php
+require __DIR__ . '/templates/logs-shadcn.php';
+return;
+?>
+
 <div class="wrap">
 
 <h1>Corbidev Logs</h1>

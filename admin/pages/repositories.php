@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 // $items
 // $type
 
-$template = __DIR__ . '/templates/repository-list.php';
+$template = __DIR__ . '/templates/repository-list-shadcn.php';
 
 if (file_exists($template)) {
     require $template;
