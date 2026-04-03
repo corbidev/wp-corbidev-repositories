@@ -71,7 +71,7 @@
                             <?php foreach ($repos as $repo): ?>
                                 <?php $is_default = ($repo['name'] ?? '') === 'corbidev'; ?>
                                 <tr>
-                                    <td>
+                                    <td data-label="<?php echo esc_attr__('Name', 'corbidevrepositories'); ?>">
                                         <div class="flex flex-col gap-2">
                                             <span class="font-medium text-slate-950"><?php echo esc_html($repo['name']); ?></span>
                                             <?php if ($is_default): ?>
@@ -79,12 +79,12 @@
                                             <?php endif; ?>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td data-label="<?php echo esc_attr__('Access', 'corbidevrepositories'); ?>">
                                         <span class="cdr-inline-meta">
                                             <?php echo !empty($repo['token']) ? esc_html__('Token configured', 'corbidevrepositories') : esc_html__('Public access', 'corbidevrepositories'); ?>
                                         </span>
                                     </td>
-                                    <td>
+                                    <td data-label="<?php echo esc_attr__('Actions', 'corbidevrepositories'); ?>">
                                         <div class="cdr-actions">
                                             <?php if ($is_default): ?>
                                                 <span class="text-sm text-slate-500"><?php echo esc_html__('Protected repository', 'corbidevrepositories'); ?></span>

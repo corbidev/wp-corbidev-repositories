@@ -236,8 +236,8 @@ function renderActionsMarkup({
     if (itemType === 'plugin') {
         buttons.push(
             isActive
-                ? button('cdr-btn cdr-btn-secondary', 'deactivate', { name: itemSlug }, translate('Deactivate'))
-                : button('cdr-btn cdr-btn-primary', 'activate', { name: itemSlug }, translate('Activate'))
+                ? button('cdr-btn cdr-btn-warning', 'deactivate', { name: itemSlug }, translate('Deactivate'))
+                : button('cdr-btn cdr-btn-success', 'activate', { name: itemSlug }, translate('Activate'))
         )
     }
 

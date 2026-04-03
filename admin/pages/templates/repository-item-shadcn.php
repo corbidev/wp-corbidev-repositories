@@ -24,7 +24,7 @@ $installedVersion = $item['installed_version'] ?? null;
     data-item-active="<?= $isActive ? '1' : '0' ?>"
     data-item-has-update="<?= $hasUpdate ? '1' : '0' ?>"
 >
-    <td>
+    <td data-label="<?= esc_attr__('Package', 'corbidevrepositories') ?>">
         <div class="space-y-2">
             <div class="flex flex-wrap items-center gap-2">
                 <span class="font-medium text-slate-950"><?= esc_html($name) ?></span>
@@ -35,7 +35,7 @@ $installedVersion = $item['installed_version'] ?? null;
             </p>
         </div>
     </td>
-    <td data-role="status">
+    <td data-label="<?= esc_attr__('Status', 'corbidevrepositories') ?>" data-role="status">
         <div class="cdr-actions">
             <?php if (!$isInstalled): ?>
                 <span class="cdr-badge cdr-badge-neutral">
@@ -67,7 +67,7 @@ $installedVersion = $item['installed_version'] ?? null;
             <?php endif; ?>
         </div>
     </td>
-    <td>
+    <td data-label="<?= esc_attr__('Version', 'corbidevrepositories') ?>">
         <div class="space-y-2">
             <div class="font-medium text-slate-950"><?= esc_html($version) ?></div>
             <?php if (!empty($installedVersion)): ?>
@@ -77,7 +77,7 @@ $installedVersion = $item['installed_version'] ?? null;
             <?php endif; ?>
         </div>
     </td>
-    <td data-role="actions">
+    <td data-label="<?= esc_attr__('Actions', 'corbidevrepositories') ?>" data-role="actions">
         <div class="cdr-actions">
             <?php if (!$isInstalled): ?>
                 <button
@@ -93,11 +93,11 @@ $installedVersion = $item['installed_version'] ?? null;
             <?php else: ?>
                 <?php if ($type === 'plugin'): ?>
                     <?php if (!$isActive): ?>
-                        <button class="cdr-btn cdr-btn-primary" data-action="activate" data-name="<?= esc_attr($slug) ?>" type="button">
+                        <button class="cdr-btn cdr-btn-success" data-action="activate" data-name="<?= esc_attr($slug) ?>" type="button">
                             <?= esc_html__('Activate', 'corbidevrepositories') ?>
                         </button>
                     <?php else: ?>
-                        <button class="cdr-btn cdr-btn-secondary" data-action="deactivate" data-name="<?= esc_attr($slug) ?>" type="button">
+                        <button class="cdr-btn cdr-btn-warning" data-action="deactivate" data-name="<?= esc_attr($slug) ?>" type="button">
                             <?= esc_html__('Deactivate', 'corbidevrepositories') ?>
                         </button>
                     <?php endif; ?>
